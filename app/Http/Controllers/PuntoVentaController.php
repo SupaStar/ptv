@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\AperturaCaja;
 use App\Configuracion;
+use App\Correos;
+use App\Mail\AbrirCajaMail;
+use App\Mail\CajaMail;
+use App\Mail\CerrarCajaMail;
 use App\Producto;
 use App\Reparacion;
 use App\Venta;
@@ -11,6 +15,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -21,17 +26,22 @@ class PuntoVentaController extends Controller
         $this->middleware("auth");
         $this->middleware(["isAdmin"])->except(["index", "buscar", "cobrar"]);
     }
+
     public function index()
     {
         return view("punto-venta.index");
     }
+
     public function buscar(Request $request)
     {
         $busqueda = $request->input("busqueda");
         $productos = Producto::where("nombre", "like", "%$busqueda%")
-            ->orWhere("id", $busqueda)->orderBy("nombre")->get();
+            ->orWhere("id", $busqueda)
+            ->orWhere('descripcion', 'like', "%$busqueda%")
+            ->orWhere('codigo', 'like', "%$busqueda%")->orderBy("nombre")->get();
         return view("layouts.resultado-busqueda-modal", compact("busqueda", "productos"));
     }
+
     public function cobrar(Request $request)
     {
         if (_c("ESTADO_CAJA") == "cerrada")
@@ -72,13 +82,16 @@ class PuntoVentaController extends Controller
 
         return response()->json($request->productos);
     }
+
     public function cambiarEstadoCaja()
     {
         return view("punto-venta.cambiar-estado-caja");
     }
+
     public function cambiarEstadoCaja_(Request $request)
     {
         try {
+            Mail::to('obednoe22yt@gmail.com')->send(new AbrirCajaMail());
             $v = Validator::make($request->all(), [
                 "inicial" => "required"
             ], [
@@ -100,8 +113,10 @@ class PuntoVentaController extends Controller
         }
         // return view("punto-venta.abrir-caja");
     }
+
     public function cerrarCaja()
     {
+        Mail::to('obednoe22yt@gmail.com')->send(new CerrarCajaMail());
         $apertura = AperturaCaja::where("fecha_hora_cierre", null)->first();
         if ($apertura) {
             $ventas = Venta::where("created_at", ">=", $apertura->created_at)
