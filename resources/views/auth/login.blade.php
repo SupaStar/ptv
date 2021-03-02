@@ -22,7 +22,7 @@
     <div class="row main-content bg-success text-center">
         <div class="col-md-4 text-center company__info">
             <span class="company__logo"><h1><span class="fa fa-ambulance"></span></h1></span>
-            <h4 style="font-size: 20px; font-family: Nunito">Your Pharmacy</h4>
+            <h4 style="font-size: 20px; font-family: Nunito">Farmacias Roma</h4>
         </div>
         <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
             <div class="container-fluid">
