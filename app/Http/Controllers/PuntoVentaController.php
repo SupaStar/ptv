@@ -91,7 +91,7 @@ class PuntoVentaController extends Controller
     public function cambiarEstadoCaja_(Request $request)
     {
         try {
-            Mail::to('obednoe22yt@gmail.com')->send(new AbrirCajaMail());
+            //Mail::to('obednoe22yt@gmail.com')->send(new AbrirCajaMail());
             $v = Validator::make($request->all(), [
                 "inicial" => "required"
             ], [
@@ -116,7 +116,7 @@ class PuntoVentaController extends Controller
 
     public function cerrarCaja()
     {
-        Mail::to('obednoe22yt@gmail.com')->send(new CerrarCajaMail());
+        //Mail::to('obednoe22yt@gmail.com')->send(new CerrarCajaMail());
         $apertura = AperturaCaja::where("fecha_hora_cierre", null)->first();
         if ($apertura) {
             $ventas = Venta::where("created_at", ">=", $apertura->created_at)
