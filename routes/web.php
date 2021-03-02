@@ -15,7 +15,7 @@ use App\AperturaCaja;
 use App\Configuracion;
 use App\Reparacion;
 use App\Venta;
-if (env('APP_ENV') !== 'local') {
+if (env('APP_FORCE_HTTPS', false)) {
     URL::forceScheme('https');
 }
 Route::get("/", "PuntoVentaController@index")->name("punto-venta");
