@@ -16,9 +16,17 @@ class CerrarCajaMail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $ventasTotales;
+    public $utilidades;
+    public $reparaciones_finales;
+    public $fecha_hora_cierre;
+
+    public function __construct($ventasTotales, $utilidades, $reparaciones_finales, $fecha_hora_cierre)
     {
-        //
+        $this->ventasTotales = $ventasTotales;
+        $this->utilidades = $utilidades;
+        $this->reparaciones_finales = $reparaciones_finales;
+        $this->fecha_hora_cierre = $fecha_hora_cierre;
     }
 
     /**

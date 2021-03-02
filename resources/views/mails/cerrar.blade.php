@@ -8,6 +8,15 @@
     <title>PruebaCorreo</title>
 </head>
 <body>
-Esto es un correo para ti, guapo uwu, cerraron una caja
+Se cerro la caja con un total de ventas de: {{$ventasTotales}}
+<div>
+    Con utilidades: {{$utilidades}}
+</div>
+<div>
+    Reparaciones finales: {{$reparaciones_finales}}
+</div>
+<div>
+    Fecha y hora de cierre: {{$fecha_hora_cierre}}
+</div>
 </body>
 </html>

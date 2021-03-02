@@ -16,9 +16,12 @@ class AbrirCajaMail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $montoInicial;
+    public $observaciones;
+    public function __construct($montoInicial,$observaciones)
     {
-        //
+        $this->montoInicial=$montoInicial;
+        $this->observaciones=$observaciones;
     }
 
     /**

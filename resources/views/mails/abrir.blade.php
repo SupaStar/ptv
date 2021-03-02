@@ -8,6 +8,7 @@
     <title>PruebaCorreo</title>
 </head>
 <body>
-Esto es un correo para ti, guapo uwu, abrieron una caja
+<div>Se abrio la caja con un monto inicial de {{$montoInicial}}</div>
+<div>Con la observacion de: {{$observaciones}}</div>
 </body>
 </html>

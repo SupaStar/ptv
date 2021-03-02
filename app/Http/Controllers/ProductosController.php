@@ -13,6 +13,7 @@ class ProductosController extends Controller
         $this->middleware("auth");
         $this->middleware(["isAdmin"])->except(["index"]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +39,7 @@ class ProductosController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -48,6 +49,8 @@ class ProductosController extends Controller
         $producto->venta = $request->input("venta");
         $producto->compra = $request->input("compra");
         $producto->stock = $request->input("stock");
+        $producto->fecha_caducidad = $request->input("fecha_caducidad");
+        $producto->codigo = $request->input("descripcion");
         $producto->save();
 
         return redirect()->route("productos.index");
@@ -56,7 +59,7 @@ class ProductosController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -67,7 +70,7 @@ class ProductosController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -78,8 +81,8 @@ class ProductosController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -90,25 +93,29 @@ class ProductosController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         Producto::destroy($id);
-        return  redirect()->route("productos.index")->with("estado", "Producto eliminado correctamente");
+        return redirect()->route("productos.index")->with("estado", "Producto eliminado correctamente");
     }
-    public function pendientes(){
+
+    public function pendientes()
+    {
         $productos = Producto::withoutGlobalScopes(["precios"])
-        ->where("compra",-1)
-        ->orWhere("venta",-1)->get();
+            ->where("compra", -1)
+            ->orWhere("venta", -1)->get();
 
         return view("productos.index", compact("productos"));
     }
-    public function editarPrecio(Request $request){
+
+    public function editarPrecio(Request $request)
+    {
         try {
             $prod = Producto::withoutGlobalScopes(["precios"])->find($request->id);
-            if($request->tipo == "venta")
+            if ($request->tipo == "venta")
                 $prod->venta = $request->precio;
             else
                 $prod->compra = $request->precio;
@@ -121,7 +128,9 @@ class ProductosController extends Controller
         }
 
     }
-    public function editarNombre(Request $request){
+
+    public function editarNombre(Request $request)
+    {
         try {
             $prod = Producto::withoutGlobalScopes(["precios"])->find($request->id);
             $prod->nombre = $request->nombre;
@@ -133,10 +142,54 @@ class ProductosController extends Controller
         }
 
     }
-    public function editarStock(Request $request){
+
+    public function editarStock(Request $request)
+    {
         try {
             $prod = Producto::withoutGlobalScopes(["precios"])->find($request->id);
             $prod->stock = $request->stock;
+            $prod->save();
+
+            return response()->json(["estado" => true]);
+        } catch (Exception $th) {
+            return response()->json(["estado" => false]);
+        }
+
+    }
+
+    public function editarFechaC(Request $request)
+    {
+        try {
+            $prod = Producto::withoutGlobalScopes(["precios"])->find($request->id);
+            $prod->fecha_caducidad = $request->fechaC;
+            $prod->save();
+
+            return response()->json(["estado" => true]);
+        } catch (Exception $th) {
+            return response()->json(["estado" => false]);
+        }
+
+    }
+
+    public function editarCodigo(Request $request)
+    {
+        try {
+            $prod = Producto::withoutGlobalScopes(["precios"])->find($request->id);
+            $prod->codigo = $request->codigo;
+            $prod->save();
+
+            return response()->json(["estado" => true]);
+        } catch (Exception $th) {
+            return response()->json(["estado" => false]);
+        }
+
+    }
+
+    public function editarDescripcion(Request $request)
+    {
+        try {
+            $prod = Producto::withoutGlobalScopes(["precios"])->find($request->id);
+            $prod->descripcion = $request->descripcion;
             $prod->save();
 
             return response()->json(["estado" => true]);
