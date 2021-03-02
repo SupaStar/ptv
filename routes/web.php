@@ -15,7 +15,9 @@ use App\AperturaCaja;
 use App\Configuracion;
 use App\Reparacion;
 use App\Venta;
-
+if (env('APP_ENV') !== 'local') {
+    URL::forceScheme('https');
+}
 Route::get("/", "PuntoVentaController@index")->name("punto-venta");
 Route::get("/cambiar-estado-caja", "PuntoVentaController@cambiarEstadoCaja")->name("cambiar-estado-caja");
 Route::post("/cambiar-estado-caja", "PuntoVentaController@cambiarEstadoCaja_")->name("do-cambiar-estado-caja");
