@@ -31,6 +31,10 @@ class PuntoVentaController extends Controller
     {
         return view("punto-venta.index1");
     }
+    public function index1()
+    {
+        return view("punto-venta.index");
+    }
 
     public function buscar(Request $request)
     {

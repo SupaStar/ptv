@@ -22,13 +22,14 @@
                         </div>
                     </div>
                 </a></div>
-            <div class="col-md-6 col-xl-4 offset-xl-0 mb-4"><a href="#">
+            <div class="col-md-6 col-xl-4 offset-xl-0 mb-4"><a id="btnCerrarCaja" href="{{_c("ESTADO_CAJA") == "cerrada" ? route('cambiar-estado-caja') : route('cerrar-caja')}}"{{_c("ESTADO_CAJA") == "cerrada" ? "btnCambiarEstadoCaja" : "btnCerrarCaja"}}">
+
                     <div class="card shadow border-bottom-info py-2">
                         <div class="card-body">
                             <div class="row align-items-center no-gutters">
                                 <div class="col-xl-7 offset-xl-2 mr-2">
                                     <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span style="color: rgb(231,74,59);"></span></div>
-                                    <div class="text-dark font-weight-bold h5 mb-0"><span>Corte de Caja</span></div>
+                                    <div class="text-dark font-weight-bold h5 mb-0"><span>   {{_c("ESTADO_CAJA") == "cerrada" ? "Abrir caja": "Cerrar caja"}}</span></div>
                                 </div>
                                 <div class="col-auto"><i class="fas fa-cash-register fa-2x text-gray-300"></i></div>
                             </div>
@@ -201,21 +202,57 @@
                             <div class="col-xl-2" style="width: 242px;">
                                 <h1 style="font-size: 20px;color: rgb(0,0,0);">Fecha:</h1>
                             </div>
-                            <div class="col-xl-7"><input style="width: 100%;" type="date"></div>
+                            <div class="col-xl-7">
+                                <div class="input-group mb-3" style="margin-bottom: 15px;margin-top: 10px;">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-calendar-times-o" style="font-size: 24px;"></i></span></div><input disabled id="inputabrircaja" style="width: 211px;">
+                                </div>
+                            </div>
                         </div>
                         <div class="row justify-content-center align-items-center" style="width: 490px;">
                             <div class="col-xl-2" style="width: 242px;">
                                 <h1 style="font-size: 20px;color: rgb(0,0,0);">Inicial:</h1>
                             </div>
-                            <div class="col-xl-7"><input type="number" style="width: 100%;"></div>
+                            <div class="col-xl-7">
+                                <div class="input-group mb-3" style="margin-bottom: 15px;margin-top: 10px;">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-money" style="font-size: 24px;"></i></span></div><input type="number" style="width: 211px;">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-center"><button class="btn btn-danger float-right" data-dismiss="modal" type="button">Cancelar</button><button class="btn btn-primary" data-dismiss="modal" type="button">Aceptar</button></div>
+                    <div class="modal-footer justify-content-center"><button class="btn btn-primary" data-dismiss="modal" type="button">Aceptar</button></div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
 @section('js')
+    <script src="/js/bootbox.all.min.js"></script>
+<script>
+    $(document).ready(function ()
+    {
+        $('#exampleModal').modal({backdrop: 'static', keyboard: false});
+        $('#exampleModal').modal('toggle')
+        var today = new Date();
 
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        $('#inputabrircaja').attr("value",today)
+
+    })
+    $('#btnCerrarCaja').on("click", function(e){
+        e.preventDefault();
+        var href = $(this).attr("href");
+        bootbox.confirm({
+            message: "¿Seguro que desea cerrar la caja?",
+            locale: "es",
+            callback: function(result){
+                if(result)
+                    location.href = href;
+            }
+        });
+    });
+</script>
 @endsection

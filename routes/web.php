@@ -19,6 +19,7 @@ if (env('APP_FORCE_HTTPS', false)) {
     URL::forceScheme('https');
 }
 Route::get("/", "PuntoVentaController@index")->name("punto-venta");
+Route::get("/1", "PuntoVentaController@index1")->name("punto-venta1");
 Route::get("/cambiar-estado-caja", "PuntoVentaController@cambiarEstadoCaja")->name("cambiar-estado-caja");
 Route::post("/cambiar-estado-caja", "PuntoVentaController@cambiarEstadoCaja_")->name("do-cambiar-estado-caja");
 Route::get("/cerrar-caja", "PuntoVentaController@cerrarCaja")->name("cerrar-caja");
