@@ -30,6 +30,10 @@ class PuntoVentaController extends Controller
 
     public function index()
     {
+        return view("punto-venta.index1");
+    }
+    public function index1()
+    {
         return view("punto-venta.index");
     }
 
