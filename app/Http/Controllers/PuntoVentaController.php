@@ -11,6 +11,7 @@ use App\Mail\CerrarCajaMail;
 use App\Producto;
 use App\Reparacion;
 use App\Venta;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -99,6 +100,14 @@ class PuntoVentaController extends Controller
 
             if ($v->fails())
                 return response()->json(["estado" => false, "errores" => $v->errors()->all()]);
+            $productos = Producto::all();
+            $sigSemana = Carbon::now()->addDays(7)->format('Y-m-d');
+            $productosCaducos = [];
+            foreach ($productos as $producto) {
+                if ($producto->fecha_caducidad < $sigSemana) {
+                    array_push($productosCaducos, $producto);
+                }
+            }
             $apertura = new AperturaCaja();
             $apertura->monto_inicio = $request->input("inicial");
             $apertura->observaciones = $request->input("observaciones") == null ? "Ninguna" : $request->input("observaciones");
@@ -107,7 +116,7 @@ class PuntoVentaController extends Controller
             $conf->valor = "abierta";
             $conf->save();
             //Mail::to('obednoe22yt@gmail.com')->send(new AbrirCajaMail($request->input("inicial"),$apertura->observaciones));
-            return response()->json(["estado" => true]);
+            return response()->json(["estado" => true, 'detalle' => ['productos_a_caducar'=>$productosCaducos]]);
         } catch (Exception $e) {
             return response()->json(["estado" => true, "errores" => ["Ocurrió un error al querer cambiar el estado de la caja."]]);
         }
