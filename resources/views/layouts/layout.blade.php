@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('titulo') - PTV</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
@@ -142,13 +144,64 @@
         </footer>
     </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
 </div>
+<input type="hidden" id="urlCambiarEstadoCaja" value="{{route('do-cambiar-estado-caja')}}">
+@include('layouts.resurtimiento-modal')
+
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="assets/js/chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
 <script src="assets/js/script.min.js"></script>
-    @yield('js')
+<script src="/js/bootbox.all.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/sc-2.0.1/datatables.min.js">
 </script>
+<script src="/js/main.js?v={{config("app.version")}}"></script>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $(".link-surtimiento,#btn-readjuntar").on("click", function(e){
+        e.preventDefault();
+        $("#modal-surtimiento").modal("show");
+    });
+    mostrarAlerta = function(mensaje) {
+        $(".js-generated").fadeOut(function() {
+            $(this).remove();
+        });
+        $("body").append('<div class="js-generated alert alert-danger alert-dismissible notificacion" role="alert">' +
+            mensaje +
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+            '<span aria-hidden="true">&times;</span>' +
+            '</button></div>');
+        $(".js-generated").fadeIn();
+    };
+    $(document).on("click",".btnCerrarCaja", function(e){
+        e.preventDefault();
+        var href = $(this).attr("href");
+        bootbox.confirm({
+            message: "¿Seguro que desea cerrar la caja?",
+            locale: "es",
+            callback: function(result){
+                if(result)
+                    location.href = href;
+            }
+        });
+    });
+    $("[data-toggle='tooltip']").tooltip();
+    $(document).on("keypress", ".onlynumbers", function (e) {
+        if ($(this).attr("data-length") != undefined) {
+            if ($(this).val().length >= $(this).attr("data-length"))
+                return false;
+        }
+        return !((e.which != 46 || $(this).val().indexOf('.') != -1) && (e.which < 48 || e.which > 57));
+    });
+</script>
+
+
+    @yield('js')
+
 
 </body>
 

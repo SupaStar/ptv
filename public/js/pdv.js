@@ -1,6 +1,7 @@
 var productos = [];
 var total = 0;
 $(document).ready(function () {
+
     $("body").on("keydown", function (e) {
         if (e.which == 121) { // F2
             e.preventDefault();
@@ -23,7 +24,10 @@ $(document).ready(function () {
     $("#btnBuscar").on("click", function (e) {
         e.preventDefault();
         buscarProducto($("#busqueda").val());
+
     });
+
+
     var buscarProducto = function (b) {
         $.ajax({
             type: "POST",
@@ -31,26 +35,12 @@ $(document).ready(function () {
             data: {
                 "busqueda": b
             },
-            success: function (res) {
-                var modal = $("#modal-general");
-                modal.find(".modal-content").html(res);
-                modal.modal("show");
-                modal.off("hidden.bs.modal").on("hidden.bs.modal", function () {
-                    $("#busqueda").focus();
-                });
-                modal.find(".tabla-productos .producto").on("click", function () {
-                    var producto = JSON.parse($(this).attr("data-producto"));
-                    producto.cantidad = 1;
-                    var existe = productos.findIndex(c => c.id == producto.id);
-                    if (existe != -1)
-                        productos[existe].cantidad += 1;
-                    else
-                        productos.push(producto);
-                    recargarCuenta();
-                    modal.modal("hide");
-                    $("#busqueda").val("");
-                });
-            }
+            success: function (response) {
+
+                for(let i=0;i<response.length;i++){
+
+                $('#tablaproducto').append('<tr><td>' + response[i].codigo + '</td><td>' + response[i].nombre + '</td><td>' + response[i].venta + '</td><td>' + response[i].stock + '</td><td><a id="btnadd" onclick="obtenertb('+response[i].id+')" class="btn btn-success" type="button"><i class="fa fa-plus"></i></a></td></tr>');
+            }}
         });
     }
     var recargarCuenta = function () {

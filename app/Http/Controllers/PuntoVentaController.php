@@ -31,6 +31,16 @@ class PuntoVentaController extends Controller
     {
         return view("punto-venta.index1");
     }
+    public function findid(Request $request)
+    {
+        $id=$request->id;
+       $producto=Producto::find($id);
+       return response()->json($producto);
+    }
+    public function cobro()
+    {
+        return view("punto-venta.cobrar");
+    }
     public function index1()
     {
         return view("punto-venta.index");
@@ -43,7 +53,8 @@ class PuntoVentaController extends Controller
             ->orWhere("id", $busqueda)
             ->orWhere('descripcion', 'like', "%$busqueda%")
             ->orWhere('codigo', 'like', "%$busqueda%")->orderBy("nombre")->get();
-        return view("layouts.resultado-busqueda-modal", compact("busqueda", "productos"));
+        return response()->json($productos);
+       // return view("layouts.resultado-busqueda-modal", compact("busqueda", "productos"));
     }
 
     public function cobrar(Request $request)

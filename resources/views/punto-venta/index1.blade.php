@@ -9,7 +9,7 @@
             <h3 class="text-dark mb-0">Inicio</h3>
         </div>
         <div class="row">
-            <div class="col-md-6 col-xl-4 offset-xl-2 mb-4"><a href="#">
+            <div class="col-md-6 col-xl-4 offset-xl-2 mb-4"><a href="/cobrar">
                     <div class="card shadow border-bottom-primary py-2">
                         <div class="card-body">
                             <div class="row justify-content-center align-items-center no-gutters">

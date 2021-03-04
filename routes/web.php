@@ -20,6 +20,7 @@ if (env('APP_FORCE_HTTPS', false)) {
 }
 Route::get("/", "PuntoVentaController@index")->name("punto-venta");
 Route::get("/1", "PuntoVentaController@index1")->name("punto-venta1");
+Route::get("/cobrar", "PuntoVentaController@cobro")->name("Cobrar");
 Route::get("/cambiar-estado-caja", "PuntoVentaController@cambiarEstadoCaja")->name("cambiar-estado-caja");
 Route::post("/cambiar-estado-caja", "PuntoVentaController@cambiarEstadoCaja_")->name("do-cambiar-estado-caja");
 Route::get("/cerrar-caja", "PuntoVentaController@cerrarCaja")->name("cerrar-caja");
@@ -32,6 +33,7 @@ Route::put('productos-editar-precio', 'ProductosController@editarPrecio')->name(
 Route::put('productos-editar-nombre', 'ProductosController@editarNombre')->name("productos.editar-nombre");
 Route::put('productos-editar-stock', 'ProductosController@editarStock')->name("productos.editar-stock");
 Route::post("cobrar", "PuntoVentaController@cobrar")->name("cobrar");
+Route::post('findid/', 'PuntoVentaController@findid');
 
 Route::resource('reparaciones', 'ReparacionesController')->except("show");
 Route::get("reparaciones/{id?}", "ReparacionesController@show")->name("reparaciones.show");
