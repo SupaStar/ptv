@@ -34,6 +34,7 @@ Route::put('productos-editar-nombre', 'ProductosController@editarNombre')->name(
 Route::put('productos-editar-stock', 'ProductosController@editarStock')->name("productos.editar-stock");
 Route::post("cobrar", "PuntoVentaController@cobrar")->name("cobrar");
 Route::post('findid/', 'PuntoVentaController@findid');
+Route::post('prueba/', 'PuntoVentaController@prueba');
 
 Route::resource('reparaciones', 'ReparacionesController')->except("show");
 Route::get("reparaciones/{id?}", "ReparacionesController@show")->name("reparaciones.show");

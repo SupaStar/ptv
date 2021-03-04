@@ -49,6 +49,7 @@ function obtenertb(id)
                 },
             success: function (response)
             {
+
                 $('#idp').val(response.id)
                 $('#producto').val(response.nombre)
                 $('#precio').val(response.venta)
@@ -85,7 +86,61 @@ $(document).on('click', '#btneditanota', function(){
         valores.push($(this).html());
 
     });
+    $('#idp').val(valores[0]);
+    $('#producto').val(valores[1]);
+    $('#precio').val(valores[3]);
+    $('#cantidad').val(valores[4]);
+    $('#cantidad').removeAttr("disabled");
+    $('#btnenvio').removeAttr("disabled");
+    $(this).closest('tr').remove();
+    var data = [];
+    $("td.subtotal").each(function(){
+        data.push(parseFloat($(this).text()));
+    });
+    var suma = data.reduce(function(a,b){ return a+b; },0);
+    $('#totalpagar').val(suma)
+});
+$(document).on('click', '#btnpagar', function(event){
+    // Your Code
+    let total=parseFloat($('#totalpagar').val());
+    $('#inputtotal').val(total);
+});
+$(document).on('click', '#btnpago', function(event){
+    // Your Code
+    event.preventDefault();
+    var parametros=[];
+    var parame=[];
+    $("#tbcuenta tbody tr").each(function(i,e){
 
+        var tr = [];
+        $(this).find("td").each(function(index, element){
+            if(index != 6) // ignoramos el primer indice que dice Option #
+            {
+                ;
+                tr.push($(this).text());
+            }
+        });
+        parametros.push(tr);
+    });
+if($('#inputpago').val()>=$('#inputtotal').val()){
 
-    console.log(valores);
+    $.ajax({
+        method:"post",
+        url:"/prueba/",
+        data:{
+            "producto":parametros, "total":$('#inputtotal').val(),"denominacion":$('#inputpago').val()
+        },
+        success:function (response)
+        {
+
+            $('#inputtotal').val("");
+            $('#inputpago').val("");
+            $('#inputpago').val("");
+            $('#tbnota').empty();
+
+        }
+    })}
+else{
+    alert("nel")
+}
 });

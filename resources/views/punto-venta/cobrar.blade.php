@@ -75,7 +75,7 @@
                                 <div class="col">
                                     <h1 style="font-size: 18px;height: 23px;margin-top: 9px;width: 78.3px;">Cuenta:</h1>
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table id="tbcuenta" class="table">
                                             <thead>
                                             <tr>
                                                 <th hidden>id</th>
@@ -100,8 +100,36 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col text-right" style="margin-top: 10px;"><button class="btn btn-danger" type="button" style="margin-left: 0px;margin-right: 5px;">Cancelar</button><button class="btn btn-primary" type="button">Pagar Total</button></div>
+                                <div class="col text-right" style="margin-top: 10px;"><button class="btn btn-danger" type="button" style="margin-left: 0px;margin-right: 5px;">Cancelar</button><button id="btnpagar" class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal">Pagar Total</button></div>
                             </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modal-open">
+            <div role="dialog" tabindex="-1" class="modal fade show" id="exampleModal" aria-labelledby="exampleModalLabel" style="height: 825px;">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header text-center justify-content-center">
+                            <h4 class="modal-title text-center" style="color: rgb(0,0,0);width: 100%;">Cobrar al cliente</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        </div>
+                        <form>
+                            <div class="modal-body justify-content-center">
+                                <div class="form-row">
+                                    <div class="col-xl-3 offset-xl-2">
+                                        <h1 style="font-size: 20px;">Su total es: $</h1>
+                                    </div>
+                                    <div class="col-xl-6"><input disabled id="inputtotal" type="number" class="form-control" /></div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-xl-3 offset-xl-2">
+                                        <h1 style="font-size: 20px;">Usted pago: $</h1>
+                                    </div>
+                                    <div class="col-xl-6"><input id="inputpago" class="form-control" type="number" /></div>
+                                </div>
+                            </div>
+                            <div class="modal-footer justify-content-center"><button class="btn btn-danger float-right" data-dismiss="modal" type="button">Cancelar</button><button id="btnpago" class="btn btn-primary" data-dismiss="modal" type="submit">Aceptar</button></div>
                         </form>
                     </div>
                 </div>

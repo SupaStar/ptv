@@ -178,4 +178,43 @@ class PuntoVentaController extends Controller
         }
         return redirect()->route("punto-venta");
     }
+    public function prueba(Request $request)
+
+    { if (_c("ESTADO_CAJA") == "cerrada")
+        return response()->json(["estado" => false, "mensaje" => "La caja está cerrada, debe abrirla para comenzar a vender."]);
+        try {
+            DB::beginTransaction();
+        $venta = new Venta();
+        $venta->total = $request->total;
+        $venta->denominacion = $request->denominacion;
+        $venta->cambio = $request->denominacion - $request->total;
+        $venta->utilidad = 0;
+        $venta->usuario_id = auth()->user()->id;
+        $venta->save();
+        $utilidad = 0;
+             $productos = $request->producto;
+        foreach ($productos as $prod)
+        {
+            $producto=Producto::find($prod[0]);
+            $producto->stock -= $prod[4];
+            $utilidad += $prod[4] * ($prod[3] - $producto->compra);
+            $venta->productos()->attach($prod[0], [
+                "cantidad" => $prod[4],
+                "venta" => $prod[3],
+                "compra" => $producto->compra
+            ]);
+            $producto->save();
+        }
+        $venta->utilidad = $utilidad;
+        $venta->save();
+        DB::commit();
+        return json_encode($productos); return response()->json(["estado" => true]);
+    } catch (Exception $e) {
+DB::rollBack();
+Log::error('PuntoVenta:cobrar ---------- ' . $e->__toString());
+return response()->json(["estado" => false, "mensaje" => "No se pudo registrar el pago, anótelo en la libreta"]);
+}
+
+return response()->json($request->productos);
+    }
 }

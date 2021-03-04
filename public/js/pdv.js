@@ -36,7 +36,7 @@ $(document).ready(function () {
                 "busqueda": b
             },
             success: function (response) {
-
+                $('#tablaproducto').empty()
                 for(let i=0;i<response.length;i++){
 
                 $('#tablaproducto').append('<tr><td>' + response[i].codigo + '</td><td>' + response[i].nombre + '</td><td>' + response[i].venta + '</td><td>' + response[i].stock + '</td><td><a id="btnadd" onclick="obtenertb('+response[i].id+')" class="btn btn-success" type="button"><i class="fa fa-plus"></i></a></td></tr>');
