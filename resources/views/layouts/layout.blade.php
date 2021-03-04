@@ -25,7 +25,7 @@
             </a>
             <hr class="sidebar-divider my-0">
             <ul class="navbar-nav text-light" id="accordionSidebar">
-                <li class="nav-item"><a class="nav-link active" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Inicio</span></a></li>
+                <li class="nav-item"><a class="nav-link active" href="/"><i class="fas fa-tachometer-alt"></i><span>Inicio</span></a></li>
                 <li class="nav-item"><a class="nav-link active" href="#"><i class="fas fa-user"></i>Perfil</a></li>
                 <li class="nav-item"></li>
                 <li class="nav-item"></li>
@@ -152,10 +152,6 @@
 <script src="assets/js/chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
 <script src="assets/js/script.min.js"></script>
-<script src="/js/bootbox.all.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/r-2.2.3/sc-2.0.1/datatables.min.js">
-</script>
-<script src="/js/main.js?v={{config("app.version")}}"></script>
 <script>
     $.ajaxSetup({
         headers: {
@@ -198,7 +194,6 @@
         return !((e.which != 46 || $(this).val().indexOf('.') != -1) && (e.which < 48 || e.which > 57));
     });
 </script>
-
 
     @yield('js')
 
