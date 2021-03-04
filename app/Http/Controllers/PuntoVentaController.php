@@ -30,7 +30,7 @@ class PuntoVentaController extends Controller
 
     public function index()
     {
-        return view("punto-venta.index1");
+        return view("punto-venta.index");
     }
     public function findid(Request $request)
     {
@@ -41,10 +41,6 @@ class PuntoVentaController extends Controller
     public function cobro()
     {
         return view("punto-venta.cobrar");
-    }
-    public function index1()
-    {
-        return view("punto-venta.index");
     }
 
     public function buscar(Request $request)
@@ -178,7 +174,7 @@ class PuntoVentaController extends Controller
         }
         return redirect()->route("punto-venta");
     }
-    public function prueba(Request $request)
+    public function cobrarp(Request $request)
 
     { if (_c("ESTADO_CAJA") == "cerrada")
         return response()->json(["estado" => false, "mensaje" => "La caja está cerrada, debe abrirla para comenzar a vender."]);
