@@ -213,4 +213,11 @@ return response()->json(["estado" => false, "mensaje" => "No se pudo registrar e
 
 return response()->json($request->productos);
     }
+
+    public function perfil()
+    {
+        return view("punto-venta.user-profile");
+    }
 }
+
+
