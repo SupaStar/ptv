@@ -22,7 +22,7 @@ Route::get("/", "PuntoVentaController@index")->name("punto-venta");
 Route::get("/perfil", "PuntoVentaController@perfil")->name("perfil");
 Route::get("/cobrar", "PuntoVentaController@cobro")->name("Cobrar");
 Route::get("/cambiar-estado-caja", "PuntoVentaController@cambiarEstadoCaja")->name("cambiar-estado-caja");
-Route::post("/cambiar-estado-caja", "PuntoVentaController@cambiarEstadoCaja_")->name("do-cambiar-estado-caja");
+Route::post("/cambiar-estado-cajas", "PuntoVentaController@cambiarEstadoCaja_")->name("do-cambiar-estado-caja");
 Route::get("/cerrar-caja", "PuntoVentaController@cerrarCaja")->name("cerrar-caja");
 Route::get("surtimiento", "SurtimientoController@index")->name("surtimiento");
 Route::post("surtimiento-procesar", "SurtimientoController@procesar")->name("surtimiento-procesar");
@@ -35,6 +35,7 @@ Route::put('productos-editar-stock', 'ProductosController@editarStock')->name("p
 Route::post("cobrar", "PuntoVentaController@cobrar")->name("cobrar");
 Route::post('findid/', 'PuntoVentaController@findid');
 Route::post('cobrarp/', 'PuntoVentaController@cobrarp');
+Route::get('obtenerproductos', 'ProductosController@productos');
 
 Route::resource('reparaciones', 'ReparacionesController')->except("show");
 Route::get("reparaciones/{id?}", "ReparacionesController@show")->name("reparaciones.show");

@@ -214,12 +214,12 @@
                             </div>
                             <div class="col-xl-7">
                                 <div class="input-group mb-3" style="margin-bottom: 15px;margin-top: 10px;">
-                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-money" style="font-size: 24px;"></i></span></div><input type="number" style="width: 211px;">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-money" style="font-size: 24px;"></i></span></div><input required id="cajainicial" value="0" min="0" type="number" style="width: 211px;">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-center"><button class="btn btn-primary" data-dismiss="modal" type="button">Aceptar</button></div>
+                    <div class="modal-footer justify-content-center"><button class="btn btn-primary" data-dismiss="modal" id="btnaceptarcaja" type="button">Aceptar</button></div>
                 </div>
             </div>
         </div>
@@ -227,32 +227,5 @@
 @endsection
 @section('js')
     <script src="/js/bootbox.all.min.js"></script>
-<script>
-    $(document).ready(function ()
-    {
-        $('#exampleModal').modal({backdrop: 'static', keyboard: false});
-        $('#exampleModal').modal('toggle')
-        var today = new Date();
-
-        var dd = String(today.getDate()).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0');
-        var yyyy = today.getFullYear();
-
-        today = yyyy + '-' + mm + '-' + dd;
-        $('#inputabrircaja').attr("value",today)
-
-    })
-    $('#btnCerrarCaja').on("click", function(e){
-        e.preventDefault();
-        var href = $(this).attr("href");
-        bootbox.confirm({
-            message: "¿Seguro que desea cerrar la caja?",
-            locale: "es",
-            callback: function(result){
-                if(result)
-                    location.href = href;
-            }
-        });
-    });
-</script>
+<script src="/js/jsindex.js"></script>
 @endsection

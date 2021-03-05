@@ -26,7 +26,7 @@
             <hr class="sidebar-divider my-0">
             <ul class="navbar-nav text-light" id="accordionSidebar">
                 <li class="nav-item"><a class="nav-link active" href="/"><i class="fas fa-tachometer-alt"></i><span>Inicio</span></a></li>
-                <li class="nav-item"><a class="nav-link active" href="#"><i class="fas fa-user"></i>Perfil</a></li>
+                <li class="nav-item"><a class="nav-link" href="/perfil"><i class="fas fa-user"></i>Perfil</a></li>
                 <li class="nav-item"></li>
                 <li class="nav-item"></li>
                 <li class="nav-item"></li>

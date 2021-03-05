@@ -75,9 +75,25 @@
 <input type="hidden" id="ruta-editar-precio" value="{{route('productos.editar-precio')}}">
 <input type="hidden" id="ruta-editar-nombre" value="{{route('productos.editar-nombre')}}">
 <input type="hidden" id="ruta-editar-stock" value="{{route('productos.editar-stock')}}">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Producto</th>
+                    <th>Fecha de Caducidad</th>
+                    <th>Stock</th>
+                </tr>
+                </thead>
+                <tbody id="tbproducto">
+
+                </tbody>
+            </table>
+        </div>
 </div>
 @endsection
 @section('js')
 <script src="/js/es.js?v={{config("app.version")}}"></script>
 <script src="/js/productos.js?v={{config("app.version")}}"></script>
+<script src="/js/producto.js"></script>
 @endsection

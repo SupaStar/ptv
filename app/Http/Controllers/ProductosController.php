@@ -25,6 +25,12 @@ class ProductosController extends Controller
 
         return view("productos.index", compact("productos"));
     }
+    public function productos()
+    {
+        $productos = Producto::all();
+
+        return response()->json($productos);
+    }
 
     /**
      * Show the form for creating a new resource.
