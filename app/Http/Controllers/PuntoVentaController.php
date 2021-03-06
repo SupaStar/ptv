@@ -218,6 +218,11 @@ return response()->json($request->productos);
     {
         return view("punto-venta.user-profile");
     }
+
+    public function corte()
+    {
+        return view("punto-venta.corte");
+    }
 }
 
 

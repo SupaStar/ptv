@@ -234,4 +234,9 @@ class ProductosController extends Controller
         }
         echo json_encode($productosCategoria);
     }
+    public function ventas()
+    {
+        return view("productos.ventas");
+    }
+
 }
