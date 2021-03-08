@@ -64,7 +64,7 @@
                                 <div class="row align-items-center no-gutters">
                                     <div class="col mr-2">
                                         <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Ventas(semanal)</span></div>
-                                        <div class="text-dark font-weight-bold h5 mb-0"><span>$215,000</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span id="ventasemana">$0</span></div>
                                     </div>
                                     <div class="col-auto"><i class="fas fa-chart-area fa-2x text-gray-300"></i></div>
                                 </div>
@@ -77,7 +77,7 @@
                                 <div class="row align-items-center no-gutters">
                                     <div class="col mr-2">
                                         <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span style="color: rgb(231,74,59);">Caja inicial</span></div>
-                                        <div class="text-dark font-weight-bold h5 mb-0"><span id="cajainicial">$0</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span id="cajainicio">$0</span></div>
                                     </div>
                                     <div class="col-auto"><i class="far fa-money-bill-alt fa-2x text-gray-300"></i></div>
                                 </div>
@@ -90,7 +90,7 @@
                                 <div class="row align-items-center no-gutters">
                                     <div class="col mr-2">
                                         <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>n° de productos</span></div>
-                                        <div class="text-dark font-weight-bold h5 mb-0"><span>18</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span id="nproductos"></span></div>
                                     </div>
                                     <div class="col-auto"><i class="fa fa-shopping-cart fa-2x text-gray-300"></i></div>
                                 </div>
@@ -125,7 +125,7 @@
                             </div>
                             <div class="col-xl-7">
                                 <div class="input-group mb-3" style="margin-bottom: 15px;margin-top: 10px;">
-                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-money" style="font-size: 24px;"></i></span></div><input id="cajainicial" value="0" min="0" type="number" style="width: 211px;">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-money" style="font-size: 24px;"></i></span></div><input required id="cajainicial" value="0" min="0" type="number" style="width: 211px;">
                                 </div>
                             </div>
                         </div>

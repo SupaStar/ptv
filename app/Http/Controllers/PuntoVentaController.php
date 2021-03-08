@@ -102,6 +102,7 @@ class PuntoVentaController extends Controller
 
     public function cambiarEstadoCaja_(Request $request)
     {
+
         try {
             $v = Validator::make($request->all(), [
                 "inicial" => "required"

@@ -1,47 +1,74 @@
 $(document).ready(function ()
 {
-$.ajax({
-    method: "get",
-    url:"/getCorte",
-    success:function (response)
-    {
+    $.ajax({
+        method: "get",
+        url:"/getCorte",
+        success:function (response)
+        {
 
-       if(response.length==1)
-       {
-           $('#cajainicial').text(response.monto_inicio)
-       }
-       else{
-           $('#exampleModal').modal({backdrop: 'static', keyboard: false});
-           $('#exampleModal').modal('toggle')
-           var today = new Date();
+            if(response.length==1)
+            {
+            }
+            else{
+                $('#exampleModal').modal({backdrop: 'static', keyboard: false});
+                $('#exampleModal').modal('toggle')
+                var today = new Date();
 
-           var dd = String(today.getDate()).padStart(2, '0');
-           var mm = String(today.getMonth() + 1).padStart(2, '0');
-           var yyyy = today.getFullYear();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0');
+                var yyyy = today.getFullYear();
 
-           today = yyyy + '-' + mm + '-' + dd;
-           $('#inputabrircaja').attr("value",today)
-       }
-       $.ajax(
-           {
+                today = yyyy + '-' + mm + '-' + dd;
+                $('#inputabrircaja').attr("value",today)
+            }
+            $('#cajainicio').text("$"+response[0].monto_inicio)
+            $.ajax(
+                {
 
-               method: "get",
-               url:"/getVentashoy",
-               success:function (response)
-               {
-                   var total=0;
-                   for(let i=0;i<response.length;i++){
-                       total=total+parseFloat(response[i].total);
-                   }
-                   $('#ventahoytotal').text("$"+total)
-               }
+                    method: "get",
+                    url:"/getVentashoy",
+                    success:function (response)
+                    {
+                        var total=0;
+                        for(let i=0;i<response.length;i++){
+                            total=total+parseFloat(response[i].total);
+                        }
+                        $('#ventahoytotal').text("$"+total)
+                    }
 
-           }
-       )
-    }
-})
+                }
+            )
+            $.ajax(
+                {
 
+                    method: "get",
+                    url:"/getVentassemana",
+                    success:function (response)
+                    {
+                        var total=0;
+                        for(let i=0;i<response.length;i++){
+                            total=total+parseFloat(response[i].total);
+                        }
+                        $('#ventasemana').text("$"+total)
+                    }
 
+                }
+            )
+            $.ajax(
+                {
+
+                    method: "get",
+                    url:"/obtenerproductos",
+                    success:function (response)
+                    {
+
+                        $('#nproductos').text(response.length)
+                    }
+
+                }
+            )
+        }
+    })
 })
 $('#btnCerrarCaja').on("click", function(e){
     e.preventDefault();
@@ -56,7 +83,8 @@ $('#btnCerrarCaja').on("click", function(e){
     });
 });
 $('#btnaceptarcaja').on("click", function(e){
-        $.ajax(
+
+    $.ajax(
         {
             method:"post",
             url:"/cambiar-estado-cajas",
