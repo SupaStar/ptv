@@ -20,6 +20,7 @@ if (env('APP_FORCE_HTTPS', false)) {
 }
 Route::get("/", "PuntoVentaController@index")->name("punto-venta");
 Route::get("/ventas", "ProductosController@ventas")->name("ventas");
+Route::get("/registro", "ProductosController@registro")->name("registro");
 Route::get("/perfil", "PuntoVentaController@perfil")->name("perfil");
 Route::get("/corte", "PuntoVentaController@corte")->name("corte");
 Route::get("/cobrar", "PuntoVentaController@cobro")->name("Cobrar");

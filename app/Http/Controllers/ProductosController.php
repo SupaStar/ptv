@@ -238,5 +238,9 @@ class ProductosController extends Controller
     {
         return view("productos.ventas");
     }
+    public function registro()
+    {
+        return view("productos.registro-productos");
+    }
 
 }
