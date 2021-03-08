@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Venta;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class VentasController extends Controller
@@ -90,5 +91,10 @@ class VentasController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function getVentashoy()
+    {
+       $ventas=Venta::whereDate("created_at","=",Carbon::now()->format('Y-m-d'))->get();
+        return response()->json($ventas);
     }
 }

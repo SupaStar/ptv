@@ -1,15 +1,46 @@
 $(document).ready(function ()
 {
-    $('#exampleModal').modal({backdrop: 'static', keyboard: false});
-    $('#exampleModal').modal('toggle')
-    var today = new Date();
+$.ajax({
+    method: "get",
+    url:"/getCorte",
+    success:function (response)
+    {
 
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
-    var yyyy = today.getFullYear();
+       if(response.length==1)
+       {
+           $('#cajainicial').text(response.monto_inicio)
+       }
+       else{
+           $('#exampleModal').modal({backdrop: 'static', keyboard: false});
+           $('#exampleModal').modal('toggle')
+           var today = new Date();
 
-    today = yyyy + '-' + mm + '-' + dd;
-    $('#inputabrircaja').attr("value",today)
+           var dd = String(today.getDate()).padStart(2, '0');
+           var mm = String(today.getMonth() + 1).padStart(2, '0');
+           var yyyy = today.getFullYear();
+
+           today = yyyy + '-' + mm + '-' + dd;
+           $('#inputabrircaja').attr("value",today)
+       }
+       $.ajax(
+           {
+
+               method: "get",
+               url:"/getVentashoy",
+               success:function (response)
+               {
+                   var total=0;
+                   for(let i=0;i<response.length;i++){
+                       total=total+parseFloat(response[i].total);
+                   }
+                   $('#ventahoytotal').text("$"+total)
+               }
+
+           }
+       )
+    }
+})
+
 
 })
 $('#btnCerrarCaja').on("click", function(e){
@@ -25,8 +56,7 @@ $('#btnCerrarCaja').on("click", function(e){
     });
 });
 $('#btnaceptarcaja').on("click", function(e){
-
-    $.ajax(
+        $.ajax(
         {
             method:"post",
             url:"/cambiar-estado-cajas",

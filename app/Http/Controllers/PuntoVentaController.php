@@ -25,7 +25,7 @@ class PuntoVentaController extends Controller
     public function __construct()
     {
         $this->middleware("auth");
-        $this->middleware(["isAdmin"])->except(["index", "buscar", "cobrar"]);
+
     }
 
     public function index()
@@ -172,7 +172,7 @@ class PuntoVentaController extends Controller
                 Total reparaciones: <b>$ " . number_format($reparacionesTotal, 2) . "</b><br>
                 Total en caja: <b>$ " . number_format(($ventasTotales + $reparacionesTotal + $apertura->monto_inicio), 2) . "</b>");
         }
-        return redirect()->route("punto-venta");
+        return view("punto-venta.index");
     }
     public function cobrarp(Request $request)
 
@@ -223,6 +223,12 @@ return response()->json($request->productos);
     {
         return view("punto-venta.corte");
     }
+    public function getCorte()
+    {
+        $apertura=AperturaCaja::whereDate('created_at', '=', Carbon::now()->format('Y-m-d'))->get();
+        return response()->json($apertura);
+    }
+
 }
 
 

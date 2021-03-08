@@ -19,6 +19,8 @@ if (env('APP_FORCE_HTTPS', false)) {
     URL::forceScheme('https');
 }
 Route::get("/", "PuntoVentaController@index")->name("punto-venta");
+Route::get("/getCorte", "PuntoVentaController@getCorte")->name("getCorte");
+Route::get("/getVentashoy", "VentasController@getVentashoy")->name("getVentas");
 Route::get("/ventas", "ProductosController@ventas")->name("ventas");
 Route::get("/registro", "ProductosController@registro")->name("registro");
 Route::get("/perfil", "PuntoVentaController@perfil")->name("perfil");
