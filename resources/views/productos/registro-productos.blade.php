@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('titulo', "Usuario")
+@section('titulo', "Registro")
 @section('css')
 
 @endsection
