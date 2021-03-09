@@ -128,7 +128,7 @@ if($('#inputpago').val()>=$('#inputtotal').val()){
 
     $.ajax({
         method:"post",
-        url:"/cobrarp/",
+        url:"/cobrarp",
 
         data:{
             "producto":parametros, "total":$('#inputtotal').val(),"denominacion":$('#inputpago').val(),
