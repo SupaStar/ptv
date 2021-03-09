@@ -58,7 +58,10 @@ Route::get('ventas-historico', "ReportesController@ventasTiempo")->name("ventas-
 Route::get('ventas/{id?}', "VentasController@show")->name("ventas.show");
 Route::post('ventas-reportar', "ReportesController@buscarPorSemana")->name("ventas.reportar");
 Route::post('ventas-tiempo-reportar', "ReportesController@buscarPorMes")->name("ventas-tiempo.reportar");
-
+Route::get('/logout',function (){
+   \Illuminate\Support\Facades\Auth::logout();
+   return redirect()->route('punto-venta');
+});
 // Modales
 Route::post("/buscar", "PuntoVentaController@buscar")->name("buscar");
 
