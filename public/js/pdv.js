@@ -30,7 +30,7 @@ $(document).ready(function () {
 
     var buscarProducto = function (b) {
         $.ajax({
-            type: "POST",
+            method: "POST",
             url: $("#ruta-buscar").val(),
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
