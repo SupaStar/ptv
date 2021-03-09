@@ -10,10 +10,11 @@ use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware("auth");
-        $this->middleware(["isAdmin"])->except(["index"]);
+
     }
 
     public function nuevo(Request $request)
@@ -44,5 +45,13 @@ class CategoriaController extends Controller
         $categoria->estado = 0;
         $categoria->save();
         return response()->json($categoria);
+    }
+    public function categoria()
+    {
+        return view("categorias.categorias");
+    }
+    public function registroCategoria()
+    {
+        return view("categorias.registro-categoria");
     }
 }
