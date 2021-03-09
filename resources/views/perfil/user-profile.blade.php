@@ -32,7 +32,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <form>
+                                        <form action="/actualizarperfil" method="post">
                                             <div class="form-row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -77,7 +77,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <button class="btn btn-primary btn-sm" type="submit">
+                                                <button id="guardaperfil" class="btn btn-primary btn-sm" type="submit">
                                                     <i class="fa fa-floppy-o" style="margin-right: 10px; margin-left: 2px"  aria-hidden="true"></i>
                                                     Guardar cambios
                                                 </button>

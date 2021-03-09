@@ -7,6 +7,11 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('titulo') - PTV</title>
+    <link rel="stylesheet" href="assets/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="assets/css/themes/default.min.css"/>
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="assets/css/themes/semantic.min.css"/>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
@@ -152,6 +157,7 @@
 <script src="assets/js/chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
 <script src="assets/js/script.min.js"></script>
+<script src="assets/js/alertify.min.js"></script>
 <script>
     $.ajaxSetup({
         headers: {
