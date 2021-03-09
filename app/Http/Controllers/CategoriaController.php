@@ -13,7 +13,7 @@ class CategoriaController extends Controller
     public function __construct()
     {
         $this->middleware("auth");
-        $this->middleware(["isAdmin"])->except(["index"]);
+
     }
 
     public function nuevo(Request $request)
@@ -44,5 +44,13 @@ class CategoriaController extends Controller
         $categoria->estado = 0;
         $categoria->save();
         return response()->json($categoria);
+    }
+    public function categorias()
+    {
+        return view("categorias.categorias");
+    }
+    public function registroCategorias()
+    {
+        return view("categorias.registro-categoria");
     }
 }
