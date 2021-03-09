@@ -32,7 +32,6 @@ $(document).ready(function () {
         $.ajax({
             method: "post",
             url: $("#ruta-buscar").val(),
-
             data: {
                 "busqueda": b,
                 "_token": $("meta[name='csrf-token']").attr("content")

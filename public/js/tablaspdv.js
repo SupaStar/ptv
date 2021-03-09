@@ -16,7 +16,7 @@ $("#btnenvio").on("click",function(event){
                 var cantidad= parseInt($('#cantidad').val())
                 var precio= parseFloat($('#precio').val())
                 var subtotal=cantidad*precio
-                $('#tbnota').append('<tr><td hidden>' + xresponse.id + '</td><td>' + response.nombre + '</td><td>' + response.descripcion + '</td><td>' + response.venta + '</td><td>' + cantidad + '</td><td class="subtotal">' + subtotal + '</td><td><a id="btneditanota" style="margin-right: 3px" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a><a id="btneliminanota"  class="btn btn-danger" type="button"><i class="fa fa-remove"></i></a></td></tr>');
+                $('#tbnota').append('<tr><td hidden>' + response.id + '</td><td>' + response.nombre + '</td><td>' + response.descripcion + '</td><td>' + response.venta + '</td><td>' + cantidad + '</td><td class="subtotal">' + subtotal + '</td><td><a id="btneditanota" style="margin-right: 3px" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a><a id="btneliminanota"  class="btn btn-danger" type="button"><i class="fa fa-remove"></i></a></td></tr>');
                 $('#idp').val("")
                 $('#producto').val("")
                 $('#precio').val("")
