@@ -140,7 +140,7 @@ $(document).ready(function () {
                 data: JSON.stringify({
                     "productos": productos,
                     "denominacion": denominacion,
-                    "total": total,"_token": $("meta[name='csrf-token']").attr("content"),
+                    "total": total,
                     "_token": $("meta[name='csrf-token']").attr("content")
                 }),
                 dataType: "json",

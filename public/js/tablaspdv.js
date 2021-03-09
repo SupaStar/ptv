@@ -43,7 +43,7 @@ function obtenertb(id)
     $.ajax(
         {
             type: "post",
-            url: '/findid/',
+            url: '/findid',
             data:
                 {
                     "id":id,
