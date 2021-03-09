@@ -20,20 +20,11 @@
                                 </div>
                                 <div class="col-md-3 text-nowrap">
                                     <div id="mostrar" class="dataTables_length" aria-controls="dataTable">
-                                        <label>Mostrar<select class="form-control form-control-sm custom-select custom-select-sm" style="margin-left: 5px">
-                                                <option value="10" selected="">10</option>
-                                                <option value="25">25</option>
-                                                <option value="50">50</option>
-                                                <option value="100">100</option>
-                                            </select>&nbsp;</label></div>
+                                       </div>
                                 </div>
                                 <div class="col-md-3 text-nowrap">
                                     <div id="filtrar" class="dataTables_length" aria-controls="dataTable">
-                                        <label>Filtrar<select class="form-control form-control-sm custom-select custom-select-sm" style="margin-left: 5px">
-                                                <option value="" selected="Selecciona">Selecciona</option>
-                                                <option value="caducidad">Categoria 1</option>
-                                                <option value="stock">Categoria 2</option>
-                                            </select>&nbsp;</label></div>
+                                        </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="text-md-right dataTables_filter" id="dataTable_filter">

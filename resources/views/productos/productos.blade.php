@@ -16,23 +16,17 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-3 text-nowrap">
+                                <button class="btn btn-primary btn-sm" type="submit">Agregar Producto</button>
+                            </div>
+                            <div class="col-md-3 text-nowrap">
                                 <div id="mostrar" class="dataTables_length" aria-controls="dataTable">
-                                    <label>Mostrar<select class="form-control form-control-sm custom-select custom-select-sm" style="margin-left: 5px">
-                                    <option value="10" selected="">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>&nbsp;</label></div>
+                                </div>
                             </div>
                             <div class="col-md-3 text-nowrap">
                                 <div id="filtrar" class="dataTables_length" aria-controls="dataTable">
-                                    <label>Filtrar<select class="form-control form-control-sm custom-select custom-select-sm" style="margin-left: 5px">
-                                        <option value="" selected disabled>Selecciona</option>
-                                        <option value="1">Fecha de caducidad</option>
-                                        <option value="2">Stock por terminar</option>
-                                    </select>&nbsp;</label></div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="text-md-right dataTables_filter" id="dataTable_filter">
                                     <label>
                                         <input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder=  "Buscar">

@@ -125,7 +125,6 @@ $(document).on('click', '#btnpago', function(event){
         parametros.push(tr);
     });
    var cambio= $('#inputpago').val()-$('#inputtotal').val()
-    console.log(cambio)
 if($('#inputpago').val()>=$('#inputtotal').val()){
 
     $.ajax({
@@ -148,7 +147,4 @@ if($('#inputpago').val()>=$('#inputtotal').val()){
 
         }
     })}
-else{
-    alert("nel")
-}
 });

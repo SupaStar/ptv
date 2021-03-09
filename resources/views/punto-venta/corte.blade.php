@@ -8,69 +8,25 @@
     <div class="d-flex flex-column" id="content-wrapper">
         <div id="content">
             <div class="container-fluid">
-                <h3 class="text-dark mb-4">Reporte de ventas</h3>
+                <h3 class="text-dark mb-4">Corte de Caja</h3>
                 <div class="card shadow">
                     <div class="card-header py-3">
-                        <p class="text-primary m-0 font-weight-bold">Informacion de productos mas vendidos</p>
+                        <p class="text-primary m-0 font-weight-bold"></p>
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-3 text-nowrap">
-                                <div id="mostrar" class="dataTables_length" aria-controls="dataTable">
-                                    <label>Mostrar<select class="form-control form-control-sm custom-select custom-select-sm" style="margin-left: 5px">
-                                        <option value="10" selected="">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select>&nbsp;</label></div>
-                            </div>
-                            <div class="col-md-3 text-nowrap">
-                                <div id="filtrar" class="dataTables_length" aria-controls="dataTable">
-                                    <label>Filtrar<select class="form-control form-control-sm custom-select custom-select-sm" style="margin-left: 5px">
-                                        <option value="" selected="Selecciona">Selecciona</option>
-                                        <option value="caducidad">Fecha de caducidad</option>
-                                        <option value="stock">Stock por terminar</option>
-                                    </select>&nbsp;</label></div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="text-md-right dataTables_filter" id="dataTable_filter">
-                                    <label>
-                                        <input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder=  "Buscar">
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="table-responsive table mt-2" id="tabla" role="grid" aria-describedby="dataTable_info">
                             <table class="table my-0" id="dataTabla">
                                 <thead>
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Cantidad</th>
-                                    <th>Compra</th>
-                                    <th>Venta</th>
+                                    <th>N° de Venta</th>
+                                    <th>Producto</th>
+                                    <th>Empleado</th>
+                                    <th>Total</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Producto 1</td>
-                                    <td>120</td>
-                                    <td>Principal</td>
-                                    <td>33</td>
-                                </tr>
-                                <tr>
-                                    <td>Producto 2</td>
-                                    <td>19</td>
-                                    <td>Principal</td>
-                                    <td>33</td>
-                                </tr>
-                                <tfoot>
-                                <tr>
-                                    <td><strong>Nombre</strong></td>
-                                    <td><strong>Cantidad</strong></td>
-                                    <td><strong>Compra</strong></td>
-                                    <td><strong>Venta</strong></td>
-                                </tr>
-                                </tfoot>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -104,6 +60,7 @@
                                     </div>
                                     <div class="col-auto"><i class="fas fa-cash-register fa-2x text-gray-300" style="margin-left: 10px"></i></div>
                                 </div>
+                                <button class="btn btn-primary" type="button" id="btnCerrarCaja" href=href="{{_c("ESTADO_CAJA") == "cerrada" ? route('cambiar-estado-caja') : route('cerrar-caja')}}"{{_c("ESTADO_CAJA") == "cerrada" ? "btnCambiarEstadoCaja" : "btnCerrarCaja"}}">Cerrar Caja</button>
                             </div>
                         </div>
                     </div>
@@ -114,3 +71,7 @@
 </div>
 @endsection
 @section('js')
+    <script>
+
+    </script>
+@endsection
