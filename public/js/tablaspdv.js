@@ -5,7 +5,7 @@ $("#btnenvio").on("click",function(event){
     $.ajax(
         {
             type: "post",
-            url: '/findid/',
+            url: '/findid',
 
             data:
                 {
