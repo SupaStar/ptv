@@ -32,4 +32,9 @@ class PerfilController extends Controller
 
         return view("perfil.user-profile");
     }
+    public function usuarios()
+    {
+
+        return view("perfil.usuarios");
+    }
 }

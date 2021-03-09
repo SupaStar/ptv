@@ -25,6 +25,7 @@ Route::get("/registroCategoria", "categorias@registroCategorias")->name("registr
 Route::get("/getVentashoy", "VentasController@getVentashoy")->name("getVentashoy");
 Route::get("/getVentassemana", "VentasController@getVentassemana")->name("getVentassemana");
 Route::get("/productos", "ProductosController@getProductos")->name("productos");
+Route::get("/usuarios", "PerfilController@usuarios")->name("usuarios");
 Route::get("/getPerfil", "PerfilController@getPerfil")->name("perfil");
 Route::get("/registro", "ProductosController@registro")->name("registro");
 Route::get("/perfil", "PerfilController@perfil")->name("perfil");
