@@ -139,7 +139,7 @@ if($('#inputpago').val()>=$('#inputtotal').val()){
 
             $('#inputtotal').val("");
             $('#inputpago').val("");
-            $('#inputpago').val("");
+            $('#totalpagar').val("");
             $('#tbnota').empty();
 
         }

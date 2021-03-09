@@ -27,9 +27,13 @@
                             <div class="col-md-3 text-nowrap">
                                 <div id="filtrar" class="dataTables_length" aria-controls="dataTable">
                                     <label>Filtrar<select class="form-control form-control-sm custom-select custom-select-sm" style="margin-left: 5px">
-                                        <option value="" selected="Selecciona">Selecciona</option>
-                                        <option value="caducidad">Fecha de caducidad</option>
-                                        <option value="stock">Stock por terminar</option>
+                                        <option value="" selected disabled>Selecciona</option>
+                                        <option value="1">Fecha de caducidad</option>
+                                        <option value="2">Stock por terminar</option>
+                                    </select>&nbsp;</label> <label>Filtrar<select class="form-control form-control-sm custom-select custom-select-sm" style="margin-left: 5px">
+                                        <option value="" selected disabled>Selecciona</option>
+                                        <option value="1">Fecha de caducidad</option>
+                                        <option value="2">Stock por terminar</option>
                                     </select>&nbsp;</label></div>
                             </div>
                             <div class="col-md-6">
