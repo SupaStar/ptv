@@ -17,9 +17,15 @@ class PerfilController extends Controller
     }
     public function updatePerfil(Request $request)
     {
+
         $usuario=Auth::user();
+        $usuario->name=$request->nombrep;
+        $usuario->lastname=$request->apellido;
+        $usuario->username=$request->nombreUsuario;
+        $usuario->admin=$request->tipoEmpleado;
+        $usuario->email=$request->correo;
         $usuario->save();
-                return response()->json($usuario);
+        return view('punto-venta.index');
     }
     public function perfil()
     {
