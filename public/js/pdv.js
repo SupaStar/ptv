@@ -31,7 +31,7 @@ $(document).ready(function () {
     var buscarProducto = function (b) {
         $.ajax({
             method: "post",
-            url: $("#ruta-buscar").val(),
+            url: "/buscar",
             data: {
                 "busqueda": b,
                 "_token": $("meta[name='csrf-token']").attr("content")

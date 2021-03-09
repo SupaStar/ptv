@@ -57,7 +57,7 @@ Route::post('ventas-reportar', "ReportesController@buscarPorSemana")->name("vent
 Route::post('ventas-tiempo-reportar', "ReportesController@buscarPorMes")->name("ventas-tiempo.reportar");
 
 // Modales
-Route::post("buscar", "PuntoVentaController@buscar")->name("buscar");
+Route::post("/buscar", "PuntoVentaController@buscar")->name("buscar");
 
 Auth::routes();
 
