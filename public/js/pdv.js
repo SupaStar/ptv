@@ -32,6 +32,9 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: $("#ruta-buscar").val(),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data: {
                 "busqueda": b
             },
