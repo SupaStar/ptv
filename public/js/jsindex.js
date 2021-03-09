@@ -61,6 +61,7 @@ $(document).ready(function ()
                     url:"/obtenerproductos",
                     success:function (response)
                     {
+                        console.log(response.length)
 
                         $('#nproductos').text(response.length)
                     }
