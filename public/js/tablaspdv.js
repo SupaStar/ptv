@@ -124,6 +124,8 @@ $(document).on('click', '#btnpago', function(event){
         });
         parametros.push(tr);
     });
+   var cambio= $('#inputpago').val()-$('#inputtotal').val()
+    console.log(cambio)
 if($('#inputpago').val()>=$('#inputtotal').val()){
 
     $.ajax({
@@ -141,6 +143,8 @@ if($('#inputpago').val()>=$('#inputtotal').val()){
             $('#inputpago').val("");
             $('#totalpagar').val("");
             $('#tbnota').empty();
+            alertify.alert('Cobro realizado Correctamente', 'Su cambio es de: '+cambio, function(){ alertify.success('Ok'); });
+
 
         }
     })}
