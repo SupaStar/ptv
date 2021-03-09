@@ -91,7 +91,8 @@ $('#btnaceptarcaja').on("click", function(e){
             url:"/cambiar-estado-cajas",
             data:
                 {
-                    "inicial":$('#cajainicial').val()
+                    "inicial":$('#cajainicial').val(),
+                    "_token": $("meta[name='csrf-token']").attr("content")
                 },
             success:function (response)
             {

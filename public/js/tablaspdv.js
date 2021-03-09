@@ -6,12 +6,10 @@ $("#btnenvio").on("click",function(event){
         {
             type: "post",
             url: '/findid/',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
+
             data:
                 {
-                    "id":$('#idp').val()
+                    "id":$('#idp').val(),"_token": $("meta[name='csrf-token']").attr("content")
                 },
             success: function (response)
             {
@@ -46,12 +44,10 @@ function obtenertb(id)
         {
             type: "post",
             url: '/findid/',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
             data:
                 {
-                    "id":id
+                    "id":id,
+                    "_token": $("meta[name='csrf-token']").attr("content")
                 },
             success: function (response)
             {
@@ -133,11 +129,10 @@ if($('#inputpago').val()>=$('#inputtotal').val()){
     $.ajax({
         method:"post",
         url:"/cobrarp/",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
+
         data:{
-            "producto":parametros, "total":$('#inputtotal').val(),"denominacion":$('#inputpago').val()
+            "producto":parametros, "total":$('#inputtotal').val(),"denominacion":$('#inputpago').val(),
+            "_token": $("meta[name='csrf-token']").attr("content")
         },
         success:function (response)
         {

@@ -34,9 +34,8 @@ $(document).ready(function () {
             url: $("#ruta-buscar").val(),
 
             data: {
-                "busqueda": b
-            }, headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                "busqueda": b,
+                "_token": $("meta[name='csrf-token']").attr("content")
             },
             success: function (response) {
                 $('#tablaproducto').empty()
@@ -142,12 +141,10 @@ $(document).ready(function () {
                 data: JSON.stringify({
                     "productos": productos,
                     "denominacion": denominacion,
-                    "total": total
+                    "total": total,"_token": $("meta[name='csrf-token']").attr("content"),
+                    "_token": $("meta[name='csrf-token']").attr("content")
                 }),
                 dataType: "json",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
                 contentType: "application/json",
                 success: function (res) {
                     $("#btn-realizar-cobro").html("Realizar cobro").attr("disabled", false);
