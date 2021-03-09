@@ -30,13 +30,13 @@ $(document).ready(function () {
 
     var buscarProducto = function (b) {
         $.ajax({
-            method: "POST",
+            method: "post",
             url: $("#ruta-buscar").val(),
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
+
             data: {
                 "busqueda": b
+            }, headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (response) {
                 $('#tablaproducto').empty()
@@ -145,6 +145,9 @@ $(document).ready(function () {
                     "total": total
                 }),
                 dataType: "json",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 contentType: "application/json",
                 success: function (res) {
                     $("#btn-realizar-cobro").html("Realizar cobro").attr("disabled", false);
