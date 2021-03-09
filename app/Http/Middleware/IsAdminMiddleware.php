@@ -21,4 +21,5 @@ class IsAdminMiddleware
         }
         return back()->with("estado", "No tiene permisos para realizar esta acción");
     }
+
 }

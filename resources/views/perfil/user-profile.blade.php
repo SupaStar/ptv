@@ -38,7 +38,7 @@
                                                     <div class="form-group">
                                                         <i class="fa fa-user-md icono" aria-hidden="true"></i>
                                                         <label for="nombre"><strong>Nombre</strong></label>
-                                                        <input class="form-control" type="text" id="nombre" name="nomrbe" placeholder="Nombre">
+                                                        <input class="form-control" type="text" id="nombrep" name="nombree" placeholder="Nombre">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -61,9 +61,9 @@
                                                     <i class="fa fa-user-md icono" aria-hidden="true"></i>
                                                     <label for="tipoEmpleado"><strong>Tipo de empleado</strong></label>
                                                     <select id="tipoEmpleado" name="tipoEmpleado" class="form-control">
-                                                        <option value="Selecciona">Selecciona</option>
-                                                        <option value="Administrador">Administrador</option>
-                                                        <option value="Empleado">Empleado</option>
+                                                        <option selected disabled value="Selecciona">Selecciona</option>
+                                                        <option value="1">Administrador</option>
+                                                        <option value="0">Empleado</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -95,3 +95,5 @@
 </div>
 @endsection
 @section('js')
+    <script src="/js/perfil.js"></script>
+@endsection

@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </a></div>
-            <div class="col-md-6 col-xl-4 offset-xl-0 mb-4"><a id="btnCerrarCaja" href="{{_c("ESTADO_CAJA") == "cerrada" ? route('cambiar-estado-caja') : route('cerrar-caja')}}"{{_c("ESTADO_CAJA") == "cerrada" ? "btnCambiarEstadoCaja" : "btnCerrarCaja"}}">
+            <div class="col-md-6 col-xl-4 offset-xl-0 mb-4"><a id="btnCerrarCajas" href="/corte">
 
                     <div class="card shadow border-bottom-info py-2">
                         <div class="card-body">

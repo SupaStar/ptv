@@ -234,9 +234,9 @@ class ProductosController extends Controller
         }
         echo json_encode($productosCategoria);
     }
-    public function ventas()
+    public function getProductos()
     {
-        return view("productos.ventas");
+        return view("productos.productos");
     }
     public function registro()
     {

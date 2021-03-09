@@ -9,7 +9,6 @@ class Producto extends Model
 {
     protected $table = "productos";
 
-    protected $hidden = ["compra"];
 
     public function ventas()
     {

@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('titulo', "Usuario")
+@section('titulo', "Productos")
 @section('css')
 
 @endsection
@@ -44,41 +44,20 @@
                             <table class="table my-0" id="dataTabla">
                                 <thead>
                                 <tr>
+                                    <th>Código</th>
                                     <th>Nombre</th>
-                                    <th>Total</th>
-                                    <th>Denominación</th>
-                                    <th>Cambio</th>
-                                    <th>Utilidad</th>
+                                    <th>Costo Compra</th>
+                                    <th>Costo Venta</th>
+                                    <th>Descripción</th>
+                                    <th>Fecha de Caducidad</th>
+                                    <th>Productos en Stock</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <td>Producto 1</td>
-                                    <td>120</td>
-                                    <td>Principal</td>
-                                    <td>33</td>
-                                    <td>2008/11/28</td>
-                                    <td>$162,700</td>
-                                </tr>
-                                <tr>
-                                    <td>Producto 2</td>
-                                    <td>19</td>
-                                    <td>Principal</td>
-                                    <td>33</td>
-                                    <td>2009/01/20</td>
-                                    <td>$49,992</td>
-                                </tr>
-                                <tfoot>
-                                <tr>
-                                    <td><strong>Nombre</strong></td>
-                                    <td><strong>Total</strong></td>
-                                    <td><strong>Denominación</strong></td>
-                                    <td><strong>Cambio</strong></td>
-                                    <td><strong>Utilidad</strong></td>
-                                    <td><strong>Acciones</strong></td>
-                                </tr>
-                                </tfoot>
+                                <tbody id="tbproducto">
+
+                                </tbody>
+
                             </table>
                         </div>
                         <div class="row">
@@ -170,3 +149,5 @@
 </div>
 @endsection
 @section('js')
+    <script src="/js/producto.js"></script>
+@endsection

@@ -22,9 +22,10 @@ Route::get("/", "PuntoVentaController@index")->name("punto-venta");
 Route::get("/getCorte", "PuntoVentaController@getCorte")->name("getCorte");
 Route::get("/getVentashoy", "VentasController@getVentashoy")->name("getVentashoy");
 Route::get("/getVentassemana", "VentasController@getVentassemana")->name("getVentassemana");
-Route::get("/ventas", "ProductosController@ventas")->name("ventas");
+Route::get("/productos", "ProductosController@getProductos")->name("productos");
+Route::get("/getPerfil", "PerfilController@getPerfil")->name("perfil");
 Route::get("/registro", "ProductosController@registro")->name("registro");
-Route::get("/perfil", "PuntoVentaController@perfil")->name("perfil");
+Route::get("/perfil", "PerfilController@perfil")->name("perfil");
 Route::get("/corte", "PuntoVentaController@corte")->name("corte");
 Route::get("/cobrar", "PuntoVentaController@cobro")->name("Cobrar");
 Route::get("/cambiar-estado-caja", "PuntoVentaController@cambiarEstadoCaja")->name("cambiar-estado-caja");
@@ -33,7 +34,7 @@ Route::get("/cerrar-caja", "PuntoVentaController@cerrarCaja")->name("cerrar-caja
 Route::get("surtimiento", "SurtimientoController@index")->name("surtimiento");
 Route::post("surtimiento-procesar", "SurtimientoController@procesar")->name("surtimiento-procesar");
 Route::post("surtimiento-guardar", "SurtimientoController@guardar")->name("surtimiento-guardar");
-Route::resource('productos', 'ProductosController');
+
 Route::get('productos-pendientes', 'ProductosController@pendientes')->name("productos.pendientes");
 Route::put('productos-editar-precio', 'ProductosController@editarPrecio')->name("productos.editar-precio");
 Route::put('productos-editar-nombre', 'ProductosController@editarNombre')->name("productos.editar-nombre");
