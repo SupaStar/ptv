@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Venta;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -95,6 +96,15 @@ class VentasController extends Controller
     public function getVentashoy()
     {
        $ventas=Venta::whereDate("created_at","=",Carbon::now()->format('Y-m-d'))->get();
+       foreach($ventas as $venta)
+       {
+           $venta->productos;
+           $usuario=User::all()->where('id','=',$venta->usuario_id);
+           foreach ($usuario as $us) {
+               $venta->usuario=$us->name;
+
+           }
+       }
 
         return response()->json($ventas);
     }

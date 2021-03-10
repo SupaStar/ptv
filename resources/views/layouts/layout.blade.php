@@ -35,7 +35,7 @@
                     <div class="dropdown-menu"><a class="dropdown-item" href="/perfil">Mi perfil</a><a class="dropdown-item" href="/usuarios">Usuarios</a></div>
                  </li>
                 <li class="nav-item dropdown"><a class="nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><i class="fas fa-table"></i><span>Productos</span></a>
-                    <div class="dropdown-menu"><a class="dropdown-item" href="/productos">Stock de Productos</a><a class="dropdown-item" href="#">Categorias</a></div>
+                    <div class="dropdown-menu"><a class="dropdown-item" href="/productos">Stock de Productos</a><a class="dropdown-item" href="/categorias">Categorias</a></div>
                 </li>
             </ul>
             <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>

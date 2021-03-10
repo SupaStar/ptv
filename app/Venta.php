@@ -17,6 +17,10 @@ class Venta extends Model
             "venta"
         ]);
     }
+    public function usuarios()
+    {
+        return $this->hasMany(User::class);
+    }
 
     public function nRepeticionesP()
     {

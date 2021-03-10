@@ -20,12 +20,12 @@
                                 <thead>
                                 <tr>
                                     <th>N° de Venta</th>
-                                    <th>Producto</th>
+
                                     <th>Empleado</th>
                                     <th>Total</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tbcorte">
                                 </tbody>
                             </table>
                         </div>
@@ -40,7 +40,7 @@
                             <div class="card-body">
                                 <div class="row align-items-left no-gutters">
                                     <div class="col-xl-9 offset-xl-1 mr-2">
-                                        <input type="text" class="form-control form-control-sm" aria-controls="dataTable" placeholder=  "Saldo inicial">
+                                        <input disabled id="saldoinicial" type="text" class="form-control form-control-sm" aria-controls="dataTable" placeholder=  "Saldo inicial">
                                     </div>
                                     <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300" style="margin-left: 10px"></i></div>
                                 </div>
@@ -51,12 +51,12 @@
                     <div class="col-lg-6">
                         <div class="card mb-3">
                             <div class="py-3" align="center">
-                                <p class="text-primary m-0 font-weight-bold">Saldo de corte</p>
+                                <p class="text-primary m-0 font-weight-bold">Saldo de corte sin caja</p>
                             </div>
                             <div class="card-body">
                                 <div class="row align-items-left no-gutters">
                                     <div class="col-xl-9 offset-xl-1 mr-2">
-                                        <input type="text" class="form-control form-control-sm" aria-controls="dataTable" placeholder=  "Saldo corte">
+                                        <input disabled id="saldocorte" type="text" class="form-control form-control-sm" aria-controls="dataTable">
                                     </div>
                                     <div class="col-auto"><i class="fas fa-cash-register fa-2x text-gray-300" style="margin-left: 10px"></i></div>
                                 </div>
@@ -72,22 +72,5 @@
 @endsection
 @section('js')
     <script src="/js/bootbox.all.min.js"></script>
-    <script>
-        $(document).ready(function ()
-        {
-
-            $('#btnCerrarCaja').on("click", function(e){
-                e.preventDefault();
-                var href = $(this).attr("href");
-                bootbox.confirm({
-                    message: "¿Seguro que desea cerrar la caja?",
-                    locale: "es",
-                    callback: function(result){
-                        if(result)
-                            location.href = href;
-                    }
-                });
-            });
-        })
-    </script>
+    <script src="/js/cortecaja.js"></script>
 @endsection
