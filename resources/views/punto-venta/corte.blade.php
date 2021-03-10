@@ -72,6 +72,21 @@
 @endsection
 @section('js')
     <script>
+        $(document).ready(function ()
+        {
 
+            $('#btnCerrarCaja').on("click", function(e){
+                e.preventDefault();
+                var href = $(this).attr("href");
+                bootbox.confirm({
+                    message: "¿Seguro que desea cerrar la caja?",
+                    locale: "es",
+                    callback: function(result){
+                        if(result)
+                            location.href = href;
+                    }
+                });
+            });
+        })
     </script>
 @endsection

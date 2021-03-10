@@ -16,7 +16,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-3 text-nowrap">
-                                <button class="btn btn-primary btn-sm" type="submit">Agregar Producto</button>
+                                <a class="btn btn-primary btn-sm" href="/registrarproducto" type="button">Agregar Producto</a>
                             </div>
                             <div class="col-md-3 text-nowrap">
                                 <div id="mostrar" class="dataTables_length" aria-controls="dataTable">
