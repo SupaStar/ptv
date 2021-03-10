@@ -46,10 +46,10 @@ class PuntoVentaController extends Controller
     public function buscar(Request $request)
     {
         $busqueda = $request->input("busqueda");
-        $productos = Producto::where("nombre", "like", "%$busqueda%")
-            ->orWhere("id", $busqueda)
-            ->orWhere('descripcion', 'like', "%$busqueda%")
-            ->orWhere('codigo', 'like', "%$busqueda%")->orderBy("nombre")->get();
+        $productos = Producto::where("nombre", "like", "%$busqueda%")->where("stock",">=",1)
+            ->orWhere("id", $busqueda)->where("stock",">=",1)
+            ->orWhere('descripcion', 'like', "%$busqueda%")->where("stock",">=",1)
+            ->orWhere('codigo', 'like', "%$busqueda%")->where("stock",">=",1)->orderBy("nombre")->get();
         return response()->json($productos);
        // return view("layouts.resultado-busqueda-modal", compact("busqueda", "productos"));
     }

@@ -1,7 +1,8 @@
 $("#btnenvio").on("click",function(event){
+
+
     event.preventDefault();
-    $('#btnenvio').prop("disabled",true)
-    $('#cantidad').prop("disabled",true)
+
     $.ajax(
         {
             type: "post",
@@ -13,22 +14,32 @@ $("#btnenvio").on("click",function(event){
                 },
             success: function (response)
             {
-                var cantidad= parseInt($('#cantidad').val())
-                var precio= parseFloat($('#precio').val())
-                var subtotal=cantidad*precio
-                $('#tbnota').append('<tr><td hidden>' + response.id + '</td><td>' + response.nombre + '</td><td>' + response.descripcion + '</td><td>' + response.venta + '</td><td>' + cantidad + '</td><td class="subtotal">' + subtotal + '</td><td><a id="btneditanota" style="margin-right: 3px" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a><a id="btneliminanota"  class="btn btn-danger" type="button"><i class="fa fa-remove"></i></a></td></tr>');
-                $('#idp').val("")
-                $('#producto').val("")
-                $('#precio').val("")
-                $('#cantidad').val(1)
+                if($('#cantidad').val()>response.stock)
+                {
+                    alertify.error('La cantidad ingresada, es mayor al stock del producto');
 
-                var data = [];
-                $("td.subtotal").each(function(){
-                    data.push(parseFloat($(this).text()));
-                });
-                var suma = data.reduce(function(a,b){ return a+b; },0);
-                $('#totalpagar').val(suma)
+                }
+                else {
+                    $('#btnenvio').prop("disabled",true)
+                    $('#cantidad').prop("disabled",true)
+                    var cantidad = parseInt($('#cantidad').val())
+                    var precio = parseFloat($('#precio').val())
+                    var subtotal = cantidad * precio
+                    $('#tbnota').append('<tr><td hidden>' + response.id + '</td><td>' + response.nombre + '</td><td>' + response.descripcion + '</td><td>' + response.venta + '</td><td>' + cantidad + '</td><td class="subtotal">' + subtotal + '</td><td><a id="btneditanota" style="margin-right: 3px" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a><a id="btneliminanota"  class="btn btn-danger" type="button"><i class="fa fa-remove"></i></a></td></tr>');
+                    $('#idp').val("")
+                    $('#producto').val("")
+                    $('#precio').val("")
+                    $('#cantidad').val(1)
 
+                    var data = [];
+                    $("td.subtotal").each(function () {
+                        data.push(parseFloat($(this).text()));
+                    });
+                    var suma = data.reduce(function (a, b) {
+                        return a + b;
+                    }, 0);
+                    $('#totalpagar').val(suma)
+                }
 
             }
 
@@ -51,17 +62,15 @@ function obtenertb(id)
                 },
             success: function (response)
             {
-
                 $('#idp').val(response.id)
                 $('#producto').val(response.nombre)
                 $('#precio').val(response.venta)
                 $('#cantidad').attr("max",response.stock)
                 $('#cantidad').attr("value",1)
+                $('#stock').val(response.stock)
                 $('#cantidad').removeAttr("disabled")
                 $('#btnenvio').removeAttr("disabled")
                 $('#tablaproducto').empty();
-
-
             }
 
         }
@@ -125,7 +134,7 @@ $(document).on('click', '#btnpago', function(event){
         parametros.push(tr);
     });
    var cambio= $('#inputpago').val()-$('#inputtotal').val()
-if($('#inputpago').val()>=$('#inputtotal').val()){
+if(cambio>=0){
 
     $.ajax({
         method:"post",
@@ -142,9 +151,10 @@ if($('#inputpago').val()>=$('#inputtotal').val()){
             $('#inputpago').val("");
             $('#totalpagar').val("");
             $('#tbnota').empty();
-            alertify.alert('Cobro realizado Correctamente', 'Su cambio es de: '+cambio, function(){ alertify.success('Ok'); });
-
-
+            alertify.alert('Cobro realizado Correctamente', 'Su cambio es de: '+cambio, function(){ alertify.success('Pago realizado correctamente'); });
         }
     })}
+    else{
+        alertify.error("Su pago no cubre el total de la venta")
+}
 });

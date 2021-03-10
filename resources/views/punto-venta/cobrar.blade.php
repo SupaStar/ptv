@@ -44,6 +44,7 @@
                                 <div class="col-xl-2">
                                     <h1 style="font-size: 18px;height: 23px;margin-top: 9px;width: 78.3px;">Producto:</h1>
                                     <input hidden id="idp" disabled class="form-control" type="text">
+                                    <input hidden id="stock" disabled class="form-control" type="text">
                                 </div>
                                 <div class="col-xl-10"><input id="producto" disabled class="form-control" type="text"></div>
                             </div>
@@ -96,11 +97,11 @@
                             </div>
                             <div class="form-row">
                                 <div class="col text-right" style="margin-top: 10px;">
-                                    <h1>Total: $<input style="width: 10%" disabled id="totalpagar"></h1>
+                                    <h1>Total: $<input style="width: 30%; font-size: 25px" disabled id="totalpagar"></h1>
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col text-right" style="margin-top: 10px;"><button class="btn btn-danger" type="button" style="margin-left: 0px;margin-right: 5px;">Cancelar</button><button id="btnpagar" class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal">Pagar Total</button></div>
+                                <div class="col text-right" style="margin-top: 10px;"><a href="/cobrar" class="btn btn-danger" type="button" style="margin-left: 0px;margin-right: 5px;">Cancelar</a><button id="btnpagar" class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal">Pagar Total</button></div>
                             </div>
                         </form>
                     </div>

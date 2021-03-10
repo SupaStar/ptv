@@ -60,7 +60,7 @@
                                     </div>
                                     <div class="col-auto"><i class="fas fa-cash-register fa-2x text-gray-300" style="margin-left: 10px"></i></div>
                                 </div>
-                                <button class="btn btn-primary" type="button" id="btnCerrarCaja" href=href="{{_c("ESTADO_CAJA") == "cerrada" ? route('cambiar-estado-caja') : route('cerrar-caja')}}"{{_c("ESTADO_CAJA") == "cerrada" ? "btnCambiarEstadoCaja" : "btnCerrarCaja"}}">Cerrar Caja</button>
+                                <button class="btn btn-primary" type="button" id="btnCerrarCaja" href="{{_c("ESTADO_CAJA") == "cerrada" ? route('cambiar-estado-caja') : route('cerrar-caja')}}"{{_c("ESTADO_CAJA") == "cerrada" ? "btnCambiarEstadoCaja" : "btnCerrarCaja"}}">Cerrar Caja</button>
                             </div>
                         </div>
                     </div>
@@ -71,6 +71,7 @@
 </div>
 @endsection
 @section('js')
+    <script src="/js/bootbox.all.min.js"></script>
     <script>
         $(document).ready(function ()
         {

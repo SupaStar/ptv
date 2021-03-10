@@ -8,6 +8,13 @@ $(document).ready(function ()
 
             if(response.length==1)
             {
+
+                if(response[0].fecha_hora_cierre!=null)
+                {
+                    $('#btnCerrarCajas').attr("hidden",true)
+                    $('#btncobrar').attr("hidden",true)
+                  alertify.error("Caja cerrada, regrese el dia de mañana o contacte con el administrador para abrirla")
+                }
             }
             else{
                 $('#exampleModal').modal({backdrop: 'static', keyboard: false});
@@ -61,7 +68,7 @@ $(document).ready(function ()
                     url:"/obtenerproductos",
                     success:function (response)
                     {
-                        console.log(response.length)
+
 
                         $('#nproductos').text(response.length)
                     }
@@ -96,9 +103,9 @@ $('#btnaceptarcaja').on("click", function(e){
                 },
             success:function (response)
             {
-                console.log(response)
             }
         }
     )
+    location.href="/"
 
 });

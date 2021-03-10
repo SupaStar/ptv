@@ -36,6 +36,7 @@ Route::get("/cambiar-estado-caja", "PuntoVentaController@cambiarEstadoCaja")->na
 Route::post("/cambiar-estado-cajas", "PuntoVentaController@cambiarEstadoCaja_")->name("do-cambiar-estado-caja");
 Route::get("/cerrar-caja", "PuntoVentaController@cerrarCaja")->name("cerrar-caja");
 Route::get("surtimiento", "SurtimientoController@index")->name("surtimiento");
+Route::get("/ventaproductos", "VentasController@ventasproducto")->name("surtimiento");
 Route::post("surtimiento-procesar", "SurtimientoController@procesar")->name("surtimiento-procesar");
 Route::post("surtimiento-guardar", "SurtimientoController@guardar")->name("surtimiento-guardar");
 

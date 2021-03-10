@@ -95,6 +95,7 @@ class VentasController extends Controller
     public function getVentashoy()
     {
        $ventas=Venta::whereDate("created_at","=",Carbon::now()->format('Y-m-d'))->get();
+
         return response()->json($ventas);
     }
     public function getVentassemana()
@@ -102,4 +103,11 @@ class VentasController extends Controller
        $ventas=Venta::whereDate("created_at",">=",Carbon::now()->subDays(7))->get();
         return response()->json($ventas);
     }
+    public function ventasproducto()
+    {
+        $ventas=Venta::whereDate("created_at","=",Carbon::now()->format('Y-m-d'))->get();
+
+        return response()->json($ventas);
+    }
+
 }
