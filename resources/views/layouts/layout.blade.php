@@ -31,10 +31,9 @@
             <hr class="sidebar-divider my-0">
             <ul class="navbar-nav text-light" id="accordionSidebar">
                 <li class="nav-item"><a class="nav-link active" href="/"><i class="fas fa-tachometer-alt"></i><span>Inicio</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="/perfil"><i class="fas fa-user"></i>Perfil</a></li>
-                <li class="nav-item"></li>
-                <li class="nav-item"></li>
-                <li class="nav-item"></li>
+                <li class="nav-item dropdown"><a class="nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><i class="fas fa-user"></i>Usuarios</a>
+                    <div class="dropdown-menu"><a class="dropdown-item" href="/perfil">Mi perfil</a><a class="dropdown-item" href="/usuarios">Usuarios</a></div>
+                 </li>
                 <li class="nav-item dropdown"><a class="nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><i class="fas fa-table"></i><span>Productos</span></a>
                     <div class="dropdown-menu"><a class="dropdown-item" href="/productos">Stock de Productos</a><a class="dropdown-item" href="#">Categorias</a></div>
                 </li>

@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('titulo', "Categorias")
+@section('titulo', "Usuarios")
 @section('css')
 
 @endsection
@@ -15,21 +15,17 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
+
                                 <div class="col-md-3 text-nowrap">
-                                    <div id="mostrar" class="dataTables_length" aria-controls="dataTable">
-                                        <label>Mostrar<select class="form-control form-control-sm custom-select custom-select-sm" style="margin-left: 5px">
-                                                <option value="10" selected="">10</option>
-                                                <option value="25">25</option>
-                                                <option value="50">50</option>
-                                                <option value="100">100</option>
-                                            </select>&nbsp;</label></div>
+                                    <a class="btn btn-primary btn-sm" href="/agregarusuario" type="button">Agregar Empleado</a>
+
                                 </div>
                                 <div class="col-md-3 text-nowrap">
                                     <div id="filtrar" class="dataTables_length" aria-controls="dataTable">
                                         <label>Filtrar<select class="form-control form-control-sm custom-select custom-select-sm" style="margin-left: 5px">
                                                 <option value="" selected="Selecciona">Selecciona</option>
-                                                <option value="caducidad">Administrador</option>
-                                                <option value="stock">Empleado</option>
+                                                <option value="1">Administrador</option>
+                                                <option value="0">Empleado</option>
                                             </select>&nbsp;</label></div>
                                 </div>
                                 <div class="col-md-6">
@@ -49,25 +45,12 @@
                                         <th>Nombre de usuario</th>
                                         <th>Tipo de empleado</th>
                                         <th>Correo</th>
+                                        <th>Acciones</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Pancho</td>
-                                        <td>Lopez</td>
-                                        <td>Pancho.lopez</td>
-                                        <td>Administrador</td>
-                                        <td>Pancho@ejemplo.com</td>
-                                    </tr>
-                                    <tfoot>
-                                    <tr>
-                                        <td><strong>Nombre</strong></td>
-                                        <td><strong>Apellido</strong></td>
-                                        <td><strong>Nombre de usuario</strong></td>
-                                        <td><strong>Tipo de empleado</strong></td>
-                                        <td><strong>Correo</strong></td>
-                                    </tr>
-                                    </tfoot>
+                                    <tbody id="tbusuarios">
+                                    </tbody>
+
                                 </table>
                             </div>
                         </div>
@@ -78,3 +61,5 @@
     </div>
 @endsection
 @section('js')
+    <script src="/js/usuarios.js"></script>
+@endsection

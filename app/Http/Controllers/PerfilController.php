@@ -36,5 +36,24 @@ class PerfilController extends Controller
     {
 
         return view("perfil.usuarios");
+    }public function agregarusuarios()
+    {
+
+        return view("perfil.agregarusuario");
+    }
+    public function getUsuarios()
+    {
+        $Usuario=User::all();
+        foreach ($Usuario as $user)
+        {
+            if($user->admin==1)
+            {
+                $user->empleado="Administrador";
+            }
+            elseif ($user->admin==0){
+                $user->empleado="Trabajador";
+            }
+        }
+        return response()->json($Usuario);
     }
 }
