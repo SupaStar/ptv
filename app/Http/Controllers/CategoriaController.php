@@ -17,6 +17,15 @@ class CategoriaController extends Controller
 
     }
 
+    public function create(Request $request){
+        // return $request->all();
+        $categoria = new Categoria();
+        $categoria-> nombre = $request -> nombre;
+        $categoria -> estado = $request -> estado;
+        $categoria->save();
+
+        return view("categorias.registro-categoria");
+    }
     public function nuevo(Request $request)
     {
         $categoria = new Categoria();
@@ -59,5 +68,10 @@ class CategoriaController extends Controller
     public function registroCategoria()
     {
         return view("categorias.registro-categoria");
+    }
+    public function getCategorias()
+    {
+        $categorias=Categoria::all()->where("estado",">",0);
+        return response()->json($categorias);
     }
 }

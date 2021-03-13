@@ -52,11 +52,15 @@
                                     <button class="btn btn-primary btn-block text-white btn-user" type="submit">
                                         Ingresar
                                     </button>
-
                                 </form>
-                                <div class="text-center"><a class="small" href="forgot-password.html">Olvidaste tu
-                                        contraseña?</a></div>
-
+                                <div class="text-center">
+                                    <a class="small" href="forgot-password.html">Olvidaste tu contraseña?</a>
+                                </div>
+                                <div class="user">
+                                    <a class="btn btn-primary btn-block text-white btn-user user"  href="{{ route('register') }}" style="border-radius: 19px; margin-top: 10px">
+                                        Registrarme
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

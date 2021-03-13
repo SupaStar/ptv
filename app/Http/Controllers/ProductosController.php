@@ -39,9 +39,19 @@ class ProductosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view("productos.create");
+    public function create(Request $request){
+        // return $request->all();
+        $productos = new Producto();
+        $productos-> nombre = $request -> nombre;
+        $productos -> compra = $request -> compra;
+        $productos -> venta = $request -> venta;
+        $productos -> stock = $request -> stock;
+        $productos -> fecha_caducidad = $request -> fecha_caducidad;
+        $productos -> codigo = $request -> codigo;
+        $productos -> descripcion = $request -> descripcion;
+        $productos->save();
+
+        return view("productos.registro-productos");
     }
 
     /**
@@ -267,13 +277,10 @@ class ProductosController extends Controller
             $producto->stock = $request->stock;
             $producto->estado = 1;
         }
-
-
         $producto->fecha_caducidad = $request->fecha_caducidad;
         $producto->descripcion = $request->descripcion;
         $producto->codigo = $request->codigo;
         $producto->save();
-        alertify().success('USER WAS CREATED.');
         return view ("productos/productos");
     }
 
