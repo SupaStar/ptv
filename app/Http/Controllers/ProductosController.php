@@ -266,13 +266,10 @@ class ProductosController extends Controller
             $producto->stock = $request->stock;
             $producto->estado = 1;
         }
-
-
         $producto->fecha_caducidad = $request->fecha_caducidad;
         $producto->descripcion = $request->descripcion;
         $producto->codigo = $request->codigo;
         $producto->save();
-        alertify().success('USER WAS CREATED.');
         return view ("productos/productos");
     }
 

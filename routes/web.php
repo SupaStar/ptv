@@ -21,6 +21,7 @@ if (env('APP_FORCE_HTTPS', false)) {
 Route::get("/", "PuntoVentaController@index")->name("punto-venta");
 Route::get("/getCorte", "PuntoVentaController@getCorte")->name("getCorte");
 Route::get("/categorias", "CategoriaController@categoria")->name("categoria");
+Route::get("/getcategorias", "CategoriaController@getCategorias");
 Route::get("/registroCategoria", "CategoriaController@registroCategoria")->name("registroCategoria");
 Route::get("/getVentashoy", "VentasController@getVentashoy")->name("getVentashoy");
 Route::get("/getVentassemana", "VentasController@getVentassemana")->name("getVentassemana");

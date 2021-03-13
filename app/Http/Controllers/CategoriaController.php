@@ -54,4 +54,9 @@ class CategoriaController extends Controller
     {
         return view("categorias.registro-categoria");
     }
+    public function getCategorias()
+    {
+        $categorias=Categoria::all()->where("estado",">",0);
+        return response()->json($categorias);
+    }
 }

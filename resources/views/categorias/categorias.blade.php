@@ -46,7 +46,7 @@
 
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="tbcategorias">
                                     </tbody>
                                 </table>
                             </div>
@@ -58,3 +58,5 @@
     </div>
 @endsection
 @section('js')
+    <script src="{{asset('assets/js/categorias.js')}}"></script>
+@endsection
