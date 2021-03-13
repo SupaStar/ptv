@@ -18,7 +18,8 @@
                                         <p class="text-primary m-0 font-weight-bold">Registro de productos</p>
                                     </div>
                                     <div class="card-body">
-                                        <form>
+                                        <form action="{{route('productos-registro')}}" method="post">
+                                            {{ csrf_field() }}
                                             <div class="form-row">
                                                 <div class="col-lg-12">
                                                     <div class="form-group">
