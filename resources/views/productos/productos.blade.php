@@ -15,9 +15,11 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
+                            @if($usuario=Auth::user()->admin==1)
                             <div class="col-md-3 text-nowrap">
                                 <a class="btn btn-primary btn-sm" href="/registrarproducto" type="button">Agregar Producto</a>
                             </div>
+                            @endif
                             <div class="col-md-3 text-nowrap">
                                 <div id="mostrar" class="dataTables_length" aria-controls="dataTable">
                                 </div>
@@ -125,7 +127,19 @@
         </div>
     </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
 </div>
+<div id="modal-open">
+    <div role="dialog" tabindex="-1" class="modal fade show" id="exampleModal" aria-labelledby="exampleModalLabel" style="height: 825px;">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center justify-content-center">
+                    <h4 class="modal-title text-center" style="color: rgb(0,0,0);width: 100%;">Apertura de Caja</h4><input type="text" style="width: 211px;" hidden /><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-footer justify-content-center"><button class="btn btn-danger float-right" data-dismiss="modal" type="button">Cancelar</button><button class="btn btn-primary" data-dismiss="modal" type="button">Aceptar</button></div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('js')
-    <script src="/js/producto.js"></script>
+    <script src="{{asset('/js/producto.js')}}"></script>
 @endsection

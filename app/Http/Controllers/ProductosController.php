@@ -55,9 +55,17 @@ class ProductosController extends Controller
         $producto->nombre = $request->input("nombre");
         $producto->venta = $request->input("venta");
         $producto->compra = $request->input("compra");
-        $producto->stock = $request->input("stock");
-        $producto->fecha_caducidad = $request->input("fecha_caducidad");
-        $producto->codigo = $request->input("descripcion");
+        if($request->stock==0){
+            $producto->stock = $request->stock;
+            $producto->estado = 0;
+        }
+        else
+        {
+            $producto->stock = $request->stock;
+            $producto->estado = 1;
+        } $producto->fecha_caducidad = $request->input("fecha_caducidad");
+        $producto->descripcion = $request->descripcion;
+        $producto->codigo = $request->codigo;
         $producto->save();
 
         return redirect()->route("productos.index");
@@ -80,10 +88,7 @@ class ProductosController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -240,6 +245,35 @@ class ProductosController extends Controller
     public function registro()
     {
         return view("productos.registro-productos");
+    }
+    public function editap($id)
+    {
+        $producto=Producto::find($id);
+        return view("productos/edita-productos",compact("producto",$producto));
+    }
+    public function actualizarproducto(Request $request)
+    {
+        $producto=Producto::find($request->id);
+        $producto->nombre = $request->nombre;
+        $producto->venta = $request->venta;
+        $producto->compra = $request->compra;
+        if($request->stock==0){
+            $producto->stock = $request->stock;
+            $producto->estado = 0;
+        }
+        else
+        {
+            $producto->stock = $request->stock;
+            $producto->estado = 1;
+        }
+
+
+        $producto->fecha_caducidad = $request->fecha_caducidad;
+        $producto->descripcion = $request->descripcion;
+        $producto->codigo = $request->codigo;
+        $producto->save();
+        alertify().success('USER WAS CREATED.');
+        return view ("productos/productos");
     }
 
 }

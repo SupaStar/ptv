@@ -15,9 +15,11 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
+                                @if($usuario=Auth::user()->admin==1)
                                 <div class="col-md-3 text-nowrap">
                                     <button class="btn btn-primary btn-sm" type="submit">Agregar categoría</button>
                                 </div>
+                                @endif
                                 <div class="col-md-3 text-nowrap">
                                     <div id="mostrar" class="dataTables_length" aria-controls="dataTable">
                                        </div>
@@ -29,7 +31,7 @@
                                 <div class="col-md-3">
                                     <div class="text-md-right dataTables_filter" id="dataTable_filter">
                                         <label>
-                                            <input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder=  "Buscar">
+                                            <input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Buscar">
                                         </label>
                                     </div>
                                 </div>
@@ -40,25 +42,12 @@
                                     <tr>
                                         <th>Nombre</th>
                                         <th>Categoria</th>
+                                        <th>Acciones</th>
 
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>Producto 1</td>
-                                        <td>Categoria 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Producto 2</td>
-                                        <td>Categoria 2</td>
-
-                                    </tr>
-                                    <tfoot>
-                                    <tr>
-                                        <td><strong>Nombre</strong></td>
-                                        <td><strong>Categoria</strong></td>
-                                    </tr>
-                                    </tfoot>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

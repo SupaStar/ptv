@@ -95,5 +95,4 @@
 </div>
 @endsection
 @section('js')
-    <script src="/js/perfil.js"></script>
 @endsection

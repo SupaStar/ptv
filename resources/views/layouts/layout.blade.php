@@ -7,17 +7,17 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('titulo') - PTV</title>
-    <link rel="stylesheet" href="assets/css/alertify.min.css"/>
+    <link rel="stylesheet" href="{{asset('assets/css/alertify.min.css')}}"/>
     <!-- Default theme -->
-    <link rel="stylesheet" href="assets/css/themes/default.min.css"/>
+    <link rel="stylesheet" href="{{asset('assets/css/themes/default.min.css')}}"/>
     <!-- Semantic UI theme -->
-    <link rel="stylesheet" href="assets/css/themes/semantic.min.css"/>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('assets/css/themes/semantic.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
-    <link rel="stylesheet" href="assets/css/styles.min.css">
+    <link rel="stylesheet" href="{{asset('assets/fonts/fontawesome-all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/fonts/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/fonts/fontawesome5-overrides.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/styles.min.css')}}">
     @yield('css')
 </head>
 
@@ -31,12 +31,19 @@
             <hr class="sidebar-divider my-0">
             <ul class="navbar-nav text-light" id="accordionSidebar">
                 <li class="nav-item"><a class="nav-link active" href="/"><i class="fas fa-tachometer-alt"></i><span>Inicio</span></a></li>
+                @if($usuario=Auth::user()->admin==1)
                 <li class="nav-item dropdown"><a class="nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><i class="fas fa-user"></i>Usuarios</a>
-                    <div class="dropdown-menu"><a class="dropdown-item" href="/perfil">Mi perfil</a><a class="dropdown-item" href="/usuarios">Usuarios</a></div>
+
+                    <div class="dropdown-menu"><a class="dropdown-item" href="/perfil">Mi perfil</a>
+                        <a class="dropdown-item" href="/usuarios">Usuarios</a></div>
                  </li>
+                @endif
+
                 <li class="nav-item dropdown"><a class="nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><i class="fas fa-table"></i><span>Productos</span></a>
                     <div class="dropdown-menu"><a class="dropdown-item" href="/productos">Stock de Productos</a><a class="dropdown-item" href="/categorias">Categorias</a></div>
                 </li>
+
+
             </ul>
             <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
         </div>
@@ -151,12 +158,12 @@
 <input type="hidden" id="urlCambiarEstadoCaja" value="{{route('do-cambiar-estado-caja')}}">
 @include('layouts.resurtimiento-modal')
 
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="assets/js/chart.min.js"></script>
+<script src="{{asset('assets/js/jquery.min.js')}}"></script>
+<script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/js/chart.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-<script src="assets/js/script.min.js"></script>
-<script src="assets/js/alertify.min.js"></script>
+<script src="{{asset('assets/js/script.min.js')}}"></script>
+<script src="{{asset('assets/js/alertify.min.js')}}"></script>
 <script>
     $.ajaxSetup({
         headers: {
