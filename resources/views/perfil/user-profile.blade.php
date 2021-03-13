@@ -38,7 +38,7 @@
                                                     <div class="form-group">
                                                         <i class="fa fa-user-md icono" aria-hidden="true"></i>
                                                         <label for="nombre"><strong>Nombre</strong></label>
-                                                        <input class="form-control" type="text" id="nombrep" name="nombree" placeholder="Nombre">
+                                                        <input class="form-control" type="text" id="nombrep" name="nombre" placeholder="Nombre">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">

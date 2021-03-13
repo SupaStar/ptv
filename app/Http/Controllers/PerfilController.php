@@ -56,4 +56,23 @@ class PerfilController extends Controller
         }
         return response()->json($Usuario);
     }
+
+    public function editap($id)
+    {
+        $usuario=Perfil::find($id);
+        return view("perfil/editar-usuario",compact("usuario",$usuario));
+    }
+
+    public function actualizarusuario(Request $request)
+    {
+        $usuario= Perfil::find($request->id);
+        $usuario->name = $request->name;
+        $usuario->lastname=$request->lastname;
+        $usuario->username=$request->usernameo;
+        $usuario->admin=$request->admin;
+        $usuario->email=$request->email;
+        $usuario->save();
+
+        return view ("perfil/usuarios");
+    }
 }

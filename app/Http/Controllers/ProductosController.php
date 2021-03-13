@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categoria;
 use App\Producto;
 use App\Venta;
 use Carbon\Carbon;
@@ -276,4 +277,8 @@ class ProductosController extends Controller
         return view ("productos/productos");
     }
 
+
+
 }
+
+
