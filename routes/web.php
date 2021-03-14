@@ -28,14 +28,16 @@ Route::get("/getCorte", "PuntoVentaController@getCorte")->name("getCorte");
 Route::get("/categorias", "CategoriaController@categoria")->name("categoria");
 Route::get("/getcategorias", "CategoriaController@getCategorias");
 Route::get("/registroCategoria", "CategoriaController@registroCategoria")->name("registroCategoria");
+Route::post("/nuevaCategoria", "CategoriaController@nuevo");
 Route::get("/getVentashoy", "VentasController@getVentashoy")->name("getVentashoy");
 Route::get("/getVentassemana", "VentasController@getVentassemana")->name("getVentassemana");
 Route::get("/productos", "ProductosController@getProductos")->name("productos");
+Route::get("/registrarproducto", "ProductosController@registro")->name("registro");
 Route::get("/usuarios", "PerfilController@usuarios")->name("usuarios");
 Route::get("/getusuarios", "PerfilController@getUsuarios")->name("Obtener usuarios");
 Route::get("/agregarusuario", "PerfilController@agregarusuarios")->name("Agregar usuario");
 Route::get("/getPerfil", "PerfilController@getPerfil")->name("perfil");
-Route::get("/registrarproducto", "ProductosController@registro")->name("registro");
+
 Route::get("/perfil", "PerfilController@perfil")->name("perfil");
 Route::post("/actualizarperfil", "PerfilController@updatePerfil")->name("Actualizar Perfil");
 Route::get("/corte", "PuntoVentaController@corte")->name("corte");
@@ -55,8 +57,11 @@ Route::put('productos-editar-stock', 'ProductosController@editarStock')->name("p
 
 Route::post("cobrar", "PuntoVentaController@cobrar")->name("cobrar");
 Route::post('/findid', 'PuntoVentaController@findid');
+Route::post('/findproductoid', 'ProductosController@findp');
+Route::post('/desactivarproducto', 'ProductosController@desactivap');
 
 Route::post('actualizarproducto', 'ProductosController@actualizarproducto');
+Route::post('registrarproducto', 'ProductosController@store');
 Route::post('actualizarcategoria', 'CategoriaController@actualizarcategoria');
 Route::post('actualizarusuario', 'PerfilController@actualizarusuario');
 

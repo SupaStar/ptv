@@ -18,21 +18,16 @@
                                             <p class="text-primary m-0 font-weight-bold">Registro de categorias</p>
                                         </div>
                                         <div class="card-body">
-                                            <form action="{{route('categorias-registro')}}" method="post">
+                                            <form action="/nuevaCategoria" method="post">
                                                 {{ csrf_field() }}
                                                 <div class="form-row">
-                                                    <div class="col-lg-6">
+                                                    <div class="col">
                                                         <div class="form-group">
                                                             <label for="nombre"><strong>Nombre</strong></label>
-                                                            <input class="form-control" type="number" id="nombre" name="nombre" placeholder="Nombre">
+                                                            <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre">
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="estado"><strong>Estado</strong></label>
-                                                            <input class="form-control" type="number" id="estado" name="estado" placeholder="Estado">
-                                                        </div>
-                                                    </div>
+
                                                 </div>
                                                 <div class="form-group">
                                                     <button class="btn btn-primary btn-sm" type="submit">Registrar</button>

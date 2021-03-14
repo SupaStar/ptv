@@ -29,9 +29,9 @@ class CategoriaController extends Controller
     public function nuevo(Request $request)
     {
         $categoria = new Categoria();
-        $categoria->nombre = $request->input('nombre');
+        $categoria->nombre = $request->nombre;
         $categoria->save();
-        return response()->json($categoria);
+        return view("/categorias/registro-categoria");
     }
 
     public function editap($id)

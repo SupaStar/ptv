@@ -70,6 +70,21 @@
                                                         <input value="{{$producto->descripcion}}" class="form-control" type="text" id="descripcion" name="descripcion" placeholder="Descripción">
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="estado"><strong>Estado</strong></label>
+                                                        <select class="form-control" required id="estado" name="estado">
+                                                            <option selected disabled>Seleccione un estado</option>
+                                                            @if($producto->estado=="Activo")
+                                                        <option selected value="1" >Activo</option>
+                                                                <option value="0">Inactivo</option>
+
+                                                            @else
+                                                            <option selected value="0">Inactivo</option>
+                                                                <option value="1" >Activo</option>
+                                                                @endif
+                                                        </select>   </div>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <button class="btn btn-primary btn-sm" type="submit">Actualizar</button>

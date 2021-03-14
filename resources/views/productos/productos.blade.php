@@ -47,6 +47,7 @@
                                     <th>Descripción</th>
                                     <th>Fecha de Caducidad</th>
                                     <th>Productos en Stock</th>
+                                    <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
@@ -163,13 +164,13 @@
     </div>
 </div>
 <div id="modal-open">
-    <div role="dialog" tabindex="-1" class="modal fade show" id="exampleModal" aria-labelledby="exampleModalLabel" style="height: 825px;">
+    <div role="dialog" tabindex="-1" class="modal fade show" id="exampleModal1" aria-labelledby="exampleModalLabel" style="height: 825px;">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center justify-content-center">
-                    <h4 class="modal-title text-center" style="color: rgb(0,0,0);width: 100%;">Apertura de Caja</h4><input type="text" style="width: 211px;" hidden /><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title text-center" style="color: rgb(0,0,0);width: 100%;">Desea desactivar la venta del producto?</h4><input id="idprod" type="text" style="width: 211px;" hidden /><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 </div>
-                <div class="modal-footer justify-content-center"><button class="btn btn-danger float-right" data-dismiss="modal" type="button">Cancelar</button><button class="btn btn-primary" data-dismiss="modal" type="button">Aceptar</button></div>
+                <div class="modal-footer justify-content-center"><button class="btn btn-danger float-right" data-dismiss="modal" type="button">Cancelar</button><button id="desactivaproducto" class="btn btn-primary" data-dismiss="modal" type="button">Aceptar</button></div>
             </div>
         </div>
     </div>

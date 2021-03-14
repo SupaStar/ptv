@@ -29,7 +29,17 @@ class ProductosController extends Controller
     }
     public function productos()
     {
-        $productos = Producto::all();
+        $productos = Producto::orderBy("estado","DESC")->get();
+        foreach($productos as $producto)
+        {
+            if($producto->estado==1){
+                $producto->estado="Activo";
+            }
+            else{
+                $producto->estado="Inactivo";
+
+            }
+        }
 
         return response()->json($productos);
     }
@@ -63,9 +73,9 @@ class ProductosController extends Controller
     public function store(Request $request)
     {
         $producto = new Producto();
-        $producto->nombre = $request->input("nombre");
-        $producto->venta = $request->input("venta");
-        $producto->compra = $request->input("compra");
+        $producto->nombre = $request->nombre;
+        $producto->venta = $request->venta;
+        $producto->compra = $request->compra;
         if($request->stock==0){
             $producto->stock = $request->stock;
             $producto->estado = 0;
@@ -74,12 +84,14 @@ class ProductosController extends Controller
         {
             $producto->stock = $request->stock;
             $producto->estado = 1;
-        } $producto->fecha_caducidad = $request->input("fecha_caducidad");
+        }
+        $producto->fecha_caducidad = $request->fecha_caducidad;
         $producto->descripcion = $request->descripcion;
         $producto->codigo = $request->codigo;
         $producto->save();
 
-        return redirect()->route("productos.index");
+
+        return view ("productos/registro-productos");
     }
 
     /**
@@ -262,6 +274,19 @@ class ProductosController extends Controller
         $producto=Producto::find($id);
         return view("productos/edita-productos",compact("producto",$producto));
     }
+    public function findp(Request $request)
+    {
+        $producto=Producto::find($request->id);
+        return response()->json($producto);
+    }
+    public function desactivap(Request $request)
+    {
+        $producto=Producto::find($request->id);
+
+        $producto->estado=0;
+        $producto->save();
+        return response()->json($producto);
+    }
     public function actualizarproducto(Request $request)
     {
         $producto=Producto::find($request->id);
@@ -275,7 +300,7 @@ class ProductosController extends Controller
         else
         {
             $producto->stock = $request->stock;
-            $producto->estado = 1;
+            $producto->estado = $request->estado;
         }
         $producto->fecha_caducidad = $request->fecha_caducidad;
         $producto->descripcion = $request->descripcion;
