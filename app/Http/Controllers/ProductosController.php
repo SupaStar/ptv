@@ -257,9 +257,10 @@ class ProductosController extends Controller
         foreach ($productosTop as $producto){
             $prod=Producto::find($producto['id']);
             $prod->categoria;
-            array_push($productosCategoria,$prod);
+            $p=['producto'=>$prod,"ventas"=>$producto['repeticiones']];
+            array_push($productosCategoria,$p);
         }
-        echo json_encode($productosCategoria);
+        return response()->json($productosCategoria);
     }
     public function getProductos()
     {
