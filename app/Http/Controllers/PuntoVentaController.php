@@ -165,10 +165,7 @@ class PuntoVentaController extends Controller
             $apertura->reparaciones_finales = $reparacionesTotal;
             $apertura->fecha_hora_cierre = date("Y-m-d H:i:s");
             $apertura->save();
-            $conf = Configuracion::where("clave", "ESTADO_CAJA")->first();
-            $conf->valor = "cerrada";
-            //Mail::to('obednoe22yt@gmail.com')->send(new CerrarCajaMail($ventasTotales,$utilidades,$reparacionesTotal,$apertura->fecha_hora_cierre));
-            $conf->save();
+
             session()->flash('estado', "Caja cerrada<br>
                 Monto inicial: <b>$ " . number_format($apertura->monto_inicio, 2) . "</b><br>
                 Total ventas: <b>$ " . number_format($ventasTotales, 2) . "</b><br>
@@ -234,6 +231,7 @@ return response()->json($request->productos);
     public function getCorte()
     {
         $apertura=AperturaCaja::whereDate('created_at', '=', Carbon::now()->format('Y-m-d'))->get();
+
         return response()->json($apertura);
     }
 

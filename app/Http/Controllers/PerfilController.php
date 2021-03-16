@@ -15,7 +15,6 @@ class PerfilController extends Controller
 
                 return response()->json($usuario);
     }
-
     public function updatePerfil(Request $request)
     {
 
@@ -37,8 +36,7 @@ class PerfilController extends Controller
     {
 
         return view("perfil.usuarios");
-    }
-    public function agregarusuarios()
+    }public function agregarusuarios()
     {
 
         return view("perfil.agregarusuario");
@@ -59,28 +57,22 @@ class PerfilController extends Controller
         return response()->json($Usuario);
     }
 
-    public function registro (){
-        return view("auth.register");
+    public function editap($id)
+    {
+        $usuario=Perfil::find($id);
+        return view("perfil/editar-usuario",compact("usuario",$usuario));
     }
-    public function create(Request $request){
-        // return $request->all();
 
-        $usuario = new User();
-        $usuario->admin=$request->tipoEmpleado;
-        $usuario->name=$request->nombre;
-        $usuario->email=$request->correo;
-        $password1 = $request-> password1;
-        $password2 = $request-> password2;
-        if($password1 != $password2){
-            return view("registro",["estatus" => "¡Las contraseñas son diferentes!"]);
-        }
-        else{
-            $usuario -> password = bcrypt($password1);
-        }
-        $usuario -> lastname = $request -> apellido;
-        $usuario->username=$request->nombreUsuario;
+    public function actualizarusuario(Request $request)
+    {
+        $usuario= Perfil::find($request->id);
+        $usuario->name = $request->name;
+        $usuario->lastname=$request->lastname;
+        $usuario->username=$request->usernameo;
+        $usuario->admin=$request->admin;
+        $usuario->email=$request->email;
         $usuario->save();
-        return view('auth.register');
 
+        return view ("perfil/usuarios");
     }
 }

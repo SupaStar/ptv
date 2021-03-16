@@ -29,22 +29,28 @@ class CategoriaController extends Controller
     public function nuevo(Request $request)
     {
         $categoria = new Categoria();
-        $categoria->nombre = $request->input('nombre');
+        $categoria->nombre = $request->nombre;
         $categoria->save();
-        return response()->json($categoria);
+        return view("/categorias/registro-categoria");
     }
 
-    public function editar($id, Request $request)
+    public function editap($id)
     {
-        $categoria = Categoria::find($id);
-        $categoria->nombre = $request->input('nombre');
+        $categoria=Categoria::find($id);
+        return view("categorias/editar-categoria",compact("categoria",$categoria));
+    }
+    public function actualizarcategoria(Request $request)
+    {
+        $categoria = Categoria::find($request->id);
+        $categoria->nombre = $request->nombre;
         $categoria->save();
-        return response()->json($categoria);
+
+        return view ("categorias/categorias");
     }
 
-    public function encontrar($id)
+    public function encontrar()
     {
-        $categoria = Categoria::find($id);
+        $categoria = Categoria::all();
         return response()->json($categoria);
     }
 
@@ -62,5 +68,10 @@ class CategoriaController extends Controller
     public function registroCategoria()
     {
         return view("categorias.registro-categoria");
+    }
+    public function getCategorias()
+    {
+        $categorias=Categoria::all()->where("estado",">",0);
+        return response()->json($categorias);
     }
 }

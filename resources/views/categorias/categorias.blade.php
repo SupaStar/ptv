@@ -17,7 +17,7 @@
                             <div class="row">
                                 @if($usuario=Auth::user()->admin==1)
                                 <div class="col-md-3 text-nowrap">
-                                    <button class="btn btn-primary btn-sm" type="submit">Agregar categoría</button>
+                                    <a href="/registroCategoria" class="btn btn-primary btn-sm" type="submit">Agregar categoría</a>
                                 </div>
                                 @endif
                                 <div class="col-md-3 text-nowrap">
@@ -37,11 +37,12 @@
                                 </div>
                             </div>
                             <div class="table-responsive table mt-2" id="tabla" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0" id="dataTabla">
+                                <table class="table my-0" id="tbcategoria">
                                     <thead>
                                     <tr>
-                                        <th>Nombre</th>
+                                        <th>id</th>
                                         <th>Categoria</th>
+                                        <th>Estado</th>
                                         <th>Acciones</th>
 
                                     </tr>
@@ -58,3 +59,5 @@
     </div>
 @endsection
 @section('js')
+    <script src="{{asset('/js/categoria.js')}}"></script>
+@endsection

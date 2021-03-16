@@ -27,15 +27,18 @@ Route::get("/", "PuntoVentaController@index")->name("punto-venta");
 Route::get("/getCorte", "PuntoVentaController@getCorte")->name("getCorte");
 Route::get("/ventasSemanales", "PuntoVentaController@ventasSemanales")->name("ventasSemanales");
 Route::get("/categorias", "CategoriaController@categoria")->name("categoria");
+Route::get("/getcategorias", "CategoriaController@getCategorias");
 Route::get("/registroCategoria", "CategoriaController@registroCategoria")->name("registroCategoria");
+Route::post("/nuevaCategoria", "CategoriaController@nuevo");
 Route::get("/getVentashoy", "VentasController@getVentashoy")->name("getVentashoy");
 Route::get("/getVentassemana", "VentasController@getVentassemana")->name("getVentassemana");
 Route::get("/productos", "ProductosController@getProductos")->name("productos");
+Route::get("/registrarproducto", "ProductosController@registro")->name("registro");
 Route::get("/usuarios", "PerfilController@usuarios")->name("usuarios");
 Route::get("/getusuarios", "PerfilController@getUsuarios")->name("Obtener usuarios");
 Route::get("/agregarusuario", "PerfilController@agregarusuarios")->name("Agregar usuario");
 Route::get("/getPerfil", "PerfilController@getPerfil")->name("perfil");
-Route::get("/registrarproducto", "ProductosController@registro")->name("registro");
+
 Route::get("/perfil", "PerfilController@perfil")->name("perfil");
 Route::post("/actualizarperfil", "PerfilController@updatePerfil")->name("Actualizar Perfil");
 Route::get("/corte", "PuntoVentaController@corte")->name("corte");
@@ -52,12 +55,23 @@ Route::get('productos-pendientes', 'ProductosController@pendientes')->name("prod
 Route::put('productos-editar-precio', 'ProductosController@editarPrecio')->name("productos.editar-precio");
 Route::put('productos-editar-nombre', 'ProductosController@editarNombre')->name("productos.editar-nombre");
 Route::put('productos-editar-stock', 'ProductosController@editarStock')->name("productos.editar-stock");
+
 Route::post("cobrar", "PuntoVentaController@cobrar")->name("cobrar");
 Route::post('/findid', 'PuntoVentaController@findid');
+Route::post('/findproductoid', 'ProductosController@findp');
+Route::post('/desactivarproducto', 'ProductosController@desactivap');
+
 Route::post('actualizarproducto', 'ProductosController@actualizarproducto');
+Route::post('registrarproducto', 'ProductosController@store');
+Route::post('actualizarcategoria', 'CategoriaController@actualizarcategoria');
+Route::post('actualizarusuario', 'PerfilController@actualizarusuario');
+
 Route::post('cobrarp/', 'PuntoVentaController@cobrarp');
 Route::get('/obtenerproductos', 'ProductosController@productos');
+Route::get('/obtenercategoria', 'CategoriaController@encontrar');
 Route::get('/editarproducto/{id}', 'ProductosController@editap');
+Route::get('/editarcategoria/{id}', 'CategoriaController@editap');
+Route::get('/editarusuario/{id}', 'PerfilController@editap');
 
 Route::resource('reparaciones', 'ReparacionesController')->except("show");
 Route::get("reparaciones/{id?}", "ReparacionesController@show")->name("reparaciones.show");
