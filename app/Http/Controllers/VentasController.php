@@ -102,7 +102,6 @@ class VentasController extends Controller
            $usuario=User::all()->where('id','=',$venta->usuario_id);
            foreach ($usuario as $us) {
                $venta->usuario=$us->name;
-
            }
        }
 
@@ -114,6 +113,16 @@ class VentasController extends Controller
         return response()->json($ventas);
     }
     public function ventasproducto()
+    {
+        $ventas=Venta::whereDate("created_at","=",Carbon::now()->format('Y-m-d'))->get();
+
+        return response()->json($ventas);
+    }
+    public function ventashoy()
+    {
+
+        return view("/reportes/ventas");
+    }public function ventasmes()
     {
         $ventas=Venta::whereDate("created_at","=",Carbon::now()->format('Y-m-d'))->get();
 

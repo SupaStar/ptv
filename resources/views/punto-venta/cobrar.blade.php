@@ -14,7 +14,7 @@
                         <p class="text-primary m-0 font-weight-bold">Productos</p>
                         <div class="row">
                             <div class="col">
-                                <div class="input-group"><input id="busqueda" class="bg-light form-control border-0 small" type="text" placeholder="Buscar por ...">
+                                <div id="prefetch" class="input-group"><input data-provide="typeahead" id="busqueda" class="typeahead bg-light form-control border-0 small " type="text" placeholder="Buscar por ...">
                                     <div class="input-group-append"><button id="btnBuscar" class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
                                 </div>
                                 <div style="margin-top: 30px;" class="table-responsive">
@@ -46,7 +46,7 @@
                                     <input hidden id="idp" disabled class="form-control" type="text">
                                     <input hidden id="stock" disabled class="form-control" type="text">
                                 </div>
-                                <div class="col-xl-10"><input id="producto" disabled class="form-control" type="text"></div>
+                                <div  class="col-xl-10"><input id="producto" disabled class="form-control" type="text"></div>
                             </div>
                             <div style="margin-top: 20px;" class="form-row">
                                 <div class="col">
@@ -144,4 +144,32 @@
 @section('js')
     <script src="/js/pdv.js"></script>
     <script src="/js/tablaspdv.js"></script>
+    <script src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                method: "get",
+                url:"/obtenerproductos",
+                success:function (response)
+                {
+
+
+                    var productNames = new Array();
+                    var productIds = new Object();
+//$.getJSON( '/getAjaxProducts', null,
+                    // function ( jsonData )
+                    //{
+                    $.each( response, function ( index, product )
+                    {
+                        productNames.push( product.nombre );
+                        productIds[product.nombre] = product.id;
+                    } );
+
+                    $( '#busqueda' ).typeahead( { source: ['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo']
+                        , minLength: 2 } );
+                    // };
+                }
+            })
+        })
+    </script>
 @endsection

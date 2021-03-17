@@ -42,7 +42,11 @@
                 <li class="nav-item dropdown"><a class="nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><i class="fas fa-table"></i><span>Productos</span></a>
                     <div class="dropdown-menu"><a class="dropdown-item" href="/productos">Stock de Productos</a><a class="dropdown-item" href="/categorias">Categorias</a></div>
                 </li>
-
+                @if($usuario=Auth::user()->admin==1)
+                <li class="nav-item dropdown"><a aria-expanded="false" data-toggle="dropdown" class="nav-link" href="#"><i class="fa fa-money"></i><span>Ventas</span></a>
+                    <div class="dropdown-menu"><a class="dropdown-item" href="#">Ventas General</a><a class="dropdown-item" href="#">Ventas Mensuales</a></div>
+                </li>
+                @endif
 
             </ul>
             <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
@@ -111,7 +115,7 @@
                         <div class="d-none d-sm-block topbar-divider"></div>
                         <li class="nav-item dropdown no-arrow">
                             <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">{{$usuario=Auth::user()->name}}</span><img class="border rounded-circle img-profile" src="../uploads/fotoperfil/{{$usuario=Auth::user()->id."fotoperfil.jpg"}}"></a>
-                                <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><div class="dropdown-divider"></div><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Cerrar Sesión</a>
+                                <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><div class="dropdown-divider"></div><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Cerrar Sesión</a>
                                 </div>
                             </div>
                         </li>

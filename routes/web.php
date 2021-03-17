@@ -31,6 +31,7 @@ Route::get("/getcategorias", "CategoriaController@getCategorias");
 Route::get("/registroCategoria", "CategoriaController@registroCategoria")->name("registroCategoria");
 Route::post("/nuevaCategoria", "CategoriaController@nuevo");
 Route::get("/getVentashoy", "VentasController@getVentashoy")->name("getVentashoy");
+Route::get("/ventashoy", "VentasController@ventashoy");
 Route::get("/getVentassemana", "VentasController@getVentassemana")->name("getVentassemana");
 Route::get("/productos", "ProductosController@getProductos")->name("productos");
 Route::get("/registrarproducto", "ProductosController@registro")->name("registro");
@@ -61,8 +62,10 @@ Route::post("cobrar", "PuntoVentaController@cobrar")->name("cobrar");
 Route::post('/findid', 'PuntoVentaController@findid');
 Route::post('/findproductoid', 'ProductosController@findp');
 Route::post('/findusuarioid', 'PerfilController@findu');
+Route::post('/findcatid', 'CategoriaController@findc');
 Route::post('/desactivarproducto', 'ProductosController@desactivap');
 Route::post('/desactivarusuario', 'PerfilController@desactivau');
+Route::post('/desactivarcategoria', 'CategoriaController@desactivac');
 
 Route::post('actualizarproducto', 'ProductosController@actualizarproducto');
 Route::post('registrarproducto', 'ProductosController@store');

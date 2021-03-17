@@ -26,6 +26,14 @@
                                                             <label for="nombre"><strong>Nombre</strong></label>
                                                             <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre">
                                                         </div>
+                                                        <div class="form-group">
+                                                            <i class="fa fa-user-md icono" aria-hidden="true"></i>
+                                                            <label for="estado"><strong>Estado</strong></label>
+                                                            <select id="estado" name="estado" class="form-control" required id="estado">
+                                                                <option selected value="0">Desactivado</option>
+                                                                <option value="1">Activado</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
 
                                                 </div>

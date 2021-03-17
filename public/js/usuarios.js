@@ -1,8 +1,5 @@
 $(document).ready(function ()
 {
-
-
-
     $('#desactivausuario').on("click", function ()
     {
         $.ajax({
