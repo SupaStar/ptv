@@ -21,22 +21,25 @@
                                 <a class="btn btn-primary btn-sm" href="/registrarproducto" type="button">Agregar Producto</a>
                             </div>
                             @endif
-                            <div class="col-md-3 text-nowrap">
-                                <div id="mostrar" class="dataTables_length" aria-controls="dataTable">
+                                <div class="col-md-3 text-nowrap">
+                                    <div id="filtrar" class="dataTables_length" aria-controls="dataTable">
+                                         <label>Filtrar<select class="form-control form-control-sm custom-select custom-select-sm" style="margin-left: 5px">
+                                                <option selected disabled>Selecciona</option>
+                                                <option value="5">Todos los productos</option>
+                                                <option value="1">Productos por caducar</option>
+                                                <option value="2">Productos por terminarse</option>
+                                                <option value="3">Productos sin existencia</option>
+                                                <option value="4">Productos Inactivos</option>
+                                            </select>&nbsp;</label></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-md-right dataTables_filter" id="dataTable_filter">
+                                        <label>
+                                            <input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder=  "Buscar">
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 text-nowrap">
-                                <div id="filtrar" class="dataTables_length" aria-controls="dataTable">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="text-md-right dataTables_filter" id="dataTable_filter">
-                                    <label>
-                                        <input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder=  "Buscar">
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                         <div class="table-responsive table mt-2" id="tabla" role="grid" aria-describedby="dataTable_info">
                             <table class="table my-0" id="dataTabla">
                                 <thead>

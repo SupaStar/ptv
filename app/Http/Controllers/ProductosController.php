@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Categoria;
+use App\CategoriaProducto;
 use App\Producto;
 use App\Venta;
 use Carbon\Carbon;
@@ -27,8 +28,74 @@ class ProductosController extends Controller
 
         return view("productos.index", compact("productos"));
     }
-    public function productos()
+    public function productos(Request $request)
     {
+        if($request->filtro==1)
+        {
+            $productos=Producto::orderBy("estado","DESC")->whereDate("fecha_caducidad",">=",Carbon::now()->format('Y-m-d'))->whereDate("fecha_caducidad","<=",Carbon::now()->addDays(15)->format('Y-m-d'))->get();
+            foreach($productos as $producto)
+            {
+                if($producto->estado==1){
+                    $producto->estado="Activo";
+                }
+                else{
+                    $producto->estado="Inactivo";
+
+                }
+            }
+
+            return response()->json($productos);
+
+        }elseif($request->filtro==2)
+        {
+            $productos=Producto::orderBy("estado","DESC")->where("stock","<=",10)->get();
+            foreach($productos as $producto)
+            {
+                if($producto->estado==1){
+                    $producto->estado="Activo";
+                }
+                else{
+                    $producto->estado="Inactivo";
+
+                }
+            }
+
+            return response()->json($productos);
+
+        }elseif($request->filtro==3)
+        {
+            $productos=Producto::orderBy("estado","DESC")->where("stock","=",0)->get();
+            foreach($productos as $producto)
+            {
+                if($producto->estado==1){
+                    $producto->estado="Activo";
+                }
+                else{
+                    $producto->estado="Inactivo";
+
+                }
+            }
+
+            return response()->json($productos);
+
+        }elseif($request->filtro==4)
+        {
+            $productos=Producto::orderBy("estado","DESC")->where("estado","=",0)->get();
+            foreach($productos as $producto)
+            {
+                if($producto->estado==1){
+                    $producto->estado="Activo";
+                }
+                else{
+                    $producto->estado="Inactivo";
+
+                }
+            }
+
+            return response()->json($productos);
+
+        }
+        else{
         $productos = Producto::orderBy("estado","DESC")->get();
         foreach($productos as $producto)
         {
@@ -42,7 +109,7 @@ class ProductosController extends Controller
         }
 
         return response()->json($productos);
-    }
+    }}
 
     /**
      * Show the form for creating a new resource.
@@ -73,6 +140,7 @@ class ProductosController extends Controller
     public function store(Request $request)
     {
         $producto = new Producto();
+        $categoriaproducto= new CategoriaProducto();
         $producto->nombre = $request->nombre;
         $producto->venta = $request->venta;
         $producto->compra = $request->compra;
@@ -88,10 +156,13 @@ class ProductosController extends Controller
         $producto->fecha_caducidad = $request->fecha_caducidad;
         $producto->descripcion = $request->descripcion;
         $producto->codigo = $request->codigo;
+        $producto->estado = $request->estado;
         $producto->save();
+        $categoriaproducto->id_producto=$producto->id;
 
-
-        return view ("productos/registro-productos");
+        $categoriaproducto->id_categoria=$request->idcategoria;
+        $categoriaproducto->save();
+        return view ("productos/productos");
     }
 
     /**
@@ -258,10 +329,10 @@ class ProductosController extends Controller
 
             $prod=Producto::find($producto['id']);
             $prod->categoria;
-            array_push($productosCategoria,$prod);
+            $p=['producto'=>$prod,"ventas"=>$producto['repeticiones']];
+            array_push($productosCategoria,$p);
         }
-
-        return json_encode($productosCategoria);
+        return response()->json($productosCategoria);
     }
     public function getProductos()
     {
@@ -269,12 +340,15 @@ class ProductosController extends Controller
     }
     public function registro()
     {
-        return view("productos.registro-productos");
+        $categoria=Categoria::all();
+        return view("productos.registro-productos",compact("categoria",$categoria));
     }
     public function editap($id)
     {
         $producto=Producto::find($id);
-        return view("productos/edita-productos",compact("producto",$producto));
+        $categoriaproducto=CategoriaProducto::all()->where("id_producto","=",$id);
+        $categoria=Categoria::all();
+        return view("productos/edita-productos")->with(compact("producto",$producto))->with(compact("categoria",$categoria))->with("categoriap",$categoriaproducto);
     }
     public function findp(Request $request)
     {
@@ -292,6 +366,7 @@ class ProductosController extends Controller
     public function actualizarproducto(Request $request)
     {
         $producto=Producto::find($request->id);
+        $categoriaproducto=CategoriaProducto::where("id_producto","=",$request->id)->first();
         $producto->nombre = $request->nombre;
         $producto->venta = $request->venta;
         $producto->compra = $request->compra;
@@ -302,12 +377,17 @@ class ProductosController extends Controller
         else
         {
             $producto->stock = $request->stock;
-            $producto->estado = $request->estado;
+            $producto->estado = 1;
         }
         $producto->fecha_caducidad = $request->fecha_caducidad;
         $producto->descripcion = $request->descripcion;
         $producto->codigo = $request->codigo;
+        $producto->estado = $request->estado;
         $producto->save();
+        $categoriaproducto->id_producto=$producto->id;
+
+        $categoriaproducto->id_categoria=$request->idcategoria;
+        $categoriaproducto->save();
         return view ("productos/productos");
     }
 

@@ -25,6 +25,7 @@ Route::get("/registro", "PerfilController@registro")->name("registro");
 
 Route::get("/", "PuntoVentaController@index")->name("punto-venta");
 Route::get("/getCorte", "PuntoVentaController@getCorte")->name("getCorte");
+Route::get("/ventasSemanales", "PuntoVentaController@ventasSemanales")->name("ventasSemanales");
 Route::get("/categorias", "CategoriaController@categoria")->name("categoria");
 Route::get("/getcategorias", "CategoriaController@getCategorias");
 Route::get("/registroCategoria", "CategoriaController@registroCategoria")->name("registroCategoria");

@@ -72,6 +72,27 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
+                                                        <label for="categoria"><strong>Categoria</strong></label>
+                                                        <select id="idcategoria" name="idcategoria" required class="form-control" required >
+                                                            <option selected disabled>Seleccion una categoria</option>
+                                                            @foreach($categoria as $categoria)
+                                                                @foreach($categoriap as $cp)
+                                                                @if($categoria->id==$cp->id_categoria)
+                                                                <option selected value="{{$categoria->id}}">{{$categoria->nombre}}</option>
+                                                                    @else
+                                                                        <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
+
+                                                                    @endif
+                                                                @endforeach
+
+
+
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
                                                         <label for="estado"><strong>Estado</strong></label>
                                                         <select class="form-control" required id="estado" name="estado">
                                                             <option selected disabled>Seleccione un estado</option>
