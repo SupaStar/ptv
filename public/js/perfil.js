@@ -9,6 +9,8 @@ $(document).ready(function ()
             $('#apellido').val(response.lastname)
             $('#nombreUsuario').val(response.username)
             $('#tipoEmpleado').val(response.admin)
+            $('#tipoEmpleado').attr("disabled")
+
             $('#correo').val(response.email)
         }
     })

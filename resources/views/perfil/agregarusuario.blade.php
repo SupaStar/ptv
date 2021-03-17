@@ -17,22 +17,23 @@
                                     <div class="card-header py-3">
                                         <p class="text-primary m-0 font-weight-bold">
                                             <i class="fa fa-cog" aria-hidden="true"></i>
-                                            Editar información
+                                            Agregar Usuario
                                         </p>
                                     </div>
+                                    <form action="registrarusuario" method="post" enctype="multipart/form-data">
                                     <div class="card-body" align="center">
                                         <div class="mb-3">
                                             <div class="mb-3">
                                                 <img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="100" height="100">
                                             </div>
                                             <div class="mb-3">
-                                                <button class="btn btn-primary btn-sm" type="button">
-                                                    <i class="fa fa-camera" style="margin-right: 10px; margin-left: 2px" aria-hidden="true"></i>
-                                                    Cambiar foto de perfil
-                                                </button>
+
+                                                <i class="fa fa-camera" style="margin-right: 10px; margin-left: 2px" aria-hidden="true"> <input required accept="image/png, image/jpeg, image/jpg" id="fotoperfil" name="fotoperfil" class="btn btn-primary btn-sm" type="file"></i>
+
+
                                             </div>
                                         </div>
-                                        <form action="registrarusuario" method="post">
+
                                             <div class="form-row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -104,7 +105,8 @@
                                                     Guardar Usuario
                                                 </button>
                                             </div>
-                                        </form>
+                                    </div>
+                                    </form>
                                     </div>
                                 </div>
                             </div>

@@ -20,19 +20,20 @@
                                             Editar información
                                         </p>
                                     </div>
+                                    <form action="/actualizarperfil" method="post">
                                     <div class="card-body" align="center">
                                         <div class="mb-3">
-                                            <div class="mb-3">
-                                                <img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="100" height="100">
-                                            </div>
-                                            <div class="mb-3">
-                                                <button class="btn btn-primary btn-sm" type="button">
-                                                    <i class="fa fa-camera" style="margin-right: 10px; margin-left: 2px" aria-hidden="true"></i>
-                                                    Cambiar foto de perfil
-                                                </button>
-                                            </div>
+                                        <div class="mb-3">
+                                            <img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="100" height="100">
                                         </div>
-                                        <form action="/actualizarperfil" method="post">
+                                        <div class="mb-3">
+
+                                            <i class="fa fa-camera" style="margin-right: 10px; margin-left: 2px" aria-hidden="true"> <input required accept="image/png, image/jpeg, image/jpg" id="fotoperfil" name="fotoperfil" class="btn btn-primary btn-sm" type="file"></i>
+
+
+                                        </div>
+                                        </div>
+
                                             <div class="form-row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">

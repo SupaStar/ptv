@@ -23,13 +23,12 @@
                                         <div class="card-body" align="center">
                                             <div class="mb-3">
                                                 <div class="mb-3">
-                                                    <img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="100" height="100">
+                                                    <img class="rounded-circle mb-3 mt-4" src="../uploads/fotoperfil/{{$usuario->id."fotoperfil.jpg"}}" width="100" height="100">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <button class="btn btn-primary btn-sm" type="button">
-                                                        <i class="fa fa-camera" style="margin-right: 10px; margin-left: 2px" aria-hidden="true"></i>
-                                                        Cambiar foto de perfil
-                                                    </button>
+
+                                                    <i class="fa fa-camera" style="margin-right: 10px; margin-left: 2px" aria-hidden="true"> <input accept="image/png, image/jpeg, image/jpg" id="fotoperfil" class="btn btn-primary btn-sm" type="file"></i>
+
                                                 </div>
                                             </div>
                                             <form action="/actualizarusuario" method="post">

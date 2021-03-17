@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Perfil;
 use App\User;
+use Illuminate\Support\Facades\Storage;
 
 class PerfilController extends Controller
 {
@@ -143,28 +144,33 @@ class PerfilController extends Controller
     public function actualizarusuario(Request $request)
     {
         $usuario= Perfil::find($request->id);
-
-        $usuario->name=$request->nombre;
-        $usuario->lastname=$request->apellido;
-        $usuario->username=$request->nombreUsuario;
-        $usuario->admin=$request->tipoEmpleado;
-        $usuario->email=$request->correo;
-        $usuario->password=bcrypt($request->contrasenia);
-        $usuario->estado=$request->estado;
-        $usuario->save();
-        return view ("perfil/usuarios");
-    }
-    public function registrarusuario(Request $request)
-    {
-        $usuario= new Perfil();
         $usuario->name = $request->nombre;
-        $usuario->lastname=$request->apellido;
-        $usuario->username=$request->nombreUsuario;
-        $usuario->admin=$request->tipoEmpleado;
-        $usuario->email=$request->correo;
-        $usuario->password=bcrypt($request->contrasenia);
-        $usuario->estado=$request->estado;
+        $usuario->lastname = $request->apellido;
+        $usuario->username = $request->nombreUsuario;
+        $usuario->admin = $request->tipoEmpleado;
+        $usuario->email = $request->correo;
+        $usuario->password = bcrypt($request->contrasenia);
+        $usuario->estado = $request->estado;
         $usuario->save();
-        return view ("perfil/usuarios");
+
+
+        return view("perfil/usuarios");
+    }
+
+        public function registrarusuario(Request $request)
+    {
+        $usuario = new Perfil();
+        $usuario->name = $request->nombre;
+        $usuario->lastname = $request->apellido;
+        $usuario->username = $request->nombreUsuario;
+        $usuario->admin = $request->tipoEmpleado;
+        $usuario->email = $request->correo;
+        $usuario->password = bcrypt($request->contrasenia);
+        $usuario->estado = $request->estado;
+        $usuario->save();
+        $file = $request->file('fotoperfil');
+        $nombre = $usuario->id . ("fotoperfil.jpg");
+        Storage::disk('public')->put($nombre, \File::get($file));
+        return view("perfil/usuarios");
     }
 }

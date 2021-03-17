@@ -41,7 +41,7 @@ Route::get("/getPerfil", "PerfilController@getPerfil")->name("perfil");
 Route::get("/masvendidos", "ProductosController@productosMasVendidos");
 
 Route::get("/perfil", "PerfilController@perfil")->name("perfil");
-Route::post("/actualizarperfil", "PerfilController@updatePerfil")->name("Actualizar Perfil");
+Route::post("actualizarperfil", "PerfilController@updatePerfil")->name("Actualizar Perfil");
 Route::get("/corte", "PuntoVentaController@corte")->name("corte");
 Route::get("/cobrar", "PuntoVentaController@cobro")->name("Cobrar");
 Route::get("/cambiar-estado-caja", "PuntoVentaController@cambiarEstadoCaja")->name("cambiar-estado-caja");
