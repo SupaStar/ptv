@@ -22,10 +22,10 @@ Route::post("productos-registro", "ProductosController@create")->name("productos
 Route::post("categorias-registro", "CategoriasController@create")->name("categorias-registro");
 Route::get("/registro", "PerfilController@registro")->name("registro");
 
-Route::get("/ventasSemanal", "PuntoVentaController@ventasSemanal")->name("ventasSemanal");
+
 Route::get("/", "PuntoVentaController@index")->name("punto-venta");
 Route::get("/getCorte", "PuntoVentaController@getCorte")->name("getCorte");
-
+Route::get("/ventasSemanales", "PuntoVentaController@ventasSemanales")->name("ventasSemanales");
 Route::get("/categorias", "CategoriaController@categoria")->name("categoria");
 Route::get("/getcategorias", "CategoriaController@getCategorias");
 Route::get("/registroCategoria", "CategoriaController@registroCategoria")->name("registroCategoria");
