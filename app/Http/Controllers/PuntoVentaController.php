@@ -219,20 +219,23 @@ return response()->json($request->productos);
         return view("punto-venta.user-profile");
     }
 
+
     public function corte()
     {
         return view("punto-venta.corte");
     }
 
-    public function ventasSemanales()
-    {
-        return view("punto-venta.ventas-semanales");
-    }
+
     public function getCorte()
     {
         $apertura=AperturaCaja::whereDate('created_at', '=', Carbon::now()->format('Y-m-d'))->get();
 
         return response()->json($apertura);
+    }
+
+    public function ventasSemanales()
+    {
+        return view("punto-venta.ventas-semanal");
     }
 
 }
