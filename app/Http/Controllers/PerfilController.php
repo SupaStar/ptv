@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Perfil;
@@ -41,20 +42,96 @@ class PerfilController extends Controller
 
         return view("perfil.agregarusuario");
     }
-    public function getUsuarios()
+    public function getUsuarios(Request $request)
     {
-        $Usuario=User::all();
+      if($request->filtro==1)
+      {
+          $Usuario=User::all()->where("estado","=", 1);
+          foreach ($Usuario as $user)
+          {
+              if($user->admin==1)
+              {
+                  $user->empleado="Administrador";
+              }
+              else{
+                  $user->empleado="Trabajador";
+              }
+          }
+          foreach ($Usuario as $user)
+          {
+              if($user->estado==1)
+              {
+                  $user->estado="Activado";
+              }
+              elseif($user->estado==0)
+              {
+                  $user->estado="Desactivado";
+              }
+          }
+          return response()->json($Usuario);
+      }
+      elseif($request->filtro==2)
+      {
+          $Usuario=User::all()->where("estado","=", 0);
+          foreach ($Usuario as $user)
+          {
+              if($user->admin==1)
+              {
+                  $user->empleado="Administrador";
+              }
+              else{
+                  $user->empleado="Trabajador";
+              }
+          }
+          foreach ($Usuario as $user)
+          {
+              if($user->estado==1)
+              {
+                  $user->estado="Activado";
+              }
+              elseif($user->estado==0)
+              {
+                  $user->estado="Desactivado";
+              }
+          }
+          return response()->json($Usuario);
+      }
+      else{
+      $Usuario=User::all();
         foreach ($Usuario as $user)
         {
             if($user->admin==1)
             {
                 $user->empleado="Administrador";
             }
-            elseif ($user->admin==0){
+            else{
                 $user->empleado="Trabajador";
             }
         }
+        foreach ($Usuario as $user)
+        {
+            if($user->estado==1)
+            {
+                $user->estado="Activado";
+            }
+            elseif($user->estado==0)
+            {
+                $user->estado="Desactivado";
+            }
+        }
         return response()->json($Usuario);
+    }}
+    public function findu(Request $request)
+    {
+        $usuario=Perfil::find($request->id);
+        return response()->json($usuario);
+    }
+    public function desactivau(Request $request)
+    {
+        $usuario=Perfil::find($request->id);
+        $usuario->estado=0;
+        $usuario->save();
+        return response()->json($usuario);
     }
 
     public function editap($id)
@@ -66,13 +143,28 @@ class PerfilController extends Controller
     public function actualizarusuario(Request $request)
     {
         $usuario= Perfil::find($request->id);
-        $usuario->name = $request->name;
-        $usuario->lastname=$request->lastname;
-        $usuario->username=$request->usernameo;
-        $usuario->admin=$request->admin;
-        $usuario->email=$request->email;
-        $usuario->save();
 
+        $usuario->name=$request->nombre;
+        $usuario->lastname=$request->apellido;
+        $usuario->username=$request->nombreUsuario;
+        $usuario->admin=$request->tipoEmpleado;
+        $usuario->email=$request->correo;
+        $usuario->password=bcrypt($request->contrasenia);
+        $usuario->estado=$request->estado;
+        $usuario->save();
+        return view ("perfil/usuarios");
+    }
+    public function registrarusuario(Request $request)
+    {
+        $usuario= new Perfil();
+        $usuario->name = $request->nombre;
+        $usuario->lastname=$request->apellido;
+        $usuario->username=$request->nombreUsuario;
+        $usuario->admin=$request->tipoEmpleado;
+        $usuario->email=$request->correo;
+        $usuario->password=bcrypt($request->contrasenia);
+        $usuario->estado=$request->estado;
+        $usuario->save();
         return view ("perfil/usuarios");
     }
 }

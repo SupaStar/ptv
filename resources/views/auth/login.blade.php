@@ -57,7 +57,7 @@
                                     <a class="small" href="forgot-password.html">Olvidaste tu contraseña?</a>
                                 </div>
                                 <div class="user">
-                                    <a class="btn btn-primary btn-block text-white btn-user user"  href="{{ route('register') }}" style="border-radius: 19px; margin-top: 10px">
+                                    <a hidden class="btn btn-primary btn-block text-white btn-user user"  href="{{ route('register') }}" style="border-radius: 19px; margin-top: 10px">
                                         Registrarme
                                     </a>
                                 </div>

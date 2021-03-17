@@ -32,20 +32,21 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <form action="/actualizarperfil" method="post">
+                                        <form action="registrarusuario" method="post">
                                             <div class="form-row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <i class="fa fa-user-md icono" aria-hidden="true"></i>
                                                         <label for="nombre"><strong>Nombre</strong></label>
-                                                        <input class="form-control" type="text" id="nombrep" name="nombree" placeholder="Nombre">
+                                                        {{ csrf_field() }}
+                                                        <input required class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <i class="fa fa-user-md icono" aria-hidden="true"></i>
                                                         <label for="apellido"><strong>Apellido</strong></label>
-                                                        <input class="form-control" type="text" id="apellido" name="apellido" placeholder="Apellido">
+                                                        <input required class="form-control" type="text" id="apellido" name="apellido" placeholder="Apellido">
                                                     </div>
                                                 </div>
                                             </div>
@@ -54,13 +55,13 @@
                                                     <div class="form-group">
                                                         <i class="fa fa-user-md icono" aria-hidden="true"></i>
                                                         <label for="nombreUsuario"><strong>Nombre de usuario</strong></label>
-                                                        <input class="form-control" type="text" id="nombreUsuario" name="nombreUsuario" placeholder="user.name">
+                                                        <input required class="form-control" type="text" id="nombreUsuario" name="nombreUsuario" placeholder="user.name">
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <i class="fa fa-user-md icono" aria-hidden="true"></i>
                                                     <label for="tipoEmpleado"><strong>Tipo de empleado</strong></label>
-                                                    <select id="tipoEmpleado" name="tipoEmpleado" class="form-control">
+                                                    <select required id="tipoEmpleado" name="tipoEmpleado" class="form-control">
                                                         <option selected disabled value="Selecciona">Selecciona</option>
                                                         <option value="1">Administrador</option>
                                                         <option value="0">Empleado</option>
@@ -72,14 +73,35 @@
                                                     <div class="form-group">
                                                         <i class="fa fa-user-md icono" aria-hidden="true"></i>
                                                         <label for="correo"><strong>Correo</strong></label>
-                                                        <input class="form-control" type="email" id="correo" name="correo" placeholder="correo@mail.com">
+                                                        <input required class="form-control" type="email" id="correo" name="correo" placeholder="correo@mail.com">
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <i class="fa fa-user-md icono" aria-hidden="true"></i>
+                                                        <label for="contrasenia"><strong>Contraseña</strong></label>
+                                                        <input required class="form-control" type="password" id="contrasenia" name="contrasenia" placeholder="Ingrese una contraseña">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <i class="fa fa-user-md icono" aria-hidden="true"></i>
+                                                        <label for="estado"><strong>Estado</strong></label>
+                                                        <select id="estado" name="estado" class="form-group" required id="estado">
+                                                            <option selected value="0">Desactivado</option>
+                                                            <option value="1">Activado</option>
+                                                        </select>
+                                                         </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <button id="guardaperfil" class="btn btn-primary btn-sm" type="submit">
                                                     <i class="fa fa-floppy-o" style="margin-right: 10px; margin-left: 2px"  aria-hidden="true"></i>
-                                                    Guardar cambios
+                                                    Guardar Usuario
                                                 </button>
                                             </div>
                                         </form>

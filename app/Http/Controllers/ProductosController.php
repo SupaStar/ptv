@@ -255,11 +255,13 @@ class ProductosController extends Controller
         $productosTop=array_slice($productosTop,0,10);
         $productosCategoria=[];
         foreach ($productosTop as $producto){
+
             $prod=Producto::find($producto['id']);
             $prod->categoria;
             array_push($productosCategoria,$prod);
         }
-        echo json_encode($productosCategoria);
+
+        return json_encode($productosCategoria);
     }
     public function getProductos()
     {

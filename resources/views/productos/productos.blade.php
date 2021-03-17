@@ -15,6 +15,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
+                            <input hidden id="idadmin" value="{{Auth::user()->admin}}">
                             @if($usuario=Auth::user()->admin==1)
                             <div class="col-md-3 text-nowrap">
                                 <a class="btn btn-primary btn-sm" href="/registrarproducto" type="button">Agregar Producto</a>
@@ -48,7 +49,9 @@
                                     <th>Fecha de Caducidad</th>
                                     <th>Productos en Stock</th>
                                     <th>Estado</th>
+                                    @if($usuario=Auth::user()->admin==1)
                                     <th>Acciones</th>
+                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody id="tbproducto">
