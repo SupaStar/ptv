@@ -166,7 +166,7 @@
                     } );
 
                     $( '#busqueda' ).typeahead( { source: ['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo']
-                        , minLength: 2 } );
+                        , minLength: 1 } );
                     // };
                 }
             })

@@ -20,6 +20,7 @@
                                                 Editar Usuario: {{$usuario->nombre}}
                                             </p>
                                         </div>
+                                        <form action="/actualizarusuario" method="post" enctype="multipart/form-data">
                                         <div class="card-body" align="center">
                                             <div class="mb-3">
                                                 <div class="mb-3">
@@ -27,11 +28,11 @@
                                                 </div>
                                                 <div class="mb-3">
 
-                                                    <i class="fa fa-camera" style="margin-right: 10px; margin-left: 2px" aria-hidden="true"> <input accept="image/png, image/jpeg, image/jpg" id="fotoperfil" class="btn btn-primary btn-sm" type="file"></i>
+                                                    <i class="fa fa-camera" style="margin-right: 10px; margin-left: 2px" aria-hidden="true"> <input type="file" class="form-control" id="imgprueba" name="imgprueba" required accept="image/png, image/jpeg, image/jpg"></i>
 
                                                 </div>
                                             </div>
-                                            <form action="/actualizarusuario" method="post">
+
                                                 <div class="form-row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">

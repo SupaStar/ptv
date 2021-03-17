@@ -20,14 +20,18 @@ class PerfilController extends Controller
     public function updatePerfil(Request $request)
     {
 
-        $usuario=Auth::user();
-        $usuario->name=$request->nombrep;
-        $usuario->lastname=$request->apellido;
-        $usuario->username=$request->nombreUsuario;
-        $usuario->admin=$request->tipoEmpleado;
-        $usuario->email=$request->correo;
+        $usuario= Perfil::find($request->id);
+        $usuario->name = $request->nombre;
+        $usuario->lastname = $request->apellido;
+        $usuario->username = $request->nombreUsuario;
+        $usuario->email = $request->correo;
+        $usuario->password = bcrypt($request->contrasenia);
         $usuario->save();
-        return view('punto-venta.index');
+        $file = $request->file('imgprueba');
+        $nombre = $usuario->id . ("fotoperfil.jpg");
+        Storage::disk('public')->put($nombre, \File::get($file));
+
+        return view('perfil.usuarios');
     }
     public function perfil()
     {
@@ -152,6 +156,9 @@ class PerfilController extends Controller
         $usuario->password = bcrypt($request->contrasenia);
         $usuario->estado = $request->estado;
         $usuario->save();
+        $file = $request->file('imgprueba');
+        $nombre = $usuario->id . ("fotoperfil.jpg");
+        Storage::disk('public')->put($nombre, \File::get($file));
 
 
         return view("perfil/usuarios");
