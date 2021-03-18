@@ -40,6 +40,7 @@ Route::get("/getusuarios", "PerfilController@getUsuarios")->name("Obtener usuari
 Route::get("/agregarusuario", "PerfilController@agregarusuarios")->name("Agregar usuario");
 Route::get("/getPerfil", "PerfilController@getPerfil")->name("perfil");
 Route::get("/masvendidos", "ProductosController@productosMasVendidos");
+Route::post("/eliminacaja", "PuntoVentaController@productosMasVendidos");
 
 Route::get("/perfil", "PerfilController@perfil")->name("perfil");
 Route::post("actualizarperfil", "PerfilController@updatePerfil")->name("Actualizar Perfil");

@@ -36,6 +36,21 @@
                         </div>
                     </div>
                 </a></div>
+            @if($usuario=Auth::user()->admin==1)
+            <div hidden id="divreabrir" class="col-md-6 col-xl-4 offset-xl-0 mb-4"><a data-toggle="modal" data-target="#exampleModal5" id="btnabrircaja">
+                    <div class="card shadow border-bottom-info py-2">
+                        <div class="card-body">
+                            <div class="row align-items-center no-gutters">
+                                <div class="col-xl-7 offset-xl-2 mr-2">
+                                    <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span style="color: rgb(231,74,59);"></span></div>
+                                    <div class="text-dark font-weight-bold h5 mb-0"><span>  Abrir Caja</span></div>
+                                </div>
+                                <div class="col-auto"><i class="fas fa-cash-register fa-2x text-gray-300"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </a></div>
+            @endif
         </div>
         <div class="row">
 
@@ -132,6 +147,26 @@
                     </div>
                     <div class="modal-footer justify-content-center"><button class="btn btn-primary" data-dismiss="modal" id="btnaceptarcaja" type="button">Aceptar</button></div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-open2">
+        <div role="dialog" tabindex="-1" class="modal fade show" id="exampleModal5" aria-labelledby="exampleModalLabel" style="height: 825px;">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center justify-content-center">
+                        <h4 class="modal-title text-center" style="color: rgb(0,0,0);width: 100%;" id="usuarionombremodal"></h4>
+                        <form method="POST" action="/eliminacaja">
+                            {{ csrf_field() }}
+                        <input id="idcaja" type="text" style="width: 211px;" hidden />
+
+                        </form>
+                        <h4>¿Desea Reabrir su caja?</h4>
+                        <div class="modal-footer justify-content-center"><button class="btn btn-danger float-right" data-dismiss="modal" type="button">Cancelar</button><button id="eliminacorte" class="btn btn-primary" data-dismiss="modal" type="submit">Aceptar</button></div>
+
+                    </div>
+
+                     </div>
             </div>
         </div>
     </div>

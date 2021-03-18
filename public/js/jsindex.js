@@ -4,7 +4,9 @@ $(document).ready(function ()
         method: "get",
         url:"/getCorte",
         success:function (response)
+
         {
+            $('#idcaja').attr("value",response[0].id);
 
             if(response.length==1)
             {
@@ -14,11 +16,13 @@ $(document).ready(function ()
                     $('#btnCerrarCajas').attr("hidden",true)
                     $('#btncobrar').attr("hidden",true)
                   alertify.error("Caja cerrada, regrese el dia de mañana o contacte con el administrador para abrirla")
+                $('#divreabrir').removeAttr('hidden')
                 }
             }
             else{
                 $('#exampleModal').modal({backdrop: 'static', keyboard: false});
                 $('#exampleModal').modal('toggle')
+                $('#divreabrir').attr('hidden',true)
                 var today = new Date();
 
                 var dd = String(today.getDate()).padStart(2, '0');
@@ -103,6 +107,32 @@ $('#btnaceptarcaja').on("click", function(e){
                 },
             success:function (response)
             {
+            }
+        }
+    )
+    location.href="/"
+
+});
+$('#eliminacorte').on("click", function(e){
+    e.preventDefault()
+
+    $.ajax(
+        {
+            method:"post",
+            url:"/eliminacaja",
+            data:
+                {
+                    "id":$('#idcaja').val(),
+                    "_token": $("meta[name='csrf-token']").attr("content")
+                },
+            success:function (response)
+            {
+                console.log(response)
+                $('#btnCerrarCajas').attr("hidden",true)
+                $('#btncobrar').attr("hidden",true)
+                $('#divreabrir').removeAttr('hidden')
+
+
             }
         }
     )

@@ -40,6 +40,14 @@ class PuntoVentaController extends Controller
        $producto=Producto::find($id);
        return response()->json($producto);
     }
+    public function eliminacaja(Request $request)
+    {
+        $id=$request->id;
+       $ap=AperturaCaja::find($id);
+       $ap->fecha_hora_cierres=0;
+       return json_encode($ap);
+       return response()->json($ap);
+    }
     public function cobro()
     {
         return view("punto-venta.cobrar");
@@ -222,7 +230,9 @@ return response()->json($request->productos);
 
     public function corte()
     {
-        return view("punto-venta.corte");
+        $apertura=AperturaCaja::whereDate('created_at', '=', Carbon::now()->format('Y-m-d'))->get();
+
+        return view("punto-venta.corte", compact("apertura",$apertura));
     }
 
 

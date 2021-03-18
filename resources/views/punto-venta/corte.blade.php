@@ -40,7 +40,9 @@
                             <div class="card-body">
                                 <div class="row align-items-left no-gutters">
                                     <div class="col-xl-9 offset-xl-1 mr-2">
-                                        <input disabled id="saldoinicial" type="text" class="form-control form-control-sm" aria-controls="dataTable" placeholder=  "Saldo inicial">
+                                        @foreach($apertura as $ap)
+                                        <input value="{{$ap->monto_inicio}}" disabled id="saldoinicial" type="text" class="form-control form-control-sm" aria-controls="dataTable" placeholder=  "Saldo inicial">
+                                        @endforeach
                                     </div>
                                     <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300" style="margin-left: 10px"></i></div>
                                 </div>
@@ -60,8 +62,9 @@
                                     </div>
                                     <div class="col-auto"><i class="fas fa-cash-register fa-2x text-gray-300" style="margin-left: 10px"></i></div>
                                 </div>
-                                <button class="btn btn-primary" type="button" id="btnCerrarCaja" href="{{_c("ESTADO_CAJA") == "cerrada" ? route('cambiar-estado-caja') : route('cerrar-caja')}}"{{_c("ESTADO_CAJA") == "cerrada" ? "btnCambiarEstadoCaja" : "btnCerrarCaja"}}">Cerrar Caja</button>
-                            </div>
+                               </div>
+                            <button class="btn btn-primary" type="button" id="btnCerrarCaja" href="{{_c("ESTADO_CAJA") == "cerrada" ? route('cambiar-estado-caja') : route('cerrar-caja')}}"{{_c("ESTADO_CAJA") == "cerrada" ? "btnCambiarEstadoCaja" : "btnCerrarCaja"}}">Cerrar Caja</button>
+
                         </div>
                     </div>
                 </div>
