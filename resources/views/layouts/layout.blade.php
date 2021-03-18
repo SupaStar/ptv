@@ -44,7 +44,7 @@
                 </li>
                 @if($usuario=Auth::user()->admin==1)
                 <li class="nav-item dropdown"><a aria-expanded="false" data-toggle="dropdown" class="nav-link" href="#"><i class="fa fa-money"></i><span>Ventas</span></a>
-                    <div class="dropdown-menu"><a class="dropdown-item" href="#">Ventas General</a><a class="dropdown-item" href="#">Ventas de la semana</a><a class="dropdown-item" href="#">Ventas Mensuales</a></div>
+                    <div class="dropdown-menu"><a class="dropdown-item" href="/ventasgeneral">Ventas General</a><a class="dropdown-item" href="#">Ventas de la semana</a><a class="dropdown-item" href="#">Ventas Mensuales</a></div>
                 </li>
                 @endif
 
