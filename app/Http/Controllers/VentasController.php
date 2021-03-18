@@ -114,6 +114,15 @@ class VentasController extends Controller
     public function getVentassemana()
     {
        $ventas=Venta::whereDate("created_at",">=",Carbon::now()->subDays(7))->get();
+        foreach ($ventas as $venta)
+        {
+            $venta->cp = DB::table('ventas_productos')->where('venta_id', '=', $venta->id)->get();
+            $venta->usuarios=Perfil::find($venta->usuario_id);
+            foreach ($venta->cp as $cp)
+            {
+                $cp->producto=Producto::find($cp->producto_id);
+            }
+        }
         return response()->json($ventas);
     }
     public function ventasproducto()
@@ -125,7 +134,11 @@ class VentasController extends Controller
     public function ventashoy()
     {
 
-        return view("/reportes/ventas");
+        return view("/ventas/ventas-hoy");
+    }public function ventassemana()
+    {
+
+        return view("/ventas/ventas-semana");
     }public function ventasmes()
     {
         $ventas=Venta::whereDate("created_at","=",Carbon::now()->format('Y-m-d'))->get();

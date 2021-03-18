@@ -90,6 +90,7 @@ Route::post("reparaciones/realizar-abono/{id?}", "ReparacionesController@realiza
 Route::get('ventas-hoy', "ReportesController@ventas")->name("ventas.reporte");
 Route::get('ventasgeneral', "VentasController@ventasgeneral");
 Route::get('ventasgenerales', "VentasController@ventasgenerales");
+Route::get('ventassemana', "VentasController@ventassemana");
 Route::post('ventasfecha', "VentasController@fechaventas");
 Route::get('ventas-historico', "ReportesController@ventasTiempo")->name("ventas-history.reporte");
 Route::get('ventas/{id?}', "VentasController@show")->name("ventas.show");
