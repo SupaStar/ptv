@@ -16,16 +16,16 @@
                     <div class="card-body">
 
                         <div class="table-responsive table mt-2" id="tabla" role="grid" aria-describedby="dataTable_info">
-                            <table class="table my-0" id="dataTabla">
+                            <table class="table my-0" id="tb">
                                 <thead>
                                 <tr>
                                     <th>N° de Venta</th>
-
                                     <th>Empleado</th>
                                     <th>Total</th>
                                 </tr>
                                 </thead>
-                                <tbody id="tbcorte">
+                                <tbody id="tbventasdia">
+
                                 </tbody>
                             </table>
                         </div>
@@ -73,4 +73,5 @@
 @section('js')
     <script src="/js/bootbox.all.min.js"></script>
     <script src="/js/cortecaja.js"></script>
+    <script src="{{asset('/js/venta-dia.js')}}"></script>
 @endsection
