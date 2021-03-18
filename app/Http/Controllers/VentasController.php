@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\CategoriaProducto;
 use App\Perfil;
+use App\Producto;
 use App\User;
 use App\Venta;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class VentasController extends Controller
 {
@@ -137,7 +140,12 @@ class VentasController extends Controller
     { $ventas=Venta::whereDate("created_at","<=",Carbon::now()->format('Y-m-d'))->get();
     foreach ($ventas as $venta)
     {
+        $venta->cp = DB::table('ventas_productos')->where('venta_id', '=', $venta->id)->get();
         $venta->usuarios=Perfil::find($venta->usuario_id);
+        foreach ($venta->cp as $cp)
+        {
+            $cp->producto=Producto::find($cp->producto_id);
+        }
     }
 
         return response()->json($ventas);

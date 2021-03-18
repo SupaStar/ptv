@@ -27,7 +27,7 @@ $(document).ready(function () {
                 for (var i = 0; i < response.length; i++) {
                     total = total + parseFloat(response[i].total);
 
-                    $('#tbventas').append('<tr><td>' + response[i].id + '</td><td>' + response[i].nombre + '</td><td>' + response[i].usuarios.name + '</td><td>' + response[i].created_at + '</td><td>' + response[i].total + '</td></tr>');
+                    $('#tbventas').append('<tr><td>' + response[i].id + '</td><td>' + response[i].cp[0].producto.nombre + '</td><td>' + response[i].usuarios.name + '</td><td>' + response[i].created_at + '</td><td>' + response[i].total + '</td></tr>');
                 }
             }
         }
@@ -55,7 +55,7 @@ $(document).ready(function () {
                             for (var i = 0; i < response.length; i++) {
                                 total = total + parseFloat(response[i].total);
 
-                                $('#tbventas').append('<tr><td>' + response[i].id + '</td><td>' + response[i].nombre + '</td><td>' + response[i].usuarios.name + '</td><td>' + response[i].created_at + '</td><td>' + response[i].total + '</td></tr>');
+                                $('#tbventas').append('<tr><td>' + response[i].id + '</td><td>' + response[i].cp[0].producto.nombre + '</td><td>' + response[i].usuarios.name + '</td><td>' + response[i].created_at + '</td><td>' + response[i].total + '</td></tr>');
                             }
 
                         }
