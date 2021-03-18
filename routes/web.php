@@ -31,6 +31,7 @@ Route::get("/getcategorias", "CategoriaController@getCategorias");
 Route::get("/registroCategoria", "CategoriaController@registroCategoria")->name("registroCategoria");
 Route::post("/nuevaCategoria", "CategoriaController@nuevo");
 Route::get("/getVentashoy", "VentasController@getVentashoy")->name("getVentashoy");
+Route::get("/ventashoy", "VentasController@ventashoy");
 Route::get("/getVentassemana", "VentasController@getVentassemana")->name("getVentassemana");
 Route::get("/productos", "ProductosController@getProductos")->name("productos");
 Route::get("/registrarproducto", "ProductosController@registro")->name("registro");
@@ -38,9 +39,10 @@ Route::get("/usuarios", "PerfilController@usuarios")->name("usuarios");
 Route::get("/getusuarios", "PerfilController@getUsuarios")->name("Obtener usuarios");
 Route::get("/agregarusuario", "PerfilController@agregarusuarios")->name("Agregar usuario");
 Route::get("/getPerfil", "PerfilController@getPerfil")->name("perfil");
+Route::get("/masvendidos", "ProductosController@productosMasVendidos");
 
 Route::get("/perfil", "PerfilController@perfil")->name("perfil");
-Route::post("/actualizarperfil", "PerfilController@updatePerfil")->name("Actualizar Perfil");
+Route::post("actualizarperfil", "PerfilController@updatePerfil")->name("Actualizar Perfil");
 Route::get("/corte", "PuntoVentaController@corte")->name("corte");
 Route::get("/cobrar", "PuntoVentaController@cobro")->name("Cobrar");
 Route::get("/cambiar-estado-caja", "PuntoVentaController@cambiarEstadoCaja")->name("cambiar-estado-caja");
@@ -59,7 +61,11 @@ Route::put('productos-editar-stock', 'ProductosController@editarStock')->name("p
 Route::post("cobrar", "PuntoVentaController@cobrar")->name("cobrar");
 Route::post('/findid', 'PuntoVentaController@findid');
 Route::post('/findproductoid', 'ProductosController@findp');
+Route::post('/findusuarioid', 'PerfilController@findu');
+Route::post('/findcatid', 'CategoriaController@findc');
 Route::post('/desactivarproducto', 'ProductosController@desactivap');
+Route::post('/desactivarusuario', 'PerfilController@desactivau');
+Route::post('/desactivarcategoria', 'CategoriaController@desactivac');
 
 Route::post('actualizarproducto', 'ProductosController@actualizarproducto');
 Route::post('registrarproducto', 'ProductosController@store');
@@ -67,6 +73,7 @@ Route::post('actualizarcategoria', 'CategoriaController@actualizarcategoria');
 Route::post('actualizarusuario', 'PerfilController@actualizarusuario');
 
 Route::post('cobrarp/', 'PuntoVentaController@cobrarp');
+Route::post('registrarusuario', 'PerfilController@registrarusuario');
 Route::get('/obtenerproductos', 'ProductosController@productos');
 Route::get('/obtenercategoria', 'CategoriaController@encontrar');
 Route::get('/editarproducto/{id}', 'ProductosController@editap');

@@ -1,7 +1,9 @@
-@extends('layouts.main')
+@extends('layouts.layout')
 @section('titulo', "Reporte de ventas")
 @section('css')
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+
 <style>
     #main {
         height: auto;

@@ -20,33 +20,34 @@
                                                 Editar Usuario: {{$usuario->nombre}}
                                             </p>
                                         </div>
+                                        <form action="/actualizarusuario" method="post" enctype="multipart/form-data">
                                         <div class="card-body" align="center">
                                             <div class="mb-3">
                                                 <div class="mb-3">
-                                                    <img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="100" height="100">
+                                                    <img class="rounded-circle mb-3 mt-4" src="../uploads/fotoperfil/{{$usuario->id."fotoperfil.jpg"}}" width="100" height="100">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <button class="btn btn-primary btn-sm" type="button">
-                                                        <i class="fa fa-camera" style="margin-right: 10px; margin-left: 2px" aria-hidden="true"></i>
-                                                        Cambiar foto de perfil
-                                                    </button>
+
+                                                    <i class="fa fa-camera" style="margin-right: 10px; margin-left: 2px" aria-hidden="true"> <input type="file" class="form-control" id="imgprueba" name="imgprueba" required accept="image/png, image/jpeg, image/jpg"></i>
+
                                                 </div>
                                             </div>
-                                            <form method="POST" action="/actualizarusuario" >
+
                                                 <div class="form-row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <i class="fa fa-user-md icono" aria-hidden="true"></i>
                                                             <label for="nombre"><strong>Nombre</strong></label>
                                                             {{ csrf_field() }}
-                                                            <input value="{{$usuario->name}}" class="form-control" type="text" id="nombrep" name="nombree" placeholder="Nombre">
+                                                            <input value="{{$usuario->id}}" class="form-control" type="text" id="id" name="id" hidden>
+                                                            <input required value="{{$usuario->name}}" class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <i class="fa fa-user-md icono" aria-hidden="true"></i>
                                                             <label for="apellido"><strong>Apellido</strong></label>
-                                                            <input value="{{$usuario->lastname}}" class="form-control" type="text" id="apellido" name="apellido" placeholder="Apellido">
+                                                            <input required value="{{$usuario->lastname}}" class="form-control" type="text" id="apellido" name="apellido" placeholder="Apellido">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -55,13 +56,22 @@
                                                         <div class="form-group">
                                                             <i class="fa fa-user-md icono" aria-hidden="true"></i>
                                                             <label for="nombreUsuario"><strong>Nombre de usuario</strong></label>
-                                                            <input value="{{$usuario->username}}" class="form-control" type="text" id="nombreUsuario" name="nombreUsuario" placeholder="user.name">
+                                                            <input required value="{{$usuario->username}}" class="form-control" type="text" id="nombreUsuario" name="nombreUsuario" placeholder="user.name">
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <i class="fa fa-user-md icono" aria-hidden="true"></i>
                                                         <label for="tipoEmpleado"><strong>Tipo de empleado</strong></label>
-                                                        <input value="{{$usuario->admin}}" class="form-control" type="text" id="admin" name="admin" placeholder="user.name">
+                                                        <select required id="tipoEmpleado" name="tipoEmpleado" class="form-control">
+                                                            <option selected disabled value="Selecciona">Selecciona</option>
+                                                            @if($usuario->admin=1)
+                                                                <option selected value="1">Administrador</option>
+                                                                <option value="0">Empleado</option>
+                                                            @elseif($usuario->admin=0)
+                                                                <option  value="1">Administrador</option>
+                                                                <option selected value="0">Empleado</option>
+                                                            @endif
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
@@ -69,7 +79,33 @@
                                                         <div class="form-group">
                                                             <i class="fa fa-user-md icono" aria-hidden="true"></i>
                                                             <label for="correo"><strong>Correo</strong></label>
-                                                            <input  value="{{$usuario->email}}" class="form-control" type="email" id="correo" name="correo" placeholder="correo@mail.com">
+                                                            <input required value="{{$usuario->email}}" class="form-control" type="email" id="correo" name="correo" placeholder="correo@mail.com">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <i class="fa fa-user-md icono" aria-hidden="true"></i>
+                                                            <label for="contrasenia"><strong>Contraseña</strong></label>
+                                                            <input required class="form-control" type="password" id="contrasenia" name="contrasenia" placeholder="Ingrese una contraseña">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <i class="fa fa-user-md icono" aria-hidden="true"></i>
+                                                            <label for="estado"><strong>Estado</strong></label>
+                                                            <select  id="estado" name="estado" class="form-control" required id="estado">
+                                                                @if($usuario->estado=1)
+                                                                <option value="0">Desactivado</option>
+                                                                <option selected value="1">Activado</option>
+                                                                    @elseif($usuario->estado=0)
+                                                                        <option selected value="0">Desactivado</option>
+                                                                        <option value="1">Activado</option>
+                                                                @endif
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>

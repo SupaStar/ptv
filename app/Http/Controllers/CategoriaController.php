@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Categoria;
+use App\Perfil;
 use App\Producto;
 use App\Venta;
 use Carbon\Carbon;
@@ -30,8 +31,17 @@ class CategoriaController extends Controller
     {
         $categoria = new Categoria();
         $categoria->nombre = $request->nombre;
+        $categoria->estado = $request->estado;
         $categoria->save();
         return view("/categorias/registro-categoria");
+    }
+    public function desactivac(Request $request)
+    {
+        $categoria=Categoria::find($request->id);
+
+        $categoria->estado=0;
+        $categoria->save();
+        return response()->json($categoria);
     }
 
     public function editap($id)
@@ -39,10 +49,17 @@ class CategoriaController extends Controller
         $categoria=Categoria::find($id);
         return view("categorias/editar-categoria",compact("categoria",$categoria));
     }
+    public function findc(Request $request)
+    {
+        $categoria=Categoria::find($request->id);
+
+        return response()->json($categoria);
+    }
     public function actualizarcategoria(Request $request)
     {
         $categoria = Categoria::find($request->id);
         $categoria->nombre = $request->nombre;
+        $categoria->estado = $request->estado;
         $categoria->save();
 
         return view ("categorias/categorias");
@@ -51,6 +68,17 @@ class CategoriaController extends Controller
     public function encontrar()
     {
         $categoria = Categoria::all();
+        foreach ($categoria as $user)
+        {
+            if($user->estado==1)
+            {
+                $user->estado="Activado";
+            }
+            elseif($user->estado==0)
+            {
+                $user->estado="Desactivado";
+            }
+        }
         return response()->json($categoria);
     }
 
@@ -71,7 +99,18 @@ class CategoriaController extends Controller
     }
     public function getCategorias()
     {
-        $categorias=Categoria::all()->where("estado",">",0);
+        $categorias=Categoria::all();
+        foreach ($categorias as $user)
+        {
+            if($user->estado==1)
+            {
+                $user->estado="Activado";
+            }
+            elseif($user->estado==0)
+            {
+                $user->estado="Desactivado";
+            }
+        }
         return response()->json($categorias);
     }
 }
