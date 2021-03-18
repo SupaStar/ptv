@@ -79,6 +79,7 @@ Route::get('/obtenercategoria', 'CategoriaController@encontrar');
 Route::get('/editarproducto/{id}', 'ProductosController@editap');
 Route::get('/editarcategoria/{id}', 'CategoriaController@editap');
 Route::get('/editarusuario/{id}', 'PerfilController@editap');
+Route::get('/obtenerventas', 'VentasController@getVentashoy');
 
 Route::resource('reparaciones', 'ReparacionesController')->except("show");
 Route::get("reparaciones/{id?}", "ReparacionesController@show")->name("reparaciones.show");
