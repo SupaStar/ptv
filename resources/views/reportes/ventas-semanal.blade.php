@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.layout')
 @section('titulo',"Registro")
 @section('contenido')
     <div id="wrapper">

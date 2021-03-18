@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Perfil;
 use App\User;
 use App\Venta;
 use Carbon\Carbon;
@@ -125,6 +126,28 @@ class VentasController extends Controller
     }public function ventasmes()
     {
         $ventas=Venta::whereDate("created_at","=",Carbon::now()->format('Y-m-d'))->get();
+
+        return response()->json($ventas);
+    }
+    public function ventasgeneral()
+    {
+        return view ("/Ventas/ventas-general");
+    }
+    public function ventasgenerales()
+    { $ventas=Venta::whereDate("created_at","<=",Carbon::now()->format('Y-m-d'))->get();
+    foreach ($ventas as $venta)
+    {
+        $venta->usuarios=Perfil::find($venta->usuario_id);
+    }
+
+        return response()->json($ventas);
+    }
+    public function fechaventas(Request $request)
+    { $ventas=Venta::whereDate("created_at","<=",$request->final)->whereDate("created_at",">=",$request->inicio)->get();
+    foreach ($ventas as $venta)
+    {
+        $venta->usuarios=Perfil::find($venta->usuario_id);
+    }
 
         return response()->json($ventas);
     }
