@@ -1,7 +1,6 @@
 @extends('layouts.layout')
 @section('titulo', "Ventas de Hoy")
 @section('css')
-
 @endsection
 @section('contenido')
     <div id="wrapper">

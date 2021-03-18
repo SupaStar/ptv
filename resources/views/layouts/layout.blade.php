@@ -71,47 +71,42 @@
                                 </form>
                             </div>
                         </li>
-
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="badge badge-danger badge-counter">7</span><i class="fas fa-envelope fa-fw"></i></a>
+                            <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="badge badge-danger badge-counter">{{$productos=App\Producto::orderBy("estado","DESC")->where("stock","<=",10)->count()}}</span><i class="fas fa-chart-line fa-fw"></i></a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-list animated--grow-in">
-                                    <h6 class="dropdown-header">alerts center</h6><a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="dropdown-list-image mr-3"><img class="rounded-circle" src="../uploads/fotoperfil/{{$usuario=Auth::user()->id."fotoperfil.jpg"}}">
-                                            <div class="bg-success status-indicator"></div>
+                                    <h6 class="dropdown-header">Productos por terminarse</h6>
+                                    @foreach( $productos=App\Producto::orderBy("estado","DESC")->where("stock","<=",10)->get() as $product)
+                                    <a class="dropdown-item d-flex align-items-center" href="/editarproducto/{{$product->id}}">
+                                        <div class="mr-3">
+                                            <div class="bg-warning icon-circle"><i class="fas fa-exclamation-triangle text-white"></i>
+                                            </div>
                                         </div>
-                                        <div class="font-weight-bold">
-                                            <div class="text-truncate"><span>Hi there! I am wondering if you can help me with a problem I've been having.</span></div>
-                                            <p class="small text-gray-500 mb-0">Emily Fowler - 58m</p>
+                                        <div><span class="small text-gray-500">Su stock actual es de: {{$product->stock}} productos</span>
+                                            <p>El producto: {{$product->nombre}}, con código: {{$product->codigo}}, esta apunto de terminarse, presione la notificación si desea agregar producto</p>
                                         </div>
-                                    </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="dropdown-list-image mr-3"><img class="rounded-circle" src="assets/img/avatars/avatar2.jpeg">
-                                            <div class="status-indicator"></div>
-                                        </div>
-                                        <div class="font-weight-bold">
-                                            <div class="text-truncate"><span>I have the photos that you ordered last month!</span></div>
-                                            <p class="small text-gray-500 mb-0">Jae Chun - 1d</p>
-                                        </div>
-                                    </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="dropdown-list-image mr-3"><img class="rounded-circle" src="assets/img/avatars/avatar3.jpeg">
-                                            <div class="bg-warning status-indicator"></div>
-                                        </div>
-                                        <div class="font-weight-bold">
-                                            <div class="text-truncate"><span>Last month's report looks great, I am very happy with the progress so far, keep up the good work!</span></div>
-                                            <p class="small text-gray-500 mb-0">Morgan Alvarez - 2d</p>
-                                        </div>
-                                    </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="dropdown-list-image mr-3"><img class="rounded-circle" src="assets/img/avatars/avatar5.jpeg">
-                                            <div class="bg-success status-indicator"></div>
-                                        </div>
-                                        <div class="font-weight-bold">
-                                            <div class="text-truncate"><span>Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</span></div>
-                                            <p class="small text-gray-500 mb-0">Chicken the Dog · 2w</p>
-                                        </div>
-                                    </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                                </div>
+                                    </a>
+                                    @endforeach
+                                    </div>
                             </div>
-                            <div class="shadow dropdown-list dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown"></div>
                         </li>
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="badge badge-danger badge-counter">{{$productos=App\Producto::whereDate("fecha_caducidad",">=",Carbon\Carbon::now()->format('Y-m-d'))->whereDate("fecha_caducidad","<=",Carbon\Carbon::now()->addDays(15)->format('Y-m-d'))->count()}}</span><i class="far fa-clock fa-fw"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-list animated--grow-in">
+                                    <h6 class="dropdown-header">Productos por caducar</h6>
+                                  @foreach($productos=App\Producto::whereDate("fecha_caducidad",">=",Carbon\Carbon::now()->format('Y-m-d'))->whereDate("fecha_caducidad","<=",Carbon\Carbon::now()->addDays(15)->format('Y-m-d'))->get() as $us)
+                                    <a class="dropdown-item d-flex align-items-center" href="/editarproducto/{{$us->id}}">
+                                        <div class="mr-3">
+                                            <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
+                                        </div>
+                                        <div><span class="small text-gray-500">Caduca el dia: {{$us->fecha_caducidad}}</span>
+                                            <p>El producto: {{$us->nombre}}, con código: {{$us->codigo}}, esta apunto de caducar, presione la notificación si desea editarlo</p>
+                                        </div>
+                                    </a>
+                                    @endforeach
+                                     </div>
+                            </div>
+                        </li>
+
                         <div class="d-none d-sm-block topbar-divider"></div>
                         <li class="nav-item dropdown no-arrow">
                             <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">{{$usuario=Auth::user()->name}}</span><img class="border rounded-circle img-profile" src="../uploads/fotoperfil/{{$usuario=Auth::user()->id."fotoperfil.jpg"}}"></a>
