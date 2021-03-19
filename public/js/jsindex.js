@@ -131,8 +131,6 @@ $('#eliminacorte').on("click", function(e){
                 $('#btnCerrarCajas').attr("hidden",true)
                 $('#btncobrar').attr("hidden",true)
                 $('#divreabrir').removeAttr('hidden')
-
-
             }
         }
     )
