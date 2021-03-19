@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('titulo', "Punto de venta")
 @section('css')
-
+    <link rel="stylesheet" href="{{asset('assets/css/typeaheadtt.css')}}">
 @endsection
 @section('contenido')
     <div class="container-fluid">
@@ -14,7 +14,7 @@
                         <p class="text-primary m-0 font-weight-bold">Productos</p>
                         <div class="row">
                             <div class="col">
-                                <div id="prefetch" class="input-group"><input data-provide="typeahead" id="busqueda" class="typeahead bg-light form-control border-0 small " type="text" placeholder="Buscar por ...">
+                                <div class="input-group"><input id="busqueda" class="bg-light form-control border-0 small" type="text" placeholder="Buscar por ...">
                                     <div class="input-group-append"><button id="btnBuscar" class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
                                 </div>
                                 <div style="margin-top: 30px;" class="table-responsive">
@@ -75,8 +75,8 @@
                             <div class="form-row">
                                 <div class="col">
                                     <h1 style="font-size: 18px;height: 23px;margin-top: 9px;width: 78.3px;">Cuenta:</h1>
-                                    <div class="table-responsive">
-                                        <table id="tbcuenta" class="table">
+                                    <div class="table-responsive-sm">
+                                        <table id="tbcuenta" class="display nowrap" cellspacing="0" width="100%">
                                             <thead>
                                             <tr>
                                                 <th hidden>id</th>
@@ -89,7 +89,6 @@
                                             </tr>
                                             </thead>
                                             <tbody id="tbnota">
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -144,32 +143,8 @@
 @section('js')
     <script src="/js/pdv.js"></script>
     <script src="/js/tablaspdv.js"></script>
-    <script src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.jquery.js"></script>
+    <script src="/js/typeahead.bundle.js"></script>
     <script>
-        $(document).ready(function () {
-            $.ajax({
-                method: "get",
-                url:"/obtenerproductos",
-                success:function (response)
-                {
-
-
-                    var productNames = new Array();
-                    var productIds = new Object();
-//$.getJSON( '/getAjaxProducts', null,
-                    // function ( jsonData )
-                    //{
-                    $.each( response, function ( index, product )
-                    {
-                        productNames.push( product.nombre );
-                        productIds[product.nombre] = product.id;
-                    } );
-
-                    $( '#busqueda' ).typeahead( { source: ['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo']
-                        , minLength: 1 } );
-                    // };
-                }
-            })
-        })
     </script>
+
 @endsection

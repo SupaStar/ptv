@@ -4,9 +4,7 @@ $(document).ready(function ()
         method: "get",
         url:"/getCorte",
         success:function (response)
-
         {
-
 
             if(response.length==1)
             {
@@ -32,7 +30,9 @@ $(document).ready(function ()
                 today = yyyy + '-' + mm + '-' + dd;
                 $('#inputabrircaja').attr("value",today)
             }
+
             $('#cajainicio').text("$"+response[0].monto_inicio)
+            $('#idcaja').text("$"+response[0].monto_inicio)
             $.ajax(
                 {
 
@@ -113,6 +113,7 @@ $('#btnaceptarcaja').on("click", function(e){
     location.href="/"
 
 });
+
 $('#eliminacorte').on("click", function(e){
     e.preventDefault()
 
@@ -135,5 +136,4 @@ $('#eliminacorte').on("click", function(e){
         }
     )
     location.href="/"
-
 });

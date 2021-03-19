@@ -1,5 +1,6 @@
 $(document).ready(function ()
 {
+
     $('#filtrar').on('change', function (event)
     {
         var valorselect=$('#filtrar option:selected').val();

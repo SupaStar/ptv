@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{asset('assets/fonts/fontawesome-all.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/fonts/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/fonts/fontawesome5-overrides.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/styles.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/fonts/fontawesome5-overrides.min.css')}}">
     @yield('css')
 </head>
 
@@ -133,6 +133,7 @@
 <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('assets/js/chart.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+
 <script src="{{asset('assets/js/script.min.js')}}"></script>
 <script src="{{asset('assets/js/alertify.min.js')}}"></script>
 <script>

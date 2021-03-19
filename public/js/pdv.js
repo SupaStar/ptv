@@ -2,6 +2,7 @@ var productos = [];
 var total = 0;
 $(document).ready(function () {
 
+    $('#tbnota').empty();
     $("body").on("keydown", function (e) {
         if (e.which == 121) { // F2
             e.preventDefault();
@@ -168,4 +169,38 @@ $(document).ready(function () {
             });
         });
     });
+});
+var nproductos=[];
+$.ajax({
+    method: "get",
+    url:"/obtenerproductos",
+    success:function (response)
+    {
+        for (var i=0;i<response.length;i++)
+        {
+            nproductos.push(response[i].nombre)
+        }
+
+        var substringMatcher = function(strs) {
+            return function findMatches(q, cb) {
+                var matches, substringRegex;
+                matches = [];
+                substrRegex = new RegExp(q, 'i');
+                $.each(strs, function(i, str) {
+                    if (substrRegex.test(str)) {
+                        matches.push(str);
+                    }
+                });
+
+                cb(matches);
+            };
+        };
+        $('#busqueda').typeahead(null, {
+            int: true,
+            highlight: true, /* Enable substring highlighting */
+            minLength: 1,
+            name: 'countries',
+            source: substringMatcher(nproductos)
+        })
+    }
 });
