@@ -6,7 +6,7 @@ $(document).ready(function ()
         success:function (response)
 
         {
-            $('#idcaja').attr("value",response[0].id);
+
 
             if(response.length==1)
             {
