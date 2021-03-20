@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use phpDocumentor\Reflection\Types\Nullable;
 
 class PuntoVentaController extends Controller
 {
@@ -42,11 +43,11 @@ class PuntoVentaController extends Controller
     }
     public function eliminacaja(Request $request)
     {
-        $id=$request->id;
+        $id=$request->idcaja;
        $ap=AperturaCaja::find($id);
-       $ap->fecha_hora_cierres=0;
-       return json_encode($ap);
-       return response()->json($ap);
+       $ap->fecha_hora_cierre = null;
+       $ap->save();
+        return redirect("/");
     }
     public function cobro()
     {

@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{asset('assets/fonts/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/fonts/fontawesome5-overrides.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/fonts/fontawesome5-overrides.min.css')}}">
+
     @yield('css')
 </head>
 

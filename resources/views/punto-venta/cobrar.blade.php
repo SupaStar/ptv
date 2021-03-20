@@ -2,6 +2,7 @@
 @section('titulo', "Punto de venta")
 @section('css')
     <link rel="stylesheet" href="{{asset('assets/css/typeaheadtt.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/datatables.min.css')}}">
 @endsection
 @section('contenido')
     <div class="container-fluid">
@@ -18,13 +19,13 @@
                                     <div class="input-group-append"><button id="btnBuscar" class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
                                 </div>
                                 <div style="margin-top: 30px;" class="table-responsive">
-                                    <table class="table">
+                                    <table id="tbproductosb" class="table table-striped table-hover">
                                         <thead>
                                         <tr>
                                             <th>Código</th>
                                             <th>Nombre del producto</th>
                                             <th>Precio</th>
-                                            <th>Stock</th>
+                                            <th >Stock</th>
                                             <th>Acción</th>
                                         </tr>
                                         </thead>
@@ -63,13 +64,28 @@
                                         <div class="col-xl-4">
                                             <h1 class="text-right" style="font-size: 18px;height: 23px;margin-top: 9px;width: 78.3px;">Cantidad:</h1>
                                         </div>
-                                        <div class="col"><input disabled required id="cantidad" class="form-control" min="1" type="number" style="width: 100%;"></div>
+                                        <div class="col"><input disabled required id="cantidad" class="form-control" min="1" type="number" onkeypress="return isNumberKey(this);" style="width: 100%;"></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="col text-right" style="margin-top: 10px;"><button disabled id="btnenvio" class="btn btn-primary" type="submit">Agregar Producto</button></div>
+                            <div style="margin-top: 20px;" class="form-row">
+                                <div class="col">
+                                    <div class="form-row">
+                                        <div class="col-xl-8">
+                                            <h1 style="font-size: 18px;height: 23px;margin-top: 9px;">Productos en Stock:</h1>
+
+                                        </div>
+                                        <div class="col"><input id="stockt" disabled class="form-control" type="number" style="width: 100%;"></div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-row">
+
+                                        <div class="col float-left"><button disabled id="btnenvio" class="btn btn-primary" type="submit">Agregar Producto</button></div>
+                                    </div>
+                                </div>
                             </div>
+
                         </form>
                         <form>
                             <div class="form-row">
@@ -144,6 +160,7 @@
     <script src="/js/pdv.js"></script>
     <script src="/js/tablaspdv.js"></script>
     <script src="/js/typeahead.bundle.js"></script>
+    <script src="{{asset('assets/js/datatables.min.js')}}"></script>
     <script>
     </script>
 

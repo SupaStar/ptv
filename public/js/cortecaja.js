@@ -23,7 +23,7 @@ $(document).ready(function ()
             for(var i=0;i<response.length;i++) {
                 total=total+parseFloat(response[i].total);
 
-                $('#tbcorte').append('<tr><td>' + response[i].id + '</td><td>' + response[i].usuario + '</td><td>' + response[i].total + '</td></tr>');
+                $('#tbventasdia').append('<tr><td>' + response[i].id + '</td><td>' + response[i].usuario + '</td><td>' + response[i].total + '</td></tr>');
         }
             $('#saldocorte').val("$"+total)
         }

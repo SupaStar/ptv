@@ -20,6 +20,11 @@ $("#btnenvio").on("click",function(event){
 
                 }
                 else {
+                    if(isNaN($('#cantidad').val()))
+                    {
+                        alertify.error("ingrese valores enteros en su cantidad de producto")
+                    }
+                    else{
                     $('#btnenvio').prop("disabled",true)
                     $('#cantidad').prop("disabled",true)
                     var cantidad = parseInt($('#cantidad').val())
@@ -39,7 +44,7 @@ $("#btnenvio").on("click",function(event){
                         return a + b;
                     }, 0);
                     $('#totalpagar').val(suma)
-                }
+                }}
 
             }
 
@@ -70,6 +75,7 @@ function obtenertb(id)
                 $('#stock').val(response.stock)
                 $('#cantidad').removeAttr("disabled")
                 $('#btnenvio').removeAttr("disabled")
+                $('#stockt').val(response.stock)
                 $('#tablaproducto').empty();
             }
 
