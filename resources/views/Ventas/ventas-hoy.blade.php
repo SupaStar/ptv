@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 @section('titulo', "Ventas de Hoy")
 @section('css')
+    <link rel="stylesheet" href="{{asset('assets/css/datatables.min.css')}}">
 @endsection
 @section('contenido')
     <div id="wrapper">
@@ -8,6 +9,8 @@
             <div id="content">
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4">Ventas del dia: {{\Carbon\Carbon::now()->format("Y-m-d")}}</h3>
+                    <input hidden id="idadmin" value="{{Auth::user()->admin}}">
+
                     <div class="card shadow">
                         <div class="card-header py-3">
                             <p class="text-primary m-0 font-weight-bold"></p>
@@ -18,7 +21,7 @@
 
                             </div>
                             <div class="table-responsive table mt-2" id="tabla" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0" id="dataTabla">
+                                <table class="table table-bordered table-hover my-0" style="width: 100%" id="tablaventashoy">
                                     <thead>
                                     <tr>
                                         <th>N° de Venta</th>
@@ -27,7 +30,7 @@
                                         <th>Total</th>
                                     </tr>
                                     </thead>
-                                    <tbody id="tbventash">
+                                    <tbody >
                                     </tbody>
                                 </table>
                             </div>
@@ -40,4 +43,6 @@
         @endsection
         @section('js')
             <script src="{{asset('js/venta-dia.js')}}"></script>
+
+            <script src="{{asset('assets/js/datatables.min.js')}}"></script>
 @endsection

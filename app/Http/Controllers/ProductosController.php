@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Categoria;
 use App\CategoriaProducto;
+use App\Perfil;
 use App\Producto;
 use App\Venta;
 use Carbon\Carbon;
@@ -123,12 +124,25 @@ class ProductosController extends Controller
         $productos -> compra = $request -> compra;
         $productos -> venta = $request -> venta;
         $productos -> stock = $request -> stock;
-        $productos -> fecha_caducidad = $request -> fecha_caducidad;
-        $productos -> codigo = $request -> codigo;
+        if($request -> fecha_caducidad<=\Carbon\Carbon::now()->format("Y-m-d")){
+            return response()->json(["estado"=>false, "detalle"=>"Producto Caducado o pronto a caducar"]);
+
+        }
+        else {
+            $productos->fecha_caducidad = $request->fecha_caducidad;
+        }
+        if ($usuariouser = Producto::all()->where("codigo", $request -> codigo)->count() >= 1) {
+
+             return response()->json(["estado"=>false, "detalle"=>"Usuario Repetido"]);
+        } else {
+
+            $productos -> codigo = $request -> codigo;
+        }
+
         $productos -> descripcion = $request -> descripcion;
         $productos->save();
 
-        return view("productos.registro-productos");
+        return redirect("/productos");
     }
 
     /**
@@ -159,10 +173,9 @@ class ProductosController extends Controller
         $producto->estado = $request->estado;
         $producto->save();
         $categoriaproducto->id_producto=$producto->id;
-
         $categoriaproducto->id_categoria=$request->idcategoria;
         $categoriaproducto->save();
-        return view ("productos/productos");
+        return redirect("/productos");
     }
 
     /**
@@ -384,11 +397,10 @@ class ProductosController extends Controller
         $producto->codigo = $request->codigo;
         $producto->estado = $request->estado;
         $producto->save();
-        $categoriaproducto->id_producto=$producto->id;
-
+        $categoriaproducto->id_producto=$request->id;
         $categoriaproducto->id_categoria=$request->idcategoria;
         $categoriaproducto->save();
-        return view ("productos/productos");
+        return redirect("/productos");
     }
 
 
