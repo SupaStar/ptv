@@ -2,6 +2,7 @@
 @section('titulo', "Usuarios")
 @section('css')
 
+    <link rel="stylesheet" href="{{asset('assets/css/datatables.min.css')}}">
 @endsection
 @section('contenido')
     <div id="wrapper">
@@ -11,6 +12,7 @@
                     <h3 class="text-dark mb-4">Usuarios</h3>
                     <div class="card shadow">
                         <div class="card-header py-3">
+                            <input hidden id="idadmin" value="{{Auth::user()->admin}}">
                             <p class="text-primary m-0 font-weight-bold">Información de usuarios</p>
                         </div>
                         <div class="card-body">
@@ -22,15 +24,10 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <div class="text-md-right dataTables_filter" id="dataTable_filter">
-                                        <label>
-                                            <input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder=  "Buscar">
-                                        </label>
-                                    </div>
                                 </div>
                             </div>
                             <div class="table-responsive table mt-2" id="tabla" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0" id="dataTabla">
+                                <table class="table table-hover table-bordered my-0" id="tablausuarios" style="width: 100%; !important;">
                                     <thead>
                                     <tr>
                                         <th>Nombre</th>
@@ -39,10 +36,12 @@
                                         <th>Tipo de empleado</th>
                                         <th>Correo</th>
                                         <th>Estado</th>
-                                        <th>Acciones</th>
+                                        @if($usuario=Auth::user()->admin==1)
+                                            <th>Acciones</th>
+                                        @endif
                                     </tr>
                                     </thead>
-                                    <tbody id="tbusuarios">
+                                    <tbody>
                                     </tbody>
 
                                 </table>
@@ -68,4 +67,7 @@
 @endsection
 @section('js')
     <script src="/js/usuarios.js"></script>
+
+    <script src="{{asset('assets/js/datatables.min.js')}}"></script>
+
 @endsection

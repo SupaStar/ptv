@@ -168,14 +168,16 @@ class PerfilController extends Controller
         $usuario->name = $request->nombre;
         $usuario->lastname = $request->apellido;
         if ($usuariouser = Perfil::all()->where("username", $request->nombreUsuario)->count() >= 1) {
-            return response()->json(["estado"=>false, "detalle"=>"Usuario Repetido"]);
+            return redirect('/usuarios')->with("message","OK");
+            // return response()->json(["estado"=>false, "detalle"=>"Usuario Repetido"]);
         } else {
 
             $usuario->username = $request->nombreUsuario;
         }
         $usuario->admin = $request->tipoEmpleado;
         if ($usuariouser = Perfil::all()->where("email", $request->correo)->count() >= 1) {
-            return response()->json(["estado"=>false, "detalle"=>"Correo ya registrado"]);
+           return "Usuario ya existe";
+            // return response()->json(["estado"=>false, "detalle"=>"Correo ya registrado"]);
         } else {
             $usuario->email = $request->correo;
         }

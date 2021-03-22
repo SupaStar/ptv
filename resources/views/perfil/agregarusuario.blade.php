@@ -18,7 +18,7 @@
                 <div class="card-body" align="center">
                     <div class="mb-3">
                         <div class="mb-3">
-                            <img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="100" height="100">
+                            <img class="rounded-circle mb-3 mt-4" src="uploads/fotoperfil/default.png" width="100" height="100">
                         </div>
                         <div class="mb-3">
 
