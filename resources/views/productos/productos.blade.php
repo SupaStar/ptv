@@ -2,6 +2,7 @@
 @section('titulo', "Productos")
 @section('css')
 
+    <link rel="stylesheet" href="{{asset('assets/css/datatables.min.css')}}">
 @endsection
 @section('contenido')
 <div id="wrapper">
@@ -41,7 +42,7 @@
                                 </div>
                             </div>
                         <div class="table-responsive table mt-2" id="tabla" role="grid" aria-describedby="dataTable_info">
-                            <table class="table my-0" id="dataTabla">
+                            <table id="dtproductos" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
                                     <th>Código</th>
@@ -153,4 +154,6 @@
 @endsection
 @section('js')
     <script src="{{asset('/js/producto.js')}}"></script>
+
+    <script src="{{asset('assets/js/datatables.min.js')}}"></script>
 @endsection

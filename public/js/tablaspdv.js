@@ -20,9 +20,9 @@ $("#btnenvio").on("click",function(event){
 
                 }
                 else {
-                    if(isNaN($('#cantidad').val()))
+                    if(($('#cantidad').val()==0||$('#cantidad').val()==""))
                     {
-                        alertify.error("ingrese valores enteros en su cantidad de producto")
+                        alertify.error("ingrese una cantidad mayor a 0")
                     }
                     else{
                     $('#btnenvio').prop("disabled",true)
@@ -76,7 +76,6 @@ function obtenertb(id)
                 $('#cantidad').removeAttr("disabled")
                 $('#btnenvio').removeAttr("disabled")
                 $('#stockt').val(response.stock)
-                $('#tablaproducto').empty();
             }
 
         }

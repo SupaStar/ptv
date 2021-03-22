@@ -12,12 +12,12 @@
                     <div class="row mb-3">
                         <div class="col-lg-12">
                             <div class="row">
-                                <div class="col">
+                                <div class="col-md-6 offset-md-3" style="max-width: 50%;">
                                     <div class="card shadow mb-3" align="center">
                                         <div class="card-header py-3">
                                             <p class="text-primary m-0 font-weight-bold">
                                                 <i class="fa fa-cog" aria-hidden="true"></i>
-                                                Editar Usuario: {{$usuario->nombre}}
+                                                Editar Usuario: {{$usuario->name}}
                                             </p>
                                         </div>
                                         <form action="/actualizarusuario" method="post" enctype="multipart/form-data">
@@ -28,7 +28,7 @@
                                                 </div>
                                                 <div class="mb-3">
 
-                                                    <i class="fa fa-camera" style="margin-right: 10px; margin-left: 2px" aria-hidden="true"> <input type="file" class="form-control" id="imgprueba" name="imgprueba" required accept="image/png, image/jpeg, image/jpg"></i>
+                                                    <i class="fa fa-camera" style="margin-right: 10px; margin-left: 2px" aria-hidden="true"> <input type="file" class="form-control" id="imgprueba" name="imgprueba" accept="image/png, image/jpeg, image/jpg"></i>
 
                                                 </div>
                                             </div>
@@ -88,7 +88,7 @@
                                                         <div class="form-group">
                                                             <i class="fa fa-user-md icono" aria-hidden="true"></i>
                                                             <label for="contrasenia"><strong>Contraseña</strong></label>
-                                                            <input required class="form-control" type="password" id="contrasenia" name="contrasenia" placeholder="Ingrese una contraseña">
+                                                            <input class="form-control" type="password" id="contrasenia" name="contrasenia" placeholder="Ingrese una contraseña">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -98,10 +98,10 @@
                                                             <i class="fa fa-user-md icono" aria-hidden="true"></i>
                                                             <label for="estado"><strong>Estado</strong></label>
                                                             <select  id="estado" name="estado" class="form-control" required id="estado">
-                                                                @if($usuario->estado=1)
+                                                                @if($usuario->estado==1)
                                                                 <option value="0">Desactivado</option>
                                                                 <option selected value="1">Activado</option>
-                                                                    @elseif($usuario->estado=0)
+                                                                    @elseif($usuario->estado==0)
                                                                         <option selected value="0">Desactivado</option>
                                                                         <option value="1">Activado</option>
                                                                 @endif

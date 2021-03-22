@@ -18,8 +18,8 @@
                                 <div class="input-group"><input id="busqueda" class="bg-light form-control border-0 small" type="text" placeholder="Buscar por ...">
                                     <div class="input-group-append"><button id="btnBuscar" class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
                                 </div>
-                                <div style="margin-top: 30px;" class="table-responsive">
-                                    <table id="tbproductosb" class="table table-striped table-hover">
+                                <div style="margin-top: 30px;" class="table-responsive table-sm">
+                                    <table id="tbproductosb" class="table table-sm table-striped table-hover">
                                         <thead>
                                         <tr>
                                             <th>Código</th>

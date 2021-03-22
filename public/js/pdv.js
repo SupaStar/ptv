@@ -30,6 +30,7 @@ $(document).ready(function () {
                     }
                 },
                 "bFilter":false,
+
                 columns:[
                     {data:"codigo"},
                     {data:"nombre"},
