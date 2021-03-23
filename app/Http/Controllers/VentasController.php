@@ -134,11 +134,11 @@ class VentasController extends Controller
     public function ventashoy()
     {
 
-        return view("ventas/ventas-hoy");
+        return view("Ventas/ventas-hoy");
     }public function ventassemana()
     {
 
-        return view("/ventas/ventas-semana");
+        return view("/Ventas/ventas-semana");
     }public function ventasmes()
     {
         $ventas=Venta::whereDate("created_at","=",Carbon::now()->format('Y-m-d'))->get();
