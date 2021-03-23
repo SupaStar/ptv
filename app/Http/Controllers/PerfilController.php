@@ -171,7 +171,6 @@ class PerfilController extends Controller
             return redirect('/usuarios')->with("message","OK");
             // return response()->json(["estado"=>false, "detalle"=>"Usuario Repetido"]);
         } else {
-
             $usuario->username = $request->nombreUsuario;
         }
         $usuario->admin = $request->tipoEmpleado;

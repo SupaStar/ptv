@@ -134,7 +134,7 @@ class VentasController extends Controller
     public function ventashoy()
     {
 
-        return view("/ventas/ventas-hoy");
+        return view("ventas/ventas-hoy");
     }public function ventassemana()
     {
 
