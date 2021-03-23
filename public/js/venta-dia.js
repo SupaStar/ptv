@@ -31,6 +31,7 @@ $.ajax({
                 },
                 "bFilter": false,
                 columns: [
+                    {data: "id"},
                     {data: "usuario"},
                     {data: "created_at"},
                     {data: "total"}
