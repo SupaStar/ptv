@@ -30,7 +30,12 @@ class PerfilController extends Controller
         if (Hash::check($request->contrasenia, $usuario->password)) {
 
         } else {
-            $usuario->password = bcrypt($request->contrasenia);
+            if($request->contrasenia!=null||$request->contrasenia!="")
+            {
+
+
+                $usuario->password = bcrypt($request->contrasenia);
+            }
         }
         $usuario->save();
         if ($request->file() != null) {
