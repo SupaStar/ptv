@@ -378,12 +378,15 @@ class ProductosController extends Controller
     }
     public function actualizarproducto(Request $request)
     {
+
         $producto=Producto::find($request->id);
+
         $categoriaproducto=CategoriaProducto::where("id_producto","=",$request->id)->first();
-        $producto->nombre = $request->nombre;
+
+        $producto->nombre = $request -> nombre;
         $producto->venta = $request->venta;
         $producto->compra = $request->compra;
-        if($request->stock==0){
+        if($request->stock<1){
             $producto->stock = $request->stock;
             $producto->estado = 0;
         }

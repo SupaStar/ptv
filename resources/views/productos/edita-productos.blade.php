@@ -18,13 +18,13 @@
                                         <p class="text-primary m-0 font-weight-bold">Editar Producto: {{$producto->nombre}}</p>
                                     </div>
                                     <div class="card-body">
-                                        <form method="POST" action="/actualizarproducto">
+                                        <form action="/actualizarproducto" method="post" enctype="multipart/form-data">
                                             <div class="form-row">
                                                 <div class="col-sm-4">
                                                     <div class="form-group">
-                                                        <label for="nombre"><strong>ID</strong></label>
-
-                                                        <input disabled value="{{$producto->id}}" class="form-control" type="text" id="id" name="id">
+                                                        <label for="id"><strong>ID</strong></label>
+                                                        <input hidden value="{{$producto->id}}" class="form-control" type="text" id="id" name="id">
+                                                        <input disabled value="{{$producto->id}}" class="form-control" type="text" id="ids" name="ids">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-8">
@@ -115,7 +115,10 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <button class="btn btn-primary btn-sm" type="submit">Actualizar</button>
+                                                <button class="btn btn-primary btn-sm" type="submit">
+                                                    <i class="fa fa-floppy-o" style="margin-right: 10px; margin-left: 2px"  aria-hidden="true"></i>
+                                                    Guardar Producto
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
