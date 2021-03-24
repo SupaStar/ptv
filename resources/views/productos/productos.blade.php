@@ -45,6 +45,8 @@
                             <table id="dtproductos" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
+
+                                    <th>ID</th>
                                     <th>Código</th>
                                     <th>Nombre</th>
                                     <th>Costo Compra</th>
