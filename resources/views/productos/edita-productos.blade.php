@@ -20,11 +20,17 @@
                                     <div class="card-body">
                                         <form method="POST" action="/actualizarproducto">
                                             <div class="form-row">
-                                                <div class="col-lg-12">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label for="nombre"><strong>ID</strong></label>
+
+                                                        <input disabled value="{{$producto->id}}" class="form-control" type="text" id="id" name="id">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-8">
                                                     <div class="form-group">
                                                         <label for="nombre"><strong>Nombre</strong></label>
                                                         {{ csrf_field() }}
-                                                        <input value="{{$producto->id}}" class="form-control" type="text" id="id" name="id" hidden>
                                                         <input value="{{$producto->nombre}}" class="form-control" type="text" id="nombre" name="nombre" placeholder="nombre">
                                                     </div>
                                                 </div>
