@@ -33,7 +33,7 @@ class ProductosController extends Controller
     {
         if($request->filtro==1)
         {
-            $productos=Producto::orderBy("estado","DESC")->whereDate("fecha_caducidad",">=",Carbon::now()->format('Y-m-d'))->whereDate("fecha_caducidad","<=",Carbon::now()->addDays(15)->format('Y-m-d'))->get();
+            $productos=Producto::orderBy("estado","DESC")->where("estado","=",1)->whereDate("fecha_caducidad",">=",Carbon::now()->format('Y-m-d'))->whereDate("fecha_caducidad","<=",Carbon::now()->addDays(15)->format('Y-m-d'))->get();
             foreach($productos as $producto)
             {
                 if($producto->estado==1){
@@ -96,7 +96,8 @@ class ProductosController extends Controller
             return response()->json($productos);
 
         }
-        else{
+        elseif($request->filtro==5)
+        {
         $productos = Producto::orderBy("estado","DESC")->get();
         foreach($productos as $producto)
         {
@@ -110,7 +111,24 @@ class ProductosController extends Controller
         }
 
         return response()->json($productos);
-    }}
+    }
+        else
+        {
+        $productos = Producto::orderBy("estado","DESC")->where("estado","=",1)->get();
+        foreach($productos as $producto)
+        {
+            if($producto->estado==1){
+                $producto->estado="Activo";
+            }
+            else{
+                $producto->estado="Inactivo";
+
+            }
+        }
+
+        return response()->json($productos);
+    }
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -158,7 +176,7 @@ class ProductosController extends Controller
         $producto->nombre = $request->nombre;
         $producto->venta = $request->venta;
         $producto->compra = $request->compra;
-        if($request->stock==0){
+        if($request->stock<1){
             $producto->stock = $request->stock;
             $producto->estado = 0;
         }
@@ -170,7 +188,6 @@ class ProductosController extends Controller
         $producto->fecha_caducidad = $request->fecha_caducidad;
         $producto->descripcion = $request->descripcion;
         $producto->codigo = $request->codigo;
-        $producto->estado = $request->estado;
         $producto->save();
         $categoriaproducto->id_producto=$producto->id;
         $categoriaproducto->id_categoria=$request->idcategoria;
@@ -398,11 +415,19 @@ class ProductosController extends Controller
         $producto->fecha_caducidad = $request->fecha_caducidad;
         $producto->descripcion = $request->descripcion;
         $producto->codigo = $request->codigo;
-        $producto->estado = $request->estado;
         $producto->save();
-        $categoriaproducto->id_producto=$request->id;
-        $categoriaproducto->id_categoria=$request->idcategoria;
-        $categoriaproducto->save();
+        if($categoriaproducto==null)
+        {
+            $categoriaproductos= new CategoriaProducto();
+            $categoriaproductos->id_producto=$producto->id;
+            $categoriaproductos->id_categoria=$request->idcategoria;
+            $categoriaproductos->save();
+        }
+        else {
+            $categoriaproducto->id_producto = $request->id;
+            $categoriaproducto->id_categoria = $request->idcategoria;
+            $categoriaproducto->save();
+        }
         return redirect("/productos");
     }
 

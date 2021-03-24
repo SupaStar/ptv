@@ -25,8 +25,8 @@
                                 <div class="col-md-3 text-nowrap">
                                     <div id="filtrar" class="dataTables_length" aria-controls="dataTable">
                                          <label>Filtrar<select class="form-control form-control-sm custom-select custom-select-sm" style="margin-left: 5px">
-                                                <option selected disabled>Selecciona</option>
-                                                <option value="5">Todos los productos</option>
+
+                                                <option selected value="5">Todos los productos</option>
                                                 <option value="1">Productos por caducar</option>
                                                 <option value="2">Productos por terminarse</option>
                                                 <option value="3">Productos sin existencia</option>

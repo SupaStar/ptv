@@ -50,6 +50,10 @@ $(document).ready(function () {
     $.ajax({
         method: "get",
         url: "/obtenerproductos",
+        data:{
+          "filtro":5
+        },
+
         success: function (response) {
             $('#dtproductos').DataTable(
                 {

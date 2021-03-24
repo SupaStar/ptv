@@ -82,7 +82,7 @@
                                                         <select id="idcategoria" name="idcategoria" required class="form-control" required >
                                                             <option disabled>Seleccion una categoria</option>
                                                             @foreach($categoria as $categoria)
-                                                                <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
+
                                                                 @foreach($categoriap as $cp)
                                                                 @if($categoria->id==$cp->id_categoria)
                                                                 <option selected value="{{$categoria->id}}">{{$categoria->nombre}}</option>
