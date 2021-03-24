@@ -28,12 +28,8 @@ class PerfilController extends Controller
         $usuario->username = $request->nombreUsuario;
         $usuario->email = $request->correo;
         if (Hash::check($request->contrasenia, $usuario->password)) {
-
         } else {
-            if($request->contrasenia!=null||$request->contrasenia!="")
-            {
-
-
+            if ($request->contrasenia != null || $request->contrasenia != "") {
                 $usuario->password = bcrypt($request->contrasenia);
             }
         }
@@ -154,12 +150,11 @@ class PerfilController extends Controller
         if (Hash::check($request->contrasenia, $usuario->password)) {
 
         } else {
-            if($request->contrasenia!=null||$request->contrasenia!="")
-            {
+            if ($request->contrasenia != null || $request->contrasenia != "") {
 
 
-            $usuario->password = bcrypt($request->contrasenia);
-        }
+                $usuario->password = bcrypt($request->contrasenia);
+            }
         }
 
         $usuario->save();
@@ -179,14 +174,14 @@ class PerfilController extends Controller
         $usuario->name = $request->nombre;
         $usuario->lastname = $request->apellido;
         if ($usuariouser = Perfil::all()->where("username", $request->nombreUsuario)->count() >= 1) {
-            return redirect('/usuarios')->with("message","OK");
+            return redirect('/usuarios')->with("message", "userR");
             // return response()->json(["estado"=>false, "detalle"=>"Usuario Repetido"]);
         } else {
             $usuario->username = $request->nombreUsuario;
         }
         $usuario->admin = $request->tipoEmpleado;
         if ($usuariouser = Perfil::all()->where("email", $request->correo)->count() >= 1) {
-           return "Usuario ya existe";
+            return redirect('/usuarios')->with("message", "emailR");
             // return response()->json(["estado"=>false, "detalle"=>"Correo ya registrado"]);
         } else {
             $usuario->email = $request->correo;

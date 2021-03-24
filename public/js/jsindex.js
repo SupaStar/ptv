@@ -20,6 +20,8 @@ $(document).ready(function ()
             else{
                 $('#exampleModal').modal({backdrop: 'static', keyboard: false});
                 $('#exampleModal').modal('toggle')
+                $('#exampleModal .close').hide();
+
                 $('#divreabrir').attr('hidden',true)
                 var today = new Date();
 

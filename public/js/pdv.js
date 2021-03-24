@@ -222,7 +222,7 @@ $.ajax({
     {
         for (var i=0;i<response.length;i++)
         {
-            nproductos.push(response[i].nombre)
+            nproductos.push(response[i].nombre+" "+response[i].codigo)
         }
 
         var substringMatcher = function(strs) {

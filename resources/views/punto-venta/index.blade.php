@@ -1,7 +1,6 @@
 @extends('layouts.layout')
 @section('titulo', "Punto de venta")
 @section('css')
-
 @endsection
 @section('contenido')
     <div class="container-fluid">
@@ -29,7 +28,13 @@
                             <div class="row align-items-center no-gutters">
                                 <div class="col-xl-7 offset-xl-2 mr-2">
                                     <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span style="color: rgb(231,74,59);"></span></div>
-                                    <div class="text-dark font-weight-bold h5 mb-0"><span>   {{_c("ESTADO_CAJA") == "cerrada" ? "Abrir caja": "Cerrar caja"}}</span></div>
+                                    <div class="text-dark font-weight-bold h5 mb-0">
+                                        @if($apertura=App\AperturaCaja::whereDate('created_at', '=', Carbon\Carbon::now()->format('Y-m-d'))->first()!=null)
+                                            <span>Cerrar Caja</span>
+                                        @else
+                                            <span>Caja Cerrada</span>
+
+                                        @endif</div>
                                 </div>
                                 <div class="col-auto"><i class="fas fa-cash-register fa-2x text-gray-300"></i></div>
                             </div>
@@ -53,11 +58,8 @@
             @endif
         </div>
         <div class="row">
-
-
         </div>
         <div class="row">
-
             <div class="col">
                 <div class="row">
                     <div class="col-lg-6 mb-4">
