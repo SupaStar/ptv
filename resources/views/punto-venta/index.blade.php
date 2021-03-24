@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('titulo', "Punto de venta")
+@section('titulo', "Inicio")
 @section('css')
 @endsection
 @section('contenido')
