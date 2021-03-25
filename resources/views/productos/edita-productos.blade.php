@@ -84,12 +84,12 @@
                                                             @foreach($categoria as $categoria)
 
                                                                 @foreach($categoriap as $cp)
-                                                                @if($categoria->id==$cp->id_categoria)
-                                                                <option selected value="{{$categoria->id}}">{{$categoria->nombre}}</option>
-                                                                    @else
-                                                                        <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
 
-                                                                    @endif
+                                                                <option selected value="{{$categoria->id==$cp->id_categoria}}">{{$categoria->nombre}}</option>
+
+
+
+
                                                                 @endforeach
 
 
