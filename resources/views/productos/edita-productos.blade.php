@@ -83,17 +83,19 @@
                                                             <option disabled>Seleccion una categoria</option>
 
                                                             @foreach($categoria as $categoria)
-
+                                                                @if($categoriap->count()==0)
 
                                                                     <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
-                                                            @endforeach
 
+                                                            @else
                                                                 @foreach($categoriap as $cp)
 
                                                                     <option value="{{$categoria->id}}"  {!! $cp->id_categoria==$categoria->id ? "selected" : "" !!}>{{$categoria->nombre}}</option>
 
                                                                 @endforeach
 
+                                                            @endif
+                                                            @endforeach
 
 
 

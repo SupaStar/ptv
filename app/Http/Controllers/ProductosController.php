@@ -376,11 +376,11 @@ class ProductosController extends Controller
     public function editap($id)
     {
         $producto=Producto::find($id);
-        $categoriaproducto=CategoriaProducto::where("id_producto","=",$id);
+        $categoriaproducto=CategoriaProducto::where("id_producto","=",$id)->get();
         $categoria=Categoria::all();
-        if($categoriaproducto=="")
-        {
-        }
+
+
+
         return view("productos/edita-productos")->with(compact("producto",$producto))->with(compact("categoria",$categoria))->with("categoriap",$categoriaproducto);
     }
     public function findp(Request $request)
