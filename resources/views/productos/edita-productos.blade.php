@@ -81,13 +81,20 @@
                                                         <label for="categoria"><strong>Categoria</strong></label>
                                                         <select id="idcategoria" name="idcategoria" required class="form-control" required >
                                                             <option disabled>Seleccion una categoria</option>
+
                                                             @foreach($categoria as $categoria)
+
+
+                                                                    <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
+                                                            @endforeach
+
                                                                 @foreach($categoriap as $cp)
+
                                                                     <option value="{{$categoria->id}}"  {!! $cp->id_categoria==$categoria->id ? "selected" : "" !!}>{{$categoria->nombre}}</option>
 
                                                                 @endforeach
 
-                                                            @endforeach
+
 
 
                                                         </select>
