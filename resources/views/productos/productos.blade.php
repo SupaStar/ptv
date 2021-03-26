@@ -68,6 +68,9 @@
                     </div>
                 </div>
                 <div class="row mb-3" style="margin-top: 3%">
+                    <div class="col-lg-6">
+                        <canvas id="grafica"></canvas>
+                    </div>
 
                     <div class="col-lg-6">
                         <div class="card mb-3">
@@ -160,4 +163,72 @@
         @endif
 </script>
     <script src="{{asset('assets/js/datatables.min.js')}}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script>
+        var productos = [];
+        var valores = [];
+        var partes = [];
+        var cont;
+        $.ajax({
+            url: '/masvendidos',
+            method: 'get',
+            data:{
+                id:"grafica",
+            }
+        }).done(function (response){
+                for(var x= 0; x<=response.length;x++){
+                    cont = response [x];
+                    partes  = cont.split(";");
+                    productos [x] = partes [0];
+                    valores [x]= partes [1];
+                    console.log(productos[x]);
+                    console.log(valores[x]);
+                }
+                generar();
+            }
+        );
+
+        function generar (){
+            var ctx = document.getElementById('grafica').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: productos,
+                    datasets: [{
+                        label: 'Productos más vendidos',
+                        data: valores ,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+
+
+    </script>
 @endsection
