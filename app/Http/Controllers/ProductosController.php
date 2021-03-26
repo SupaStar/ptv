@@ -337,7 +337,6 @@ class ProductosController extends Controller
     public function productosMasVendidos(){
         $ventas = Venta::whereMonth('created_at',Carbon::now()->format('m'))->get();
         $productosTop=[];
-
         foreach ($ventas as $venta){
             $repeticiones=$venta->nRepeticionesP();
             foreach ($repeticiones as $clave=>$repeticion){
@@ -351,25 +350,18 @@ class ProductosController extends Controller
                 }
             }
         }
-
         usort($productosTop, function($a, $b) {
             return  $b['repeticiones']<=> $a['repeticiones'];
         });
-
-        //return response()->json_decode($productosTop);
-        //return ($productosTop);
-
         $productosTop=array_slice($productosTop,0,10);
         $productosCategoria=[];
         foreach ($productosTop as $producto){
-            $prod=Producto::select(['nombre'])->where("id", $producto['id'])->get();
-            $p = $prod.";".$producto['repeticiones'];
-            //$p=[$prod,$producto['repeticiones']];
+            $prod=Producto::find($producto['id']);
+            $prod->categoria;
+            $p=['producto'=>$prod,"ventas"=>$producto['repeticiones']];
             array_push($productosCategoria,$p);
         }
-
         return response()->json($productosCategoria);
-
     }
     public function getProductos()
     {
