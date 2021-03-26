@@ -18,11 +18,10 @@ use App\Venta;
 if (env('APP_FORCE_HTTPS', false)) {
     URL::forceScheme('https');
 }
+Route::get("productos-prueba", "ProductosController@productosMasVendidos");
 Route::post("productos-registro", "ProductosController@create")->name("productos-registro");
 Route::post("categorias-registro", "CategoriasController@create")->name("categorias-registro");
 Route::get("/registro", "PerfilController@registro")->name("registro");
-
-
 Route::get("/", "PuntoVentaController@index")->name("punto-venta");
 Route::get("/getCorte", "PuntoVentaController@getCorte")->name("getCorte");
 Route::get("/ventasSemanales", "PuntoVentaController@ventasSemanales")->name("ventasSemanales");
