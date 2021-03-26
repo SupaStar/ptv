@@ -25,7 +25,7 @@ $(document).ready(function ()
 
                 $('#tbventasdia').append('<tr><td>' + response[i].id + '</td><td>' + response[i].usuario + '</td><td>' + response[i].total + '</td></tr>');
         }
-            $('#saldocorte').val("$"+total)
+            $('#saldocorte').val("$"+parseFloat(total))
         }
 
     })

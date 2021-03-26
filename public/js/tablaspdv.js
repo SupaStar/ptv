@@ -156,7 +156,7 @@ if(cambio>=0){
             $('#inputpago').val("");
             $('#totalpagar').val("");
             $('#tbnota').empty();
-            alertify.alert('Cobro realizado Correctamente', 'Su cambio es de: '+cambio, function(){ alertify.success('Pago realizado correctamente'); });
+            alertify.alert('Cobro realizado Correctamente', 'Su cambio es de: '+cambio, function(){ alertify.success('Pago realizado correctamente', location.reload()); });
         }
     })}
     else{

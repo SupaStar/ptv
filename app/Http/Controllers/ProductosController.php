@@ -114,7 +114,7 @@ class ProductosController extends Controller
     }
         else
         {
-        $productos = Producto::orderBy("estado","DESC")->where("estado","=",1)->get();
+        $productos = Producto::orderBy("estado","DESC")->where("estado","=",1)->where("stock",">",0)->get();
         foreach($productos as $producto)
         {
             if($producto->estado==1){

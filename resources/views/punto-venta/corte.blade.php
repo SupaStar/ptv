@@ -41,7 +41,7 @@
                                 <div class="row align-items-left no-gutters">
                                     <div class="col-xl-9 offset-xl-1 mr-2">
                                         @foreach($apertura as $ap)
-                                        <input value="{{$ap->monto_inicio}}" disabled id="saldoinicial" type="text" class="form-control form-control-sm" aria-controls="dataTable" placeholder=  "Saldo inicial">
+                                        <input value="${{$ap->monto_inicio}}" disabled id="saldoinicial" type="text" class="form-control form-control-sm" aria-controls="dataTable" placeholder=  "Saldo inicial">
                                         @endforeach
                                     </div>
                                     <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300" style="margin-left: 10px"></i></div>
@@ -53,7 +53,7 @@
                     <div class="col-lg-6">
                         <div class="card mb-3">
                             <div class="py-3" align="center">
-                                <p class="text-primary m-0 font-weight-bold">Saldo de corte sin caja</p>
+                                <p class="text-primary m-0 font-weight-bold">Saldo de corte de caja</p>
                             </div>
                             <div class="card-body">
                                 <div class="row align-items-left no-gutters">

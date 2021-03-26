@@ -1,7 +1,6 @@
 @extends('layouts.layout')
 @section('titulo', "Productos")
 @section('css')
-
     <link rel="stylesheet" href="{{asset('assets/css/datatables.min.css')}}">
 @endsection
 @section('contenido')
@@ -12,7 +11,7 @@
                 <h3 class="text-dark mb-4">Productos</h3>
                 <div class="card shadow">
                     <div class="card-header py-3">
-                        <p class="text-primary m-0 font-weight-bold">Informacion de productos mas vendidos</p>
+                        <p class="text-primary m-0 font-weight-bold">Informacion de productos</p>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -156,6 +155,9 @@
 @endsection
 @section('js')
     <script src="{{asset('/js/producto.js')}}"></script>
-
+<script>
+    @if()
+        @endif
+</script>
     <script src="{{asset('assets/js/datatables.min.js')}}"></script>
 @endsection

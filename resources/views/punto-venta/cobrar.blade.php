@@ -112,7 +112,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="col text-right" style="margin-top: 10px;">
-                                    <h1>Total: $<input style="width: 30%; font-size: 25px" disabled id="totalpagar"></h1>
+                                    <h1 style="font-size: 25px">Total: $<input style="width: 30%; font-size: 25px" disabled id="totalpagar"></h1>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -134,13 +134,13 @@
                             <div class="modal-body justify-content-center">
                                 <div class="form-row">
                                     <div class="col-xl-3 offset-xl-2">
-                                        <h1 style="font-size: 20px;">Su total es: $</h1>
+                                        <h1 style="font-size: 20px;">Total a pagar: $</h1>
                                     </div>
                                     <div class="col-xl-6"><input disabled id="inputtotal" type="number" class="form-control" /></div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-xl-3 offset-xl-2">
-                                        <h1 style="font-size: 20px;">Usted pago: $</h1>
+                                        <h1 style="font-size: 20px;">Efectivo recibido: $</h1>
                                     </div>
                                     <div class="col-xl-6"><input id="inputpago" class="form-control" type="number" /></div>
                                 </div>
