@@ -356,12 +356,14 @@ class ProductosController extends Controller
         $productosTop=array_slice($productosTop,0,10);
         $productosCategoria=[];
         foreach ($productosTop as $producto){
-            $prod=Producto::find($producto['id']);
-            $prod->categoria;
-            $p=['producto'=>$prod,"ventas"=>$producto['repeticiones']];
+            $prod=Producto::select(['nombre'])->where("id", $producto['id'])->get();
+            $p = $prod.";".$producto['repeticiones'];
+            //$p=[$prod,$producto['repeticiones']];
             array_push($productosCategoria,$p);
         }
+
         return response()->json($productosCategoria);
+
     }
     public function getProductos()
     {

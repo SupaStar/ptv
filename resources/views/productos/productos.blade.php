@@ -158,6 +158,7 @@
 @endsection
 @section('js')
     <script src="{{asset('/js/producto.js')}}"></script>
+
     <script src="{{asset('assets/js/datatables.min.js')}}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
@@ -165,7 +166,11 @@
         var productos = [];
         var valores = [];
         var partes = [];
-        var cont;
+        var agrupadoProductos = [];
+        var agrupadoCantidad = [];
+        var cont = 0;
+        var nom;
+        var info;
         $.ajax({
             url: '/masvendidos',
             method: 'get',
@@ -173,14 +178,45 @@
                 id:"grafica",
             }
         }).done(function (response){
-                for(var x= 0; x<=response.length;x++){
-                    cont = response [x];
-                    partes  = cont.split(";");
-                    productos [x] = partes [0];
+            console.log(response);
+                for(var x= 0; x<response.length;x++){
+                    info = response [x];
+                    partes  = info.split(";");
+                    nom = JSON.parse(partes [0]);
+                    productos [x] = nom[0].nombre;
                     valores [x]= partes [1];
-                    console.log(productos[x]);
-                    console.log(valores[x]);
+
+                    if(agrupadoProductos.indexOf(productos[x])!=-1){
+                        agrupadoCantidad[agrupadoProductos.indexOf(productos[x])] = parseInt(valores[x]) + parseInt( agrupadoCantidad[agrupadoProductos.indexOf(productos[x])]);
+                    }
+                    else{
+                        agrupadoProductos[cont] = productos[x];
+                        agrupadoCantidad [cont] = parseInt(valores[x]);
+                        cont = cont + 1;
+                    }
                 }
+
+                var cant;
+                var prod;
+
+                for (k = 1; k < agrupadoCantidad.length; k++) {
+                    for (i = 0; i < agrupadoCantidad.length-1; i++) {
+                        if (agrupadoCantidad[i] < agrupadoCantidad[i + 1]) {
+                            cant = agrupadoCantidad[i];
+                            agrupadoCantidad[i] = agrupadoCantidad[i + 1];
+                            agrupadoCantidad[i + 1] = cant;
+
+                            prod = agrupadoProductos[i];
+                            agrupadoProductos[i] = agrupadoProductos[i + 1];
+                            agrupadoProductos[i + 1] = prod;
+                        }
+                    }
+                }
+
+                console.log(productos);
+                console.log(valores);
+                console.log(agrupadoCantidad);
+                console.log(agrupadoProductos);
                 generar();
             }
         );
@@ -190,10 +226,10 @@
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: productos,
+                    labels: agrupadoProductos,
                     datasets: [{
                         label: 'Productos más vendidos',
-                        data: valores ,
+                        data: agrupadoCantidad ,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
