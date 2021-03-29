@@ -158,10 +158,6 @@
 @endsection
 @section('js')
     <script src="{{asset('/js/producto.js')}}"></script>
-<script>
-    @if()
-        @endif
-</script>
     <script src="{{asset('assets/js/datatables.min.js')}}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
