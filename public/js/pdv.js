@@ -6,6 +6,13 @@ $(document).ready(function () {
         url:"/obtenerproductos",
         success:function (response)
         {
+            for(var i=0;i<response.length;i++)
+            {
+                if(response[i].stock<=3)
+                {
+                    alertify.error('Producto: '+response[i].nombre +' esta por terminarse');
+                }
+            }
             $('#tbproductosb').dataTable({
                 data:response,
                 "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
