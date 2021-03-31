@@ -33,7 +33,7 @@ class ProductosController extends Controller
     {
         if($request->filtro==1)
         {
-            $productos=Producto::orderBy("estado","DESC")->where("estado","=",1)->whereDate("fecha_caducidad",">=",Carbon::now()->format('Y-m-d'))->whereDate("fecha_caducidad","<=",Carbon::now()->addDays(15)->format('Y-m-d'))->get();
+            $productos=Producto::orderBy("estado","DESC")->where("estado","=",1)->whereDate("fecha_caducidad","<=",Carbon::now()->addDays(10)->format('Y-m-d'))->whereDate("fecha_caducidad","<=",Carbon::now()->addDays(15)->format('Y-m-d'))->get();
             foreach($productos as $producto)
             {
                 if($producto->estado==1){
@@ -49,7 +49,7 @@ class ProductosController extends Controller
 
         }elseif($request->filtro==2)
         {
-            $productos=Producto::orderBy("estado","DESC")->where("stock","<=",10)->get();
+            $productos=Producto::orderBy("estado","DESC")->where("stock","<=",3)->get();
             foreach($productos as $producto)
             {
                 if($producto->estado==1){

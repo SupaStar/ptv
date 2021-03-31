@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
     $('#filtrar').on('change', function (event) {
+        $('#tbproducto').empty();
         var valorselect = $('#filtrar option:selected').val();
         $.ajax({
             method: "get",
