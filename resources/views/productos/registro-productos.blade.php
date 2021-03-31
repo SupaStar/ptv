@@ -108,3 +108,16 @@
 </div>
 @endsection
 @section('js')
+    <script>
+        $(document).ready(function ()
+        {
+            @if(session('Caducado'))
+           alertify.error("El producto no se puede registrar, esta caducado o apunto de caducar")
+            @endif
+            @if(session('Codigo'))
+           alertify.error("El producto no se puede registrar, código repetido")
+            @endif
+        })
+
+    </script>
+@endsection

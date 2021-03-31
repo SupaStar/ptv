@@ -31,4 +31,5 @@
 </form>
 @endsection
 @section('js')
+
 @endsection

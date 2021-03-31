@@ -98,7 +98,7 @@ class ProductosController extends Controller
         }
         elseif($request->filtro==5)
         {
-        $productos = Producto::orderBy("estado","DESC")->get();
+        $productos = Producto::orderBy("fecha_caducidad","DESC")->get();
         foreach($productos as $producto)
         {
             if($producto->estado==1){
@@ -142,7 +142,7 @@ class ProductosController extends Controller
         $productos -> compra = $request -> compra;
         $productos -> venta = $request -> venta;
         $productos -> stock = $request -> stock;
-        if($request -> fecha_caducidad<=\Carbon\Carbon::now()->format("Y-m-d")){
+        if($request -> fecha_caducidad<Carbon::now()->format("Y-m-d")){
             return response()->json(["estado"=>false, "detalle"=>"Producto Caducado o pronto a caducar"]);
 
         }
@@ -185,10 +185,20 @@ class ProductosController extends Controller
             $producto->stock = $request->stock;
             $producto->estado = 1;
         }
-        $producto->fecha_caducidad = $request->fecha_caducidad;
-        $producto->descripcion = $request->descripcion;
-        $producto->codigo = $request->codigo;
-        $producto->save();
+        if($request -> fecha_caducidad<Carbon::now()->format("Y-m-d")){
+            return redirect("/registrarproducto")->with('Caducado', 'OK');
+
+        }
+        else {
+            $producto->fecha_caducidad = $request->fecha_caducidad;
+        }$producto->descripcion = $request->descripcion;
+        if ($usuariouser = Producto::all()->where("codigo", $request -> codigo)->count() >= 1) {
+
+            return redirect("/registrarproducto")->with('Codigo', 'OK');
+        } else {
+
+            $producto -> codigo = $request -> codigo;
+        }$producto->save();
         $categoriaproducto->id_producto=$producto->id;
         $categoriaproducto->id_categoria=$request->idcategoria;
         $categoriaproducto->save();
@@ -416,7 +426,13 @@ class ProductosController extends Controller
             $producto->stock = $request->stock;
             $producto->estado = 1;
         }
-        $producto->fecha_caducidad = $request->fecha_caducidad;
+        if($request -> fecha_caducidad<Carbon::now()->format("Y-m-d")){
+            return redirect("/registrarproducto")->with('Caducado', 'OK');
+
+        }
+        else {
+            $producto->fecha_caducidad = $request->fecha_caducidad;
+        }
         $producto->descripcion = $request->descripcion;
         $producto->codigo = $request->codigo;
         $producto->save();
