@@ -59,6 +59,7 @@ $(document).ready(function () {
                 {
                     data: response,
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+                    "searching": true,
                     language: {
                         "decimal": "",
                         "emptyTable": "No hay información",
@@ -101,6 +102,7 @@ $(document).ready(function () {
                         }
                     ]
                 });
+
         }
     })
 })

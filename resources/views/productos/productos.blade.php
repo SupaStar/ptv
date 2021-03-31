@@ -34,9 +34,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="text-md-right dataTables_filter" id="dataTable_filter">
-                                        <label>
-                                            <input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder=  "Buscar">
-                                        </label>
+
                                     </div>
                                 </div>
                             </div>
