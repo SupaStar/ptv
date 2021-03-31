@@ -98,7 +98,7 @@ class ProductosController extends Controller
         }
         elseif($request->filtro==5)
         {
-        $productos = Producto::orderBy("estado","DESC")->get();
+        $productos = Producto::orderBy("fecha_caducidad","DESC")->get();
         foreach($productos as $producto)
         {
             if($producto->estado==1){
