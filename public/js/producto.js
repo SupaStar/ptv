@@ -59,7 +59,7 @@ $(document).ready(function () {
             $('#dtproductos').DataTable(
                 {
                     data: response,
-                    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+                    "lengthMenu": [[10, 15, -1], [10, 15, "All"]],
                     "searching": true,
                     language: {
                         "decimal": "",
