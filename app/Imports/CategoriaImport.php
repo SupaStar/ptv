@@ -18,7 +18,8 @@ class CategoriaImport implements ToModel, WithHeadingRow
         $bd=Categoria::where('nombre',$row['categoria'])->first();
         if(!$bd){
             return new Categoria([
-                'nombre'=>$row['categoria']
+                'nombre'=>$row['categoria'],
+                'estado'=>1
             ]);
         }
         return $bd;
