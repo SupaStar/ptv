@@ -35,20 +35,23 @@ class PuntoVentaController extends Controller
 
         return view("punto-venta.index");
     }
+
     public function findid(Request $request)
     {
-        $id=$request->id;
-       $producto=Producto::find($id);
-       return response()->json($producto);
+        $id = $request->id;
+        $producto = Producto::find($id);
+        return response()->json($producto);
     }
+
     public function eliminacaja(Request $request)
     {
-        $id=$request->idcaja;
-       $ap=AperturaCaja::find($id);
-       $ap->fecha_hora_cierre = null;
-       $ap->save();
+        $id = $request->idcaja;
+        $ap = AperturaCaja::find($id);
+        $ap->fecha_hora_cierre = null;
+        $ap->save();
         return redirect("/");
     }
+
     public function cobro()
     {
         return view("punto-venta.cobrar");
@@ -57,12 +60,12 @@ class PuntoVentaController extends Controller
     public function buscar(Request $request)
     {
         $busqueda = $request->input("busqueda");
-        $productos = Producto::where("nombre", "like", "%$busqueda%")->where("stock",">=",1)->where("estado","=","1")
-            ->orWhere("id", $busqueda)->where("stock",">=",1)->where("estado","=","1")
-            ->orWhere('descripcion', 'like', "%$busqueda%")->where("stock",">=",1)->where("estado","=","1")
-            ->orWhere('codigo', 'like', "%$busqueda%")->where("stock",">=",1)->orderBy("nombre")->where("estado","=","1")->get();
+        $productos = Producto::where("nombre", "like", "%$busqueda%")->where("stock", ">=", 1)->where("estado", "=", "1")
+            ->orWhere("id", $busqueda)->where("stock", ">=", 1)->where("estado", "=", "1")
+            ->orWhere('descripcion', 'like', "%$busqueda%")->where("stock", ">=", 1)->where("estado", "=", "1")
+            ->orWhere('codigo', 'like', "%$busqueda%")->where("stock", ">=", 1)->orderBy("nombre")->where("estado", "=", "1")->get();
         return response()->json($productos);
-       // return view("layouts.resultado-busqueda-modal", compact("busqueda", "productos"));
+        // return view("layouts.resultado-busqueda-modal", compact("busqueda", "productos"));
     }
 
     public function cobrar(Request $request)
@@ -139,7 +142,7 @@ class PuntoVentaController extends Controller
             $conf->valor = "abierta";
             $conf->save();
             //Mail::to('obednoe22yt@gmail.com')->send(new AbrirCajaMail($request->input("inicial"),$apertura->observaciones));
-            return response()->json(["estado" => true, 'detalle' => ['productos_a_caducar'=>$productosCaducos]]);
+            return response()->json(["estado" => true, 'detalle' => ['productos_a_caducar' => $productosCaducos]]);
         } catch (Exception $e) {
             return response()->json(["estado" => true, "errores" => ["Ocurrió un error al querer cambiar el estado de la caja."]]);
         }
@@ -183,44 +186,47 @@ class PuntoVentaController extends Controller
         }
         return view("punto-venta.index");
     }
+
     public function cobrarp(Request $request)
 
-    { if (_c("ESTADO_CAJA") == "cerrada")
-        return response()->json(["estado" => false, "mensaje" => "La caja está cerrada, debe abrirla para comenzar a vender."]);
+    {
+        if (_c("ESTADO_CAJA") == "cerrada")
+            return response()->json(["estado" => false, "mensaje" => "La caja está cerrada, debe abrirla para comenzar a vender."]);
         try {
             DB::beginTransaction();
-        $venta = new Venta();
-        $venta->total = $request->total;
-        $venta->denominacion = $request->denominacion;
-        $venta->cambio = $request->denominacion - $request->total;
-        $venta->utilidad = 0;
-        $venta->usuario_id = auth()->user()->id;
-        $venta->save();
-        $utilidad = 0;
-             $productos = $request->producto;
-        foreach ($productos as $prod)
-        {
-            $producto=Producto::find($prod[0]);
-            $producto->stock -= $prod[4];
-            $utilidad += $prod[4] * ($prod[3] - $producto->compra);
-            $venta->productos()->attach($prod[0], [
-                "cantidad" => $prod[4],
-                "venta" => $prod[3],
-                "compra" => $producto->compra
-            ]);
-            $producto->save();
+            $venta = new Venta();
+            $venta->total = $request->total;
+            $venta->denominacion = $request->denominacion;
+            $venta->cambio = $request->denominacion - $request->total;
+            $venta->utilidad = 0;
+            $venta->tipo_venta = $request->tipo_venta;
+            $venta->usuario_id = auth()->user()->id;
+            $venta->save();
+            $utilidad = 0;
+            $productos = $request->producto;
+            foreach ($productos as $prod) {
+                $producto = Producto::find($prod[0]);
+                $producto->stock -= $prod[4];
+                $utilidad += $prod[4] * ($prod[3] - $producto->compra);
+                $venta->productos()->attach($prod[0], [
+                    "cantidad" => $prod[4],
+                    "venta" => $prod[3],
+                    "compra" => $producto->compra
+                ]);
+                $producto->save();
+            }
+            $venta->utilidad = $utilidad;
+            $venta->save();
+            DB::commit();
+            return json_encode($productos);
+            return response()->json(["estado" => true]);
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::error('PuntoVenta:cobrar ---------- ' . $e->__toString());
+            return response()->json(["estado" => false, "mensaje" => "No se pudo registrar el pago, anótelo en la libreta"]);
         }
-        $venta->utilidad = $utilidad;
-        $venta->save();
-        DB::commit();
-        return json_encode($productos); return response()->json(["estado" => true]);
-    } catch (Exception $e) {
-DB::rollBack();
-Log::error('PuntoVenta:cobrar ---------- ' . $e->__toString());
-return response()->json(["estado" => false, "mensaje" => "No se pudo registrar el pago, anótelo en la libreta"]);
-}
 
-return response()->json($request->productos);
+        return response()->json($request->productos);
     }
 
     public function perfil()
@@ -231,15 +237,15 @@ return response()->json($request->productos);
 
     public function corte()
     {
-        $apertura=AperturaCaja::whereDate('created_at', '=', Carbon::now()->format('Y-m-d'))->get();
+        $apertura = AperturaCaja::whereDate('created_at', '=', Carbon::now()->format('Y-m-d'))->get();
 
-        return view("punto-venta.corte", compact("apertura",$apertura));
+        return view("punto-venta.corte", compact("apertura", $apertura));
     }
 
 
     public function getCorte()
     {
-        $apertura=AperturaCaja::whereDate('created_at', '=', Carbon::now()->format('Y-m-d'))->get();
+        $apertura = AperturaCaja::whereDate('created_at', '=', Carbon::now()->format('Y-m-d'))->get();
 
         return response()->json($apertura);
     }

@@ -32,6 +32,7 @@
                                         <th>Empleado</th>
                                         <th>Fecha de venta</th>
                                         <th>Total</th>
+                                        <th>Tipo de pago</th>
                                     </tr>
                                     </thead>
                                     <tbody id="tbventas">

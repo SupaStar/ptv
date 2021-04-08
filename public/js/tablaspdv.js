@@ -147,6 +147,7 @@ if(cambio>=0){
 
         data:{
             "producto":parametros, "total":$('#inputtotal').val(),"denominacion":$('#inputpago').val(),
+            'tipo_venta':$("#tipo_venta").val(),
             "_token": $("meta[name='csrf-token']").attr("content")
         },
         success:function (response)

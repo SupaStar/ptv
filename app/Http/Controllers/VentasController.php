@@ -36,7 +36,7 @@ class VentasController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -47,27 +47,27 @@ class VentasController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $venta = Venta::find($id);
         $produ = [];
-        foreach($venta->productos as $p){
+        foreach ($venta->productos as $p) {
             array_push($produ, [
                 "nombre" => $p->nombre,
                 "venta" => $p->pivot->venta,
                 "cantidad" => $p->pivot->cantidad,
             ]);
         }
-        return response()->json(["productos" =>$produ, "total" =>$venta->total]);
+        return response()->json(["productos" => $produ, "total" => $venta->total]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -78,8 +78,8 @@ class VentasController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -90,85 +90,94 @@ class VentasController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
     }
+
     public function getVentashoy()
     {
-       $ventas=Venta::whereDate("created_at","=",Carbon::now()->format('Y-m-d'))->get();
-       foreach($ventas as $venta)
-       {
-           $venta->productos;
-           $usuario=User::all()->where('id','=',$venta->usuario_id);
-           foreach ($usuario as $us) {
-               $venta->usuario=$us->name;
-           }
-       }
+        $ventas = Venta::whereDate("created_at", "=", Carbon::now()->format('Y-m-d'))->get();
+        foreach ($ventas as $venta) {
+            $venta->productos;
+            $venta->tipo_venta=$venta->tipo_venta==0?"Efectivo":"Pago con tarjeta";
+            $usuario = User::all()->where('id', '=', $venta->usuario_id);
+            foreach ($usuario as $us) {
+                $venta->usuario = $us->name;
+            }
+        }
 
         return response()->json($ventas);
     }
+
     public function getVentassemana()
     {
-       $ventas=Venta::whereDate("created_at",">=",Carbon::now()->subDays(7))->get();
-        foreach ($ventas as $venta)
-        {
+        $ventas = Venta::whereDate("created_at", ">=", Carbon::now()->subDays(7))->get();
+        foreach ($ventas as $venta) {
             $venta->cp = DB::table('ventas_productos')->where('venta_id', '=', $venta->id)->get();
-            $venta->usuarios=Perfil::find($venta->usuario_id);
-            foreach ($venta->cp as $cp)
-            {
-                $cp->producto=Producto::find($cp->producto_id);
+            $venta->usuarios = Perfil::find($venta->usuario_id);
+            foreach ($venta->cp as $cp) {
+                $cp->producto = Producto::find($cp->producto_id);
             }
         }
         return response()->json($ventas);
     }
+
     public function ventasproducto()
     {
-        $ventas=Venta::whereDate("created_at","=",Carbon::now()->format('Y-m-d'))->get();
+        $ventas = Venta::whereDate("created_at", "=", Carbon::now()->format('Y-m-d'))->get();
 
         return response()->json($ventas);
     }
+
     public function ventashoy()
     {
 
         return view("Ventas/ventas-hoy");
-    }public function ventassemana()
+    }
+
+    public function ventassemana()
     {
 
         return view("/Ventas/ventas-semana");
-    }public function ventasmes()
+    }
+
+    public function ventasmes()
     {
-        $ventas=Venta::whereDate("created_at","=",Carbon::now()->format('Y-m-d'))->get();
+        $ventas = Venta::whereDate("created_at", "=", Carbon::now()->format('Y-m-d'))->get();
 
         return response()->json($ventas);
     }
+
     public function ventasgeneral()
     {
-        return view ("/Ventas/ventas-general");
+        return view("/Ventas/ventas-general");
     }
+
     public function ventasgenerales()
-    { $ventas=Venta::whereDate("created_at","<=",Carbon::now()->format('Y-m-d'))->get();
-    foreach ($ventas as $venta)
     {
-        $venta->cp = DB::table('ventas_productos')->where('venta_id', '=', $venta->id)->get();
-        $venta->usuarios=Perfil::find($venta->usuario_id);
-        foreach ($venta->cp as $cp)
-        {
-            $cp->producto=Producto::find($cp->producto_id);
+        $ventas = Venta::whereDate("created_at", "<=", Carbon::now()->format('Y-m-d'))->get();
+        foreach ($ventas as $venta) {
+            $venta->cp = DB::table('ventas_productos')->where('venta_id', '=', $venta->id)->get();
+            $venta->usuarios = Perfil::find($venta->usuario_id);
+            $venta->tipo_venta=$venta->tipo_venta==0?"Efectivo":"Pago con tarjeta";
+            foreach ($venta->cp as $cp) {
+                $cp->producto = Producto::find($cp->producto_id);
+            }
         }
-    }
 
         return response()->json($ventas);
     }
+
     public function fechaventas(Request $request)
-    { $ventas=Venta::whereDate("created_at","<=",$request->final)->whereDate("created_at",">=",$request->inicio)->get();
-    foreach ($ventas as $venta)
     {
-        $venta->usuarios=Perfil::find($venta->usuario_id);
-    }
+        $ventas = Venta::whereDate("created_at", "<=", $request->final)->whereDate("created_at", ">=", $request->inicio)->get();
+        foreach ($ventas as $venta) {
+            $venta->usuarios = Perfil::find($venta->usuario_id);
+        }
 
         return response()->json($ventas);
     }

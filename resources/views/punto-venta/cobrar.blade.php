@@ -144,6 +144,16 @@
                                     </div>
                                     <div class="col-xl-6"><input id="inputpago" class="form-control" type="number" /></div>
                                 </div>
+                                <div class="form-row">
+                                    <div class="col-xl-3 offset-xl-2">
+                                        <h1 style="font-size: 20px;" >Forma de pago</h1>
+                                    </div>
+                                    <div class="col-xl-6"><select class="form-control" aria-label="tipo_venta" name="tipo_venta" id="tipo_venta">
+                                            <option selected value="0">Efectivo</option>
+                                            <option value="1">Tarjeta de credito</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer justify-content-center"><button class="btn btn-danger float-right" data-dismiss="modal" type="button">Cancelar</button><button id="btnpago" class="btn btn-primary" data-dismiss="modal" type="submit">Aceptar</button></div>
                         </form>

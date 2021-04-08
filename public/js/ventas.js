@@ -54,7 +54,8 @@ $(document).ready(function () {
                             {data: "id"},
                             {data: "usuarios.name"},
                             {data: "created_at"},
-                            {data: "total"}
+                            {data: "total"},
+                            {data: "tipo_venta"}
                         ]
 
                     }

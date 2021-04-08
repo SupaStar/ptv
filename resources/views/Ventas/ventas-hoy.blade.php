@@ -28,6 +28,7 @@
                                         <th>Empleado</th>
                                         <th>Fecha de venta</th>
                                         <th>Total</th>
+                                        <th>Forma de pago</th>
                                     </tr>
                                     </thead>
                                     <tbody >

@@ -34,7 +34,8 @@ $.ajax({
                     {data: "id"},
                     {data: "usuario"},
                     {data: "created_at"},
-                    {data: "total"}
+                    {data: "total"},
+                    {data: "tipo_venta"}
                 ]
 
             }
