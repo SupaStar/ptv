@@ -141,7 +141,7 @@ class PuntoVentaController extends Controller
             $conf = Configuracion::where("clave", "ESTADO_CAJA")->first();
             $conf->valor = "abierta";
             $conf->save();
-            Mail::to('emmanuelupt@gmail.com')->send(new AbrirCajaMail($request->input("inicial"),$apertura->observaciones));
+            Mail::to('emmanuelupt@gmail.com')->send(new AbrirCajaMail($request->input("inicial")));
             return response()->json(["estado" => true, 'detalle' => ['productos_a_caducar' => $productosCaducos]]);
         } catch (Exception $e) {
             return response()->json(["estado" => true, "errores" => ["Ocurrió un error al querer cambiar el estado de la caja."]]);
@@ -177,7 +177,7 @@ class PuntoVentaController extends Controller
             $apertura->reparaciones_finales = $reparacionesTotal;
             $apertura->fecha_hora_cierre = date("Y-m-d H:i:s");
             $apertura->save();
-            Mail::to('emmanuelupt@gmail.com')->send(new CerrarCajaMail($ventasTotales,$utilidades,$reparacionesTotal,$apertura->fecha_hora_cierre));
+            Mail::to('emmanuelupt@gmail.com')->send(new CerrarCajaMail($ventasTotales,$utilidades,$apertura->fecha_hora_cierre));
             session()->flash('estado', "Caja cerrada<br>
                 Monto inicial: <b>$ " . number_format($apertura->monto_inicio, 2) . "</b><br>
                 Total ventas: <b>$ " . number_format($ventasTotales, 2) . "</b><br>

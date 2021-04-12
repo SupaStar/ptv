@@ -9,6 +9,5 @@
 </head>
 <body>
 <div>Se abrio la caja con un monto inicial de {{$montoInicial}}</div>
-<div>Con la observacion de: {{$observaciones}}</div>
 </body>
 </html>
