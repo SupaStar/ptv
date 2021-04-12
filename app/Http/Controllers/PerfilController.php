@@ -199,6 +199,6 @@ class PerfilController extends Controller
             Storage::disk('public')->put($nombre, \File::get($file));
         }
 
-        return response()->json();
+        return redirect("/usuarios");
     }
 }

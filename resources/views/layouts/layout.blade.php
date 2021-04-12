@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" >
-    <title>Farmacia Roma - @yield('titulo')</title>
+    <link rel="icon" href="{{asset('assets/img/logo.png')}}" >
+    <title>G&P Farmacias - @yield('titulo')</title>
     <link rel="stylesheet" href="{{asset('assets/css/alertify.min.css')}}"/>
     <!-- Default theme -->
     <link rel="stylesheet" href="{{asset('assets/css/themes/default.min.css')}}"/>
@@ -27,8 +27,8 @@
 <div id="wrapper">
     <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="background: #4e73df;">
         <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="/">
-                <div class="sidebar-brand-icon rotate-n-15"><i class="fa fa-medkit"></i></div>
-                <div class="sidebar-brand-text mx-3"><span>G&P Farmacias</span></div>
+                <div class="sidebar-brand-icon"><img style="width: 100%;filter: brightness(200%) contrast(124%) saturate(200%);" src="{{asset('assets/img/logo.png')}}"></div>
+               
             </a>
             <hr class="sidebar-divider my-0">
             <ul class="navbar-nav text-light" id="accordionSidebar">
