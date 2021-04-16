@@ -1,6 +1,7 @@
 var productos = [];
 var total = 0;
 $(document).ready(function () {
+
     $.ajax({
         method:"get",
         url:"/obtenerproductos",
