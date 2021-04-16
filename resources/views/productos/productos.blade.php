@@ -54,6 +54,8 @@
                                     <th>Estado</th>
                                     @if($usuario=Auth::user()->admin==1)
                                     <th>Acciones</th>
+                                    @else
+                                        <th></th>
                                     @endif
                                 </tr>
                                 </thead>

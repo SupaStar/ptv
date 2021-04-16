@@ -1,6 +1,7 @@
 $("#btnenvio").on("click",function(event){
 
 
+
     event.preventDefault();
 
     $.ajax(
@@ -153,6 +154,16 @@ if(cambio>=0){
         success:function (response)
         {
 
+
+            imprimirTicketVentas(parametros, $('#inputtotal').val(), function () {
+                alerta("Listo, <b>no olvides dar ticket al cliente</b><br>Cambio: $" + (parseFloat(denominacion) - parseFloat(_t)).toFixed(2), "success");
+                alertify.alert('Cobro realizado Correctamente', 'Su cambio es de: '+cambio, function(){ alertify.success('Pago realizado correctamente', location.reload()); });
+
+            }, function () {
+
+                alerta("No se pudo imprimir el ticket", "info");
+
+            });
             $('#inputtotal').val("");
             $('#inputpago').val("");
             $('#totalpagar').val("");
@@ -164,3 +175,43 @@ if(cambio>=0){
         alertify.error("Su pago no cubre el total de la venta")
 }
 });
+var alerta = function (mensaje, tipo = "info") {
+    $(".js-generated").fadeOut(function () {
+        $(this).remove();
+    });
+    var alert = '<div class="js-generated notificacion alert alert-' + tipo + ' alert-dismissible" role="alert">' +
+        '<span class="mensaje">' + mensaje + '</span>' +
+        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+        '<span aria-hidden="true">&times;</span>' +
+        '</button>' +
+        '</div>';
+    $("body").append(alert);
+    $(".js-generated").fadeIn();
+}
+var imprimirTicketVentas = function (productos, total, success, err) {
+
+    var pr = [];
+    for (var t = 0; t < productos.length; t++) {
+        console.log(total)
+        pr.push({
+            "nombre": productos[t][1],
+            "importe": "$" + (productos[t][3] * productos[t][4]).toFixed(2),
+            "cantidad": productos[t][4]
+        });
+    }
+    $.ajax({
+        type: "POST",
+        url: "http://localhost/tickets/example/ticket.php",
+        contentType: "application/json",
+        data: JSON.stringify({
+            "articulos": pr,
+            "total": "$" + total
+        }),
+        success: function () {
+            success();
+        },
+        error: function () {
+            err();
+        }
+    });
+}

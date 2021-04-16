@@ -54,6 +54,12 @@ $(document).ready(function () {
                                         let id = row.id;
                                         return '<a id="btneditarstock" style="margin-right: 3px" href="/editarproducto/' + id + '" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a><button id="btneliminaproducto" onClick="obtenertb(' + id + ')"  class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>';
                                     }
+                                    else {
+                                        let id = row.id;
+                                        return '<h6 hidden></h6>' ;
+
+                                    }
+
                                 }
 
                             }
@@ -119,6 +125,12 @@ $(document).ready(function () {
                                                 let id = row.id;
                                                 return '<a id="btneditarstock" style="margin-right: 3px" href="/editarproducto/' + id + '" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a><button id="btneliminaproducto" onClick="obtenertb(' + id + ')"  class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>';
                                             }
+                                            else {
+                                                let id = row.id;
+                                                return '<h6 hidden></h6>' ;
+
+                                            }
+
                                         }
 
                                     }
@@ -181,6 +193,12 @@ $(document).ready(function () {
                                     let id = row.id;
                                     return '<a id="btneditarstock" style="margin-right: 3px" href="/editarproducto/' + id + '" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a><button id="btneliminaproducto" onClick="obtenertb(' + id + ')"  class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>';
                                 }
+                                else {
+                                    let id = row.id;
+                                    return '<h6 hidden></h6>' ;
+
+                                }
+
                             }
 
                         }
