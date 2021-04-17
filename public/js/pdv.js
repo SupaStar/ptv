@@ -255,9 +255,15 @@ $.ajax({
             int: true,
             highlight: true, /* Enable substring highlighting */
             minLength: 1,
-            name: 'countries',
-            source: substringMatcher(nproductos,ncodigos)
+            name: 'productos',
+            source: substringMatcher(nproductos)
 
+        },{
+            int: true,
+            highlight: true, /* Enable substring highlighting */
+            minLength: 1,
+            name: 'codigos',
+            source: substringMatcher(ncodigos)
         })
     }
 });
