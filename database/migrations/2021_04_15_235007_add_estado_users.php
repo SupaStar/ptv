@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddEstadoCategoria extends Migration
+class AddEstadoUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddEstadoCategoria extends Migration
      */
     public function up()
     {
-        Schema::table('categoria', function ($table) {
-            $table->integer('estado');
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer("estado")->default(1);
         });
     }
 

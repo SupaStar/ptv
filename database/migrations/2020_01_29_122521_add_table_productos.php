@@ -15,7 +15,7 @@ class AddTableProductos extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("nombre", 100)->unique();
+            $table->string("nombre", 100);
             $table->decimal("compra",10,2);
             $table->decimal("venta",10,2);
             $table->integer("stock");
