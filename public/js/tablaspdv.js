@@ -3,7 +3,6 @@ $("#btnenvio").on("click",function(event){
 
 
     event.preventDefault();
-$this.form.checkValidity()
     $.ajax(
         {
             type: "post",

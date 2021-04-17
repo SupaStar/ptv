@@ -1,58 +1,20 @@
 var productos = [];
 var total = 0;
 $(document).ready(function () {
+    $('#tbproductosb').dataTable({
 
-    $.ajax({
-        method:"get",
-        url:"/obtenerproductos",
-        success:function (response)
-        {
-            for(var i=0;i<response.length;i++)
+        columnDefs: [
             {
-                if(response[i].stock<=3)
-                {
-                    alertify.error('Producto: '+response[i].nombre +' esta por terminarse');
-                }
+
+                pageLength: 5,
+                lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "Todos"]]
             }
-            $('#tbproductosb').dataTable({
-                data:response,
-                "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
-                language: {
-                    "decimal": "",
-                    "emptyTable": "No hay información",
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-                    "infoPostFix": "",
-                    "thousands": ",",
-                    "lengthMenu": "Mostrar _MENU_ Entradas",
-                    "loadingRecords": "Cargando...",
-                    "processing": "Procesando...",
-                    "search": "Buscar:",
-                    "zeroRecords": "Sin resultados encontrados",
-                    "paginate": {
-                        "first": "Primero",
-                        "last": "Ultimo",
-                        "next": "Siguiente",
-                        "previous": "Anterior"
-                    }
-                },
-                "bFilter":false,
+        ]
 
-                columns:[
-                    {data:"codigo"},
-                    {data:"nombre"},
-                    {data:"venta"},
-                    {data:"stock"},
-                    {"render": function ( data, type, row, meta ) {
-                        let id=row.id;
-                            return '<a id="btnadd" onClick="obtenertb('+id+')" class="btn btn btn-success" type="button"><i class="fa fa-plus"></i></a>';}}
 
-                        ]
-            });
+    });
 
-        }
-    })
+
 
     $('#tbnota').empty();
     $("body").on("keydown", function (e) {

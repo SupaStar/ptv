@@ -30,7 +30,13 @@
                                         </tr>
                                         </thead>
                                         <tbody id="tablaproducto">
-
+                                        @foreach($productos as $producto)
+                                            <tr><td>{{$producto->codigo}}</td>
+                                            <td>{{$producto->nombre}}</td>
+                                            <td>{{$producto->venta}}</td>
+                                            <td>{{$producto->stock}}</td>
+                                           <td><a id="btnadd" onClick="obtenertb({{$producto->id}})" class="btn btn btn-success" type="button"><i class="fa fa-plus"></i></a></td></tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>

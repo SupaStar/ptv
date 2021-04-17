@@ -54,7 +54,20 @@ class PuntoVentaController extends Controller
 
     public function cobro()
     {
-        return view("punto-venta.cobrar");
+        $productos = Producto::orderBy("estado","DESC")->where("estado","=",1)->where("stock",">",0)->get();
+        foreach($productos as $producto)
+        {
+            if($producto->estado==1){
+                $producto->estado="Activo";
+            }
+            else{
+                $producto->estado="Inactivo";
+
+            }
+        }
+
+
+        return view("punto-venta.cobrar",compact('productos'));
     }
 
     public function buscar(Request $request)
