@@ -3,7 +3,7 @@ $("#btnenvio").on("click",function(event){
 
 
     event.preventDefault();
-
+$this.form.checkValidity()
     $.ajax(
         {
             type: "post",
@@ -202,15 +202,20 @@ var imprimirTicketVentas = function (productos, total, success, err) {
     $.ajax({
         type: "POST",
         url: "http://localhost/tickets/example/ticket.php",
-        contentType: "application/json",
-        data: JSON.stringify({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+         contentType: "application/json",
+       data: JSON.stringify({
             "articulos": pr,
-            "total": "$" + total
+            "total": "$" + total,
         }),
-        success: function () {
+        success: function (response) {
+            console.log(response)
             success();
         },
-        error: function () {
+        error: function (response) {
+            console.log(response)
             err();
         }
     });

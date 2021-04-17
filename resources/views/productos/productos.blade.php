@@ -46,7 +46,11 @@
                                     <th>ID</th>
                                     <th>Código</th>
                                     <th>Nombre</th>
-                                    <th>Costo Compra</th>
+                                    @if($usuario=Auth::user()->admin==1)
+                                        <th>Costo Compra</th>
+                                    @else
+                                        <th></th>
+                                    @endif
                                     <th>Costo Venta</th>
                                     <th>Descripción</th>
                                     <th>Fecha de Caducidad</th>

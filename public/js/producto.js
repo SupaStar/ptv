@@ -181,7 +181,19 @@ $(document).ready(function () {
                         {data: "id"},
                         {data: "codigo"},
                         {data: "nombre"},
-                        {data: "compra"},
+                        {
+                            "render": function (data, type, row, meta) {
+                                if ($('#idadmin').val() == 1) {
+                                  return row.compra  }
+                                else {
+                                    let id = row.id;
+                                    return '<h6 hidden></h6>' ;
+
+                                }
+
+                            }
+
+                        },
                         {data: "venta"},
                         {data: "descripcion"},
                         {data: "fecha_caducidad"},

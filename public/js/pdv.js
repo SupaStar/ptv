@@ -223,6 +223,7 @@ $(document).ready(function () {
     });
 });
 var nproductos=[];
+var ncodigos=[];
 $.ajax({
     method: "get",
     url:"/obtenerproductos",
@@ -230,8 +231,11 @@ $.ajax({
     {
         for (var i=0;i<response.length;i++)
         {
-            nproductos.push(response[i].nombre+" "+response[i].codigo)
+            nproductos.push(response[i].nombre)
+            ncodigos.push(response[i].codigo)
+
         }
+
 
         var substringMatcher = function(strs) {
             return function findMatches(q, cb) {
@@ -252,7 +256,8 @@ $.ajax({
             highlight: true, /* Enable substring highlighting */
             minLength: 1,
             name: 'countries',
-            source: substringMatcher(nproductos)
+            source: substringMatcher(nproductos,ncodigos)
+
         })
     }
 });
