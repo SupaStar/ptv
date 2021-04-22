@@ -21,11 +21,11 @@ class ProductosCategoriaImport implements ToModel, WithHeadingRow
             ]);
             $categoria->save();
         }
-        $producto = Producto::where('nombre', $row['nombre'])->where('descripcion', $row['descripcion'])->first();
+        $producto = Producto::where('nombre', $row['nombre'])->where('descripcion', $row['descripcion'])->where('codigo', $row['codigo'])->first();
         if (!$producto) {
             $producto = new Producto([
                 'nombre' => $row['nombre'],
-                'compra' => doubleval($row['venta']) / 2,
+                'compra' => doubleval($row['compra']),
                 'venta' => doubleval($row['venta']),
                 'stock' => doubleval($row['stock']),
                 'fecha_caducidad' => date('Y-m-d', strtotime('1899-12-31+' . (intval($row['caducidad']) - 1) . ' days')),

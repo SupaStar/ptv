@@ -18,5 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('prueba','CategoriaController@seedExcel');
+Route::post('mostrarProductos','ApiController@mostrarProductos');
 Route::post('productos','ApiController@llenarproductos');
 Route::post('productosCategorias','ApiController@llenarCategoriaproductos');
