@@ -71,7 +71,7 @@
 </div>
 
 
-
+<script async data-id="77747" src="https://cdn.widgetwhats.com/script.min.js"></script>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="assets/js/chart.min.js"></script>
