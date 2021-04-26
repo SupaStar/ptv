@@ -74,20 +74,20 @@
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label for="categoria"><strong>Categoria</strong></label>
-                                                       <select id="idcategoria" name="idcategoria" required class="form-control" required >
-                                                           <option selected disabled>Seleccion una categoria</option>
+                                                       <select id="idcategoria" name="idcategoria" class="form-control" required >
+                                                           <option selected disabled value="">Seleccion una categoria</option>
                                                        @foreach($categoria as $categoria)
                                                            <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
                                                            @endforeach
                                                        </select>
-                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label for="estado"><strong>Estado</strong></label>
                                                         <select required class="form-control" id="estado" name="estado" class="form-group" required id="estado">
-                                                            <option selected value="0">Desactivado</option>
-                                                            <option value="1">Activado</option>
+                                                            <option selected value="1">Activado</option>
+                                                            <option value="0">Desactivado</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -112,10 +112,10 @@
         $(document).ready(function ()
         {
             @if(session('Caducado'))
-           alertify.error("El producto no se puede registrar, esta caducado o apunto de caducar")
+                alertify.error("El producto no se puede registrar, esta caducado o apunto de caducar")
             @endif
             @if(session('Codigo'))
-           alertify.error("El producto no se puede registrar, código repetido")
+                alertify.error("El producto no se puede registrar, código repetido")
             @endif
         })
 

@@ -100,6 +100,16 @@ Route::get('/logout',function (){
    \Illuminate\Support\Facades\Auth::logout();
    return redirect()->route('punto-venta');
 });
+
+
+// -- Notas
+Route::get('misnotas/', "NotaController@notas")->name("notas.mostrar");
+Route::get('misnotas/detalles/{id?}', "NotaController@informacion")->name("notas.informacion");
+Route::get('misnotas/eliminar/{id?}', "NotaController@eliminar")->name("notas.informacion");
+Route::post('agregar-nota', "NotaController@agregar")->name("notas.agregar");
+Route::post('editar-nota', "NotaController@editar")->name("notas.editar");
+
+
 // Modales
 Route::post("/buscar", "PuntoVentaController@buscar")->name("buscar");
 

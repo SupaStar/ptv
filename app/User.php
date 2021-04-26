@@ -28,4 +28,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function notas (){
+        return $this->hasMany(Nota::class, 'usuario_id');
+    }
+
 }
