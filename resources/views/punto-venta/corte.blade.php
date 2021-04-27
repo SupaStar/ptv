@@ -14,7 +14,6 @@
                         <p class="text-primary m-0 font-weight-bold"></p>
                     </div>
                     <div class="card-body">
-
                         <div class="table-responsive table mt-2" id="tabla" role="grid" aria-describedby="dataTable_info">
                             <table class="table my-0" id="tb">
                                 <thead>
@@ -22,6 +21,8 @@
                                     <th>N° de Venta</th>
                                     <th>Empleado</th>
                                     <th>Total</th>
+                                    <th>Tipo de pago</th>
+                                    <th>Hora</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tbventasdia">
@@ -57,10 +58,25 @@
                             </div>
                             <div class="card-body">
                                 <div class="row align-items-left no-gutters">
-                                    <div class="col-xl-9 offset-xl-1 mr-2">
-                                        <input disabled id="saldocorte" type="text" class="form-control form-control-sm" aria-controls="dataTable">
+                                    <div class="col-xl-2 ">
+                                        <label class="form-text">Efectivo:</label>
+                                    </div>
+                                    <div class="col-xl-8 mr-2">
+                                        <input disabled id="saldocorteEfectivo" type="text" class="form-control form-control-sm" aria-controls="dataTable">
                                     </div>
                                     <div class="col-auto"><i class="fas fa-cash-register fa-2x text-gray-300" style="margin-left: 10px"></i></div>
+                                </div>
+                                <div class="row align-items-left no-gutters">
+                                    <div class="col-xl-2 ">
+                                        <label class="form-text">Tarjeta:</label>
+                                    </div>
+                                    <div class="col-xl-8 mr-2">
+                                        <input disabled id="saldocorteTarjeta" type="text" class="form-control form-control-sm" aria-controls="dataTable">
+                                    </div>
+                                    <div class="col-auto"><i class="fas fa-credit-card fa-2x text-gray-300" style="margin-left: 10px"></i></div>
+                                </div>
+                                <div class="py-3" align="center">
+                                    <h3 class="text-success m-0 font-weight-bold" id="texto-total"></h3>
                                 </div>
                                </div>
                             <button class="btn btn-primary" type="button" id="btnCerrarCaja" href="{{_c("ESTADO_CAJA") == "cerrada" ? route('cambiar-estado-caja') : route('cerrar-caja')}}"{{_c("ESTADO_CAJA") == "cerrada" ? "btnCambiarEstadoCaja" : "btnCerrarCaja"}}">Cerrar Caja</button>
@@ -75,6 +91,7 @@
 @endsection
 @section('js')
     <script src="/js/bootbox.all.min.js"></script>
+    <script src="{{asset('assets/js/datatables.min.js')}}"></script>
     <script src="/js/cortecaja.js"></script>
     <script src="{{asset('/js/venta-dia.js')}}"></script>
 @endsection

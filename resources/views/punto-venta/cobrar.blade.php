@@ -6,7 +6,7 @@
 @endsection
 @section('contenido')
     <div class="container-fluid">
-        <h3 class="text-dark mb-4">Cobrar</h3>
+        <h3 class="text-dark mb-4">Cobrar</h3><button class="btn btn-primary" type="submit">Devolución de producto</button>
         <div class="card shadow mb-5">
             <div class="card-header py-3"></div>
             <div class="card-body">
@@ -156,7 +156,7 @@
                                     </div>
                                     <div class="col-xl-6"><select class="form-control" aria-label="tipo_venta" name="tipo_venta" id="tipo_venta">
                                             <option selected value="0">Efectivo</option>
-                                            <option value="1">Tarjeta de credito</option>
+                                            <option value="1">Tarjeta de crédito / Débito</option>
                                         </select>
                                     </div>
                                 </div>

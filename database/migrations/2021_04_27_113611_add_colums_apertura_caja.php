@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DBV2 extends Migration
+class AddColumsAperturaCaja extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class DBV2 extends Migration
     public function up()
     {
         Schema::table('aperturas_caja', function (Blueprint $table) {
-            $table->decimal("reparaciones_finales", 10, 2)->default(0)->after("utilidades");
+            $table->decimal("ventas_finales_tarjeta")->nullable()->after('ventas_finales');
+            $table->decimal("utilidades_tarjeta")->nullable()->after('utilidades');
         });
     }
 
@@ -25,8 +26,6 @@ class DBV2 extends Migration
      */
     public function down()
     {
-        Schema::table('aperturas_caja', function (Blueprint $table) {
-            $table->dropColumn("reparaciones_finales");
-        });
+        //
     }
 }

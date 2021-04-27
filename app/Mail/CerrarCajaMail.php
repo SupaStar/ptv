@@ -17,13 +17,17 @@ class CerrarCajaMail extends Mailable
      * @return void
      */
     public $ventasTotales;
+    public $ventasTotalesTarjeta;
     public $utilidades;
+    public $utilidadesTarjeta;
     public $fecha_hora_cierre;
 
-    public function __construct($ventasTotales, $utilidades, $fecha_hora_cierre)
+    public function __construct($ventasTotales, $ventasTotalesTarjeta,$utilidades, $utilidadesTarjeta, $fecha_hora_cierre)
     {
         $this->ventasTotales = $ventasTotales;
+        $this->ventasTotalesTarjeta = $ventasTotalesTarjeta;
         $this->utilidades = $utilidades;
+        $this->utilidadesTarjeta = $utilidadesTarjeta;
         $this->fecha_hora_cierre = $fecha_hora_cierre;
     }
 

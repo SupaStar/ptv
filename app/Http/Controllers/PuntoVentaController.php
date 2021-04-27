@@ -27,12 +27,10 @@ class PuntoVentaController extends Controller
     public function __construct()
     {
         $this->middleware("auth");
-
     }
 
     public function index()
     {
-
         return view("punto-venta.index");
     }
 
@@ -65,8 +63,6 @@ class PuntoVentaController extends Controller
 
             }
         }
-
-
         return view("punto-venta.cobrar",compact('productos'));
     }
 
@@ -164,38 +160,48 @@ class PuntoVentaController extends Controller
 
     public function cerrarCaja()
     {
-
         $apertura = AperturaCaja::where("fecha_hora_cierre", null)->first();
         if ($apertura) {
             $ventas = Venta::where("created_at", ">=", $apertura->created_at)
-                ->where("created_at", "<=", date("Y-m-d H:i:s"))
+                ->where("created_at", "<=", date("Y-m-d H:i:s"))->where('tipo_venta',0)
                 ->get();
-            $reparaciones = Reparacion::where("fecha_entrega", ">=", $apertura->created_at->format("Y-m-d"))
-                ->where("estado", "Entregado")
+
+            $ventasTarjeta = Venta::where("created_at", ">=", $apertura->created_at)
+                ->where("created_at", "<=", date("Y-m-d H:i:s"))->where('tipo_venta',1)
                 ->get();
+
             $ventasTotales = 0;
+            $ventasTotalesTarjeta = 0;
             $utilidades = 0;
+            $utilidadesTarjeta = 0;
+
             foreach ($ventas as $venta) {
                 $ventasTotales += $venta->total;
                 $utilidades += $venta->utilidad;
             }
-            $reparacionesTotal = 0;
-            foreach ($reparaciones as $reparacion) {
-                $reparacionesTotal += $reparacion->costo == -1 ? 0 : $reparacion->costo;
-                $reparacion->estado = "Reportado";
-                $reparacion->save();
+
+            foreach ($ventasTarjeta as $venta) {
+                $porcentajeVentaTotal = (($venta->total * 3.5) / 100);
+                $ventasTotalesTarjeta += $venta->total - (($porcentajeVentaTotal * 16) / 100) - $porcentajeVentaTotal;
+                $utilidadesTarjeta += $venta->utilidad - (($porcentajeVentaTotal * 16) / 100) - $porcentajeVentaTotal;
             }
+
             $apertura->ventas_finales = $ventasTotales;
+            $apertura->ventas_finales_tarjeta = $ventasTotalesTarjeta;
             $apertura->utilidades = $utilidades;
-            $apertura->reparaciones_finales = $reparacionesTotal;
+            $apertura->utilidades_tarjeta = $utilidadesTarjeta;
             $apertura->fecha_hora_cierre = date("Y-m-d H:i:s");
             $apertura->save();
-            Mail::to('emmanuelupt@gmail.com')->send(new CerrarCajaMail($ventasTotales,$utilidades,$apertura->fecha_hora_cierre));
+
+            Mail::to('emmanuelupt@gmail.com')->send(new CerrarCajaMail($ventasTotales,$ventasTotalesTarjeta,$utilidades,$utilidadesTarjeta,$apertura->fecha_hora_cierre));
+
+            //Mail::to('mag750729@gmail.com')->send(new CerrarCajaMail($ventasTotales,$utilidades,$apertura->fecha_hora_cierre));
+
             session()->flash('estado', "Caja cerrada<br>
                 Monto inicial: <b>$ " . number_format($apertura->monto_inicio, 2) . "</b><br>
                 Total ventas: <b>$ " . number_format($ventasTotales, 2) . "</b><br>
-                Total reparaciones: <b>$ " . number_format($reparacionesTotal, 2) . "</b><br>
-                Total en caja: <b>$ " . number_format(($ventasTotales + $reparacionesTotal + $apertura->monto_inicio), 2) . "</b>");
+                Total ventas con tarjeta: <b>$ " . number_format($ventasTotalesTarjeta, 2) . "</b><br>                
+                Total en caja: <b>$ " . number_format(($ventasTotales + $apertura->monto_inicio), 2) . "</b>");
         }
         return view("punto-venta.index");
     }
@@ -259,7 +265,6 @@ class PuntoVentaController extends Controller
     public function getCorte()
     {
         $apertura = AperturaCaja::whereDate('created_at', '=', Carbon::now()->format('Y-m-d'))->get();
-
         return response()->json($apertura);
     }
 

@@ -5,10 +5,8 @@ $(document).ready(function ()
         url:"/getCorte",
         success:function (response)
         {
-
             if(response.length==1)
             {
-
                 if(response[0].fecha_hora_cierre!=null)
                 {
                     $('#btnCerrarCajas').attr("hidden",true)
