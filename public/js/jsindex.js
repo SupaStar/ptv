@@ -14,6 +14,8 @@ $(document).ready(function ()
                   alertify.error("Caja cerrada, regrese el dia de mañana o contacte con el administrador para abrirla")
                 $('#divreabrir').removeAttr('hidden')
                 }
+                $('#cajainicio').text("$"+response[0].monto_inicio)
+                $('#idcaja').text("$"+response[0].monto_inicio)
             }
             else{
                 $('#exampleModal').modal({backdrop: 'static', keyboard: false});
@@ -22,20 +24,16 @@ $(document).ready(function ()
 
                 $('#divreabrir').attr('hidden',true)
                 var today = new Date();
-
                 var dd = String(today.getDate()).padStart(2, '0');
                 var mm = String(today.getMonth() + 1).padStart(2, '0');
                 var yyyy = today.getFullYear();
-
                 today = yyyy + '-' + mm + '-' + dd;
                 $('#inputabrircaja').attr("value",today)
             }
 
-            $('#cajainicio').text("$"+response[0].monto_inicio)
-            $('#idcaja').text("$"+response[0].monto_inicio)
+
             $.ajax(
                 {
-
                     method: "get",
                     url:"/getVentashoy",
                     success:function (response)
@@ -46,12 +44,10 @@ $(document).ready(function ()
                         }
                         $('#ventahoytotal').text("$"+total)
                     }
-
                 }
             )
             $.ajax(
                 {
-
                     method: "get",
                     url:"/getVentassemana",
                     success:function (response)
@@ -67,13 +63,10 @@ $(document).ready(function ()
             )
             $.ajax(
                 {
-
                     method: "get",
                     url:"/obtenerproductos",
                     success:function (response)
                     {
-
-
                         $('#nproductos').text(response.length)
                     }
 
@@ -107,10 +100,16 @@ $('#btnaceptarcaja').on("click", function(e){
                 },
             success:function (response)
             {
+                console.log(response);
+                if(response.estado == false){
+                    alertify.error(response.errores[0]);
+                }else{
+                    location.href="/";
+                }
             }
         }
     )
-    location.href="/"
+
 
 });
 

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\AperturaCaja;
 use App\Nota;
+use App\Producto;
+use App\Venta;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
@@ -167,4 +170,29 @@ class NotaController extends Controller
                 ->withInput();
         }
     }
+
+    public function  prueba(){
+        $apertura = AperturaCaja::where("fecha_hora_cierre",null)->first();
+        $fecha = explode(" ",$apertura->created_at);
+        echo $fecha[0];
+        $nuevaFecha = date("Y-m-d",strtotime($fecha[0]."+ 1 days"));
+        echo $nuevaFecha;
+    }
+    public function  productosErroneos(){
+        $productos = Producto::all();
+        echo "<hr><br>";
+        echo "<h1>Productos Con errores</h1>";echo "<br>";
+        echo "<center><table border='1'>";
+        echo "<tr><th>id</th><th>Nombre</th><th>Compra</th><th>Venta</th></tr>";
+        foreach ($productos as $producto) {
+            if($producto->compra > $producto->venta){
+                echo "<tr><td>$producto->id</td><td>$producto->nombre </td><td>$producto->compra</td><td>$producto->venta</td></tr>";
+            }
+
+        }
+
+        echo "</table></center>";
+        echo "<hr><br>";
+    }
+
 }

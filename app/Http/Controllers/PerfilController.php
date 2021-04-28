@@ -176,19 +176,18 @@ class PerfilController extends Controller
         if ($usuariouser = Perfil::all()->where("username", $request->nombreUsuario)->count() >= 1) {
             return redirect('/usuarios')->with("message", "userR");
             // return response()->json(["estado"=>false, "detalle"=>"Usuario Repetido"]);
-        } else {
-            $usuario->username = $request->nombreUsuario;
         }
+        $usuario->username = $request->nombreUsuario;
         $usuario->admin = $request->tipoEmpleado;
         if ($usuariouser = Perfil::all()->where("email", $request->correo)->count() >= 1) {
             return redirect('/usuarios')->with("message", "emailR");
             // return response()->json(["estado"=>false, "detalle"=>"Correo ya registrado"]);
-        } else {
-            $usuario->email = $request->correo;
         }
+        $usuario->email = $request->correo;
         $usuario->password = bcrypt($request->contrasenia);
         $usuario->estado = $request->estado;
         $usuario->save();
+
         if ($file = $request->file('fotoperfil') != null) {
             $file = $request->file('fotoperfil');
             $nombre = $usuario->id . ("fotoperfil.jpg");
@@ -198,6 +197,7 @@ class PerfilController extends Controller
             $nombre = $usuario->id . ("fotoperfil.jpg");
             Storage::disk('public')->put($nombre, \File::get($file));
         }
+
 
         return redirect("/usuarios");
     }

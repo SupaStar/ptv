@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AperturaCaja;
 use App\CategoriaProducto;
 use App\Perfil;
 use App\Producto;
@@ -96,6 +97,25 @@ class VentasController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getVentasApertura()
+    {
+        $apertura = AperturaCaja::where("fecha_hora_cierre", null)->first();
+        $fecha = explode(" ",$apertura->created_at);
+        $nuevaFecha = date("Y-m-d",strtotime($fecha[0]."+ 1 days"));
+
+        $ventas = Venta::whereDate("created_at", "=",$fecha[0])->get();
+        foreach ($ventas as $venta) {
+            $venta->productos;
+            $venta->tipo_venta=$venta->tipo_venta==0?"Efectivo":"Pago con tarjeta";
+            $usuario = User::all()->where('id', '=', $venta->usuario_id);
+            foreach ($usuario as $us) {
+                $venta->usuario = $us->name;
+            }
+        }
+
+        return response()->json($ventas);
     }
 
     public function getVentashoy()

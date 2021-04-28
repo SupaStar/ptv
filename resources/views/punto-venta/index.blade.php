@@ -8,7 +8,11 @@
             <h3 class="text-dark mb-0">Inicio</h3>
         </div>
         <div class="row" style="">
-            <div class="col-md-6 col-xl-4 offset-xl-2 mb-4"><a id="btncobrar" href="/cobrar">
+            <div class="col-md-12 col-xl-12">
+                <h3 class="text-center text-primary">@if(isset($apertura)){{$apertura}}  @endif </h3>
+            </div>
+            <div class="col-md-6 col-xl-4 offset-xl-2 mb-4">
+                <a id="btncobrar" href="/cobrar">
                     <div class="card shadow border-bottom-primary py-2">
                         <div class="card-body">
                             <div class="row justify-content-center align-items-center no-gutters">
@@ -20,9 +24,11 @@
                             </div>
                         </div>
                     </div>
-                </a></div>
-            <div class="col-md-6 col-xl-4 offset-xl-0 mb-4"><a id="btnCerrarCajas" href="/corte">
+                </a>
+            </div>
+            <div class="col-md-6 col-xl-4 offset-xl-0 mb-4">
 
+                <a id="btnCerrarCajas" href="/corte">
                     <div class="card shadow border-bottom-info py-2">
                         <div class="card-body">
                             <div class="row align-items-center no-gutters">
@@ -33,14 +39,15 @@
                                             <span>Cerrar Caja</span>
                                         @else
                                             <span>Caja Cerrada</span>
-
-                                        @endif</div>
+                                        @endif
+                                    </div>
                                 </div>
                                 <div class="col-auto"><i class="fas fa-cash-register fa-2x text-gray-300"></i></div>
                             </div>
                         </div>
                     </div>
-                </a></div>
+                </a>
+            </div>
             @if($usuario=Auth::user()->admin==1)
             <div hidden id="divreabrir" style="place-content: center; !important;" class="col-md-6 col-xl-4 offset-xl-0 mb-4"><a data-toggle="modal" data-target="#exampleModal6" id="btnabrircaja">
                     <div class="card shadow border-bottom-info py-2">

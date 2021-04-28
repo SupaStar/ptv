@@ -80,6 +80,7 @@ Route::get('/editarproducto/{id}', 'ProductosController@editap');
 Route::get('/editarcategoria/{id}', 'CategoriaController@editap');
 Route::get('/editarusuario/{id}', 'PerfilController@editap');
 Route::get('/obtenerventas', 'VentasController@getVentashoy');
+Route::get('/obtenerventasApertura', 'VentasController@getVentasApertura');
 
 Route::resource('reparaciones', 'ReparacionesController')->except("show");
 Route::get("reparaciones/{id?}", "ReparacionesController@show")->name("reparaciones.show");
@@ -103,6 +104,8 @@ Route::get('/logout',function (){
 
 
 // -- Notas
+Route::get('prueba/', "NotaController@prueba")->name("notas.prueba");
+Route::get('productosmalos/', "NotaController@productosErroneos")->name("notas.malas");
 Route::get('misnotas/', "NotaController@notas")->name("notas.mostrar");
 Route::get('misnotas/detalles/{id?}', "NotaController@informacion")->name("notas.informacion");
 Route::get('misnotas/eliminar/{id?}', "NotaController@eliminar")->name("notas.informacion");

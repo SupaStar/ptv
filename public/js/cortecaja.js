@@ -14,7 +14,7 @@ $(document).ready(function ()
     });
     $.ajax({
         method: "get",
-        url:"/getVentashoy",
+        url:"/obtenerventasApertura",
         success:function (response)
         {
             var total=0;

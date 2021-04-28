@@ -31,7 +31,13 @@ class PuntoVentaController extends Controller
 
     public function index()
     {
-        return view("punto-venta.index");
+        $fecha = null;
+        $apertura = AperturaCaja::where("fecha_hora_cierre",null)->first();
+        if($apertura){
+            $fechaN = explode(" ",$apertura->created_at);
+            $fecha = $fechaN[0];
+        }
+        return view("punto-venta.index",["apertura" => $fecha]);
     }
 
     public function findid(Request $request)
@@ -83,6 +89,11 @@ class PuntoVentaController extends Controller
             return response()->json(["estado" => false, "mensaje" => "La caja está cerrada, debe abrirla para comenzar a vender."]);
         $productos = $request->productos;
 
+        $verificarCierre = AperturaCaja::where("fecha_hora_cierre", null)->get()->count();
+        if($verificarCierre > 1)
+            return response()->json(["estado" => false, "errores" => ["Ocurrió un error, no se cerro la caja el día $verificarCierre->created_at. ¡Contacta al administrador!"]]);
+
+
         try {
             DB::beginTransaction();
             $venta = new Venta();
@@ -116,6 +127,7 @@ class PuntoVentaController extends Controller
         }
 
         return response()->json($request->productos);
+
     }
 
     public function cambiarEstadoCaja()
@@ -135,6 +147,11 @@ class PuntoVentaController extends Controller
 
             if ($v->fails())
                 return response()->json(["estado" => false, "errores" => $v->errors()->all()]);
+
+            $verificarCierre = AperturaCaja::where("fecha_hora_cierre", null)->first();
+            if($verificarCierre)
+                return response()->json(["estado" => false, "errores" => ["Ocurrió un error, no se cerro la caja el día $verificarCierre->created_at. ¡Contacta al administrador!"]]);
+
             $productos = Producto::all();
             $sigSemana = Carbon::now()->addDays(7)->format('Y-m-d');
             $productosCaducos = [];
@@ -150,10 +167,11 @@ class PuntoVentaController extends Controller
             $conf = Configuracion::where("clave", "ESTADO_CAJA")->first();
             $conf->valor = "abierta";
             $conf->save();
+
             Mail::to('emmanuelupt@gmail.com')->send(new AbrirCajaMail($request->input("inicial")));
             return response()->json(["estado" => true, 'detalle' => ['productos_a_caducar' => $productosCaducos]]);
         } catch (Exception $e) {
-            return response()->json(["estado" => true, "errores" => ["Ocurrió un error al querer cambiar el estado de la caja."]]);
+            return response()->json(["estado" => false, "errores" => ["Ocurrió un error al querer cambiar el estado de la caja."]]);
         }
         // return view("punto-venta.abrir-caja");
     }
@@ -161,13 +179,18 @@ class PuntoVentaController extends Controller
     public function cerrarCaja()
     {
         $apertura = AperturaCaja::where("fecha_hora_cierre", null)->first();
+
         if ($apertura) {
+
+            $fecha = explode(" ",$apertura->created_at);
+            $nuevaFecha = date("Y-m-d",strtotime($fecha[0]."+ 1 days"));
+
             $ventas = Venta::where("created_at", ">=", $apertura->created_at)
-                ->where("created_at", "<=", date("Y-m-d H:i:s"))->where('tipo_venta',0)
+                ->where("created_at", "<=", $nuevaFecha)->where('tipo_venta',0)
                 ->get();
 
             $ventasTarjeta = Venta::where("created_at", ">=", $apertura->created_at)
-                ->where("created_at", "<=", date("Y-m-d H:i:s"))->where('tipo_venta',1)
+                ->where("created_at", "<=", $nuevaFecha)->where('tipo_venta',1)
                 ->get();
 
             $ventasTotales = 0;
@@ -203,12 +226,16 @@ class PuntoVentaController extends Controller
                 Total ventas con tarjeta: <b>$ " . number_format($ventasTotalesTarjeta, 2) . "</b><br>                
                 Total en caja: <b>$ " . number_format(($ventasTotales + $apertura->monto_inicio), 2) . "</b>");
         }
-        return view("punto-venta.index");
+        return redirect()->route('punto-venta');
     }
 
     public function cobrarp(Request $request)
 
     {
+        $verificarCierre = AperturaCaja::where("fecha_hora_cierre", null)->get();
+        if(count($verificarCierre) > 1)
+            return response()->json(["estado" => false, "errores" => ["Ocurrió un error, hay dos cajas abiertas. ¡Contacta al administrador!"]]);
+
         if (_c("ESTADO_CAJA") == "cerrada")
             return response()->json(["estado" => false, "mensaje" => "La caja está cerrada, debe abrirla para comenzar a vender."]);
         try {

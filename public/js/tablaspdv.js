@@ -121,6 +121,7 @@ $(document).on('click', '#btnpagar', function(event){
     let total=parseFloat($('#totalpagar').val());
     $('#inputtotal').val(total);
 });
+
 $(document).on('click', '#btnpago', function(event){
     // Your Code
     event.preventDefault();
@@ -132,47 +133,45 @@ $(document).on('click', '#btnpago', function(event){
         $(this).find("td").each(function(index, element){
             if(index != 6) // ignoramos el primer indice que dice Option #
             {
-                ;
                 tr.push($(this).text());
             }
         });
         parametros.push(tr);
     });
    var cambio= $('#inputpago').val()-$('#inputtotal').val()
-if(cambio>=0){
+    if(cambio>=0){
+        $.ajax({
+            method:"post",
+            url:"/cobrarp",
 
-    $.ajax({
-        method:"post",
-        url:"/cobrarp",
+            data:{
+                "producto":parametros, "total":$('#inputtotal').val(),"denominacion":$('#inputpago').val(),
+                'tipo_venta':$("#tipo_venta").val(),
+                "_token": $("meta[name='csrf-token']").attr("content")
+            },
+            success:function (response)
+            {
+                if(response.estado != false){
+                    imprimirTicketVentas(parametros, $('#inputtotal').val(), function () {
+                        alerta("Listo, <b>no olvides dar ticket al cliente</b><br>Cambio: $" + (parseFloat(denominacion) - parseFloat(_t)).toFixed(2), "success");
+                        alertify.alert('Cobro realizado Correctamente', 'Su cambio es de: '+cambio, function(){ alertify.success('Pago realizado correctamente', location.reload()); });
+                    }, function () {
+                        alerta("No se pudo imprimir el ticket", "info");
 
-        data:{
-            "producto":parametros, "total":$('#inputtotal').val(),"denominacion":$('#inputpago').val(),
-            'tipo_venta':$("#tipo_venta").val(),
-            "_token": $("meta[name='csrf-token']").attr("content")
-        },
-        success:function (response)
-        {
-
-
-            imprimirTicketVentas(parametros, $('#inputtotal').val(), function () {
-                alerta("Listo, <b>no olvides dar ticket al cliente</b><br>Cambio: $" + (parseFloat(denominacion) - parseFloat(_t)).toFixed(2), "success");
-                alertify.alert('Cobro realizado Correctamente', 'Su cambio es de: '+cambio, function(){ alertify.success('Pago realizado correctamente', location.reload()); });
-
-            }, function () {
-
-                alerta("No se pudo imprimir el ticket", "info");
-
-            });
-            $('#inputtotal').val("");
-            $('#inputpago').val("");
-            $('#totalpagar').val("");
-            $('#tbnota').empty();
-            alertify.alert('Cobro realizado Correctamente', 'Su cambio es de: '+cambio, function(){ alertify.success('Pago realizado correctamente', location.reload()); });
-        }
-    })}
-    else{
+                    });
+                    $('#inputtotal').val("");
+                    $('#inputpago').val("");
+                    $('#totalpagar').val("");
+                    $('#tbnota').empty();
+                    alertify.alert('Cobro realizado Correctamente', 'Su cambio es de: '+cambio, function(){ alertify.success('Pago realizado correctamente', location.reload()); });
+                }else{
+                    alertify.alert('Error', response.errores[0], function(){ alertify.success('Pago realizado correctamente', location.reload()); });
+                }
+            }
+        })
+    }else{
         alertify.error("Su pago no cubre el total de la venta")
-}
+    }
 });
 var alerta = function (mensaje, tipo = "info") {
     $(".js-generated").fadeOut(function () {
