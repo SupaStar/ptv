@@ -66,7 +66,6 @@ class PuntoVentaController extends Controller
             }
             else{
                 $producto->estado="Inactivo";
-
             }
         }
         return view("punto-venta.cobrar",compact('productos'));
@@ -92,7 +91,6 @@ class PuntoVentaController extends Controller
         $verificarCierre = AperturaCaja::where("fecha_hora_cierre", null)->get()->count();
         if($verificarCierre > 1)
             return response()->json(["estado" => false, "errores" => ["Ocurrió un error, no se cerro la caja el día $verificarCierre->created_at. ¡Contacta al administrador!"]]);
-
 
         try {
             DB::beginTransaction();
@@ -137,7 +135,6 @@ class PuntoVentaController extends Controller
 
     public function cambiarEstadoCaja_(Request $request)
     {
-
         try {
             $v = Validator::make($request->all(), [
                 "inicial" => "required"
@@ -168,7 +165,7 @@ class PuntoVentaController extends Controller
             $conf->valor = "abierta";
             $conf->save();
 
-            Mail::to('emmanuelupt@gmail.com')->send(new AbrirCajaMail($request->input("inicial")));
+            Mail::to('johanguzmpe@gmail.com')->send(new AbrirCajaMail($request->input("inicial")));
             return response()->json(["estado" => true, 'detalle' => ['productos_a_caducar' => $productosCaducos]]);
         } catch (Exception $e) {
             return response()->json(["estado" => false, "errores" => ["Ocurrió un error al querer cambiar el estado de la caja."]]);
@@ -216,7 +213,7 @@ class PuntoVentaController extends Controller
             $apertura->fecha_hora_cierre = date("Y-m-d H:i:s");
             $apertura->save();
 
-            Mail::to('emmanuelupt@gmail.com')->send(new CerrarCajaMail($ventasTotales,$ventasTotalesTarjeta,$utilidades,$utilidadesTarjeta,$apertura->fecha_hora_cierre));
+            Mail::to('johanguzmpe@gmail.com')->send(new CerrarCajaMail($ventasTotales,$ventasTotalesTarjeta,$utilidades,$utilidadesTarjeta,$apertura->fecha_hora_cierre));
 
             //Mail::to('mag750729@gmail.com')->send(new CerrarCajaMail($ventasTotales,$utilidades,$apertura->fecha_hora_cierre));
 
@@ -230,7 +227,6 @@ class PuntoVentaController extends Controller
     }
 
     public function cobrarp(Request $request)
-
     {
         $verificarCierre = AperturaCaja::where("fecha_hora_cierre", null)->get();
         if(count($verificarCierre) > 1)

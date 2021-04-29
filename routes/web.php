@@ -81,6 +81,7 @@ Route::get('/editarcategoria/{id}', 'CategoriaController@editap');
 Route::get('/editarusuario/{id}', 'PerfilController@editap');
 Route::get('/obtenerventas', 'VentasController@getVentashoy');
 Route::get('/obtenerventasApertura', 'VentasController@getVentasApertura');
+Route::get('/detallesVenta/{id}', 'VentasController@detallesVenta');
 
 Route::resource('reparaciones', 'ReparacionesController')->except("show");
 Route::get("reparaciones/{id?}", "ReparacionesController@show")->name("reparaciones.show");
@@ -164,3 +165,5 @@ Route::get("t", function () {
     }
     // return response()->json($r);
 });
+
+//Ruta para Modal de Detalles
