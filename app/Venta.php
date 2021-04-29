@@ -17,9 +17,10 @@ class Venta extends Model
             "venta"
         ]);
     }
-    public function usuarios()
+    public function usuario()
     {
-        return $this->hasMany(User::class);
+        //return $this->hasOne(User::class, 'usuario_id');
+        return $this->hasOne(User::class, 'usuario_id', 'id');
     }
 
     public function nRepeticionesP()

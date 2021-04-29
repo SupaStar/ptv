@@ -204,28 +204,15 @@ class VentasController extends Controller
         return response()->json($ventas);
     }
 
-    public function detallesVenta($id_venta){
-        //$ventas = VentaProducto::select(['producto_id', 'cantidad'])->where('venta_id', $id_venta)->get();
-        $ventas = VentaProducto::find($id_venta);
-        $total = null;
-        $informacion = null;
-        $final = [];
-        $prueba = null;
-        foreach ($ventas as $venta){
-            $informacion = null;
-            $prueba = null;
-            $producto = Producto::select(['nombre', 'venta'])->where('id', $venta->producto_id)->first();
-            $total = $producto->venta * $venta->cantidad;
-            $informacion = $venta.$producto;
-            $prueba = '{"nombre":'.$producto->nombre.'}';
-            array_push($final, $informacion);
-            echo $producto;
-            echo "<br>";
+    public function detallesVenta($idVenta){
+        $venta = Venta::find($idVenta);
+        if($venta){
+            $venta->productos;
+            $venta->usuario = User::find($venta->usuario_id)->first();
+            return json_encode(["estatus" => "succes", "venta" => $venta]);
+        }else{
+            return json_encode(["estatus" => "error", "venta" => "No hay información"]);
         }
-
-        echo $ventas;
-
-        //return response()->json($ventas);
     }
 
 }
