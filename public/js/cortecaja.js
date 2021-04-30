@@ -53,8 +53,29 @@ $(document).ready(function ()
             dataType:'json',
             success:function (response) {
                 var venta = response.venta;
+                document.querySelector('#DVnumVenta').innerText = 'Numero de Venta: '+venta.id;
+                document.querySelector('#DVempleado').innerText = 'Emplead@: '+venta.usuario.name;
+                document.querySelector('#DVtotalVenta').innerText = 'Total de Venta: '+venta.total;
+                var tipo = venta.tipo_venta;
+                if(tipo == 0){
+                    document.querySelector('#DVtipoPago').innerText = 'Tipo de Pago: Efectivo';
+                }else if(tipo == 1){
+                    document.querySelector('#DVtipoPago').innerText = 'Tipo de Pago: Pago con tarjeta';
+                }
+                document.querySelector('#DVhoraCompra').innerText = 'Hora de Compra: '+venta.created_at;
+                $("#tbProductosDetalladosP").html("");
                 $.each(response.venta.productos, function( index, value ) {
-                    alert(venta.usuario.name);
+                    var total = value.pivot.cantidad * value.venta;
+                    if (total % 1 == 0) {
+                        total = total+".00";
+                    }
+                    var tr = `<tr>
+                                  <td>`+value.nombre+`</td>
+                                  <td>`+value.venta+`</td>
+                                  <td>`+value.pivot.cantidad+`</td>
+                                  <td>`+total+`</td>
+                              </tr>`;
+                    $("#tbProductosDetalladosP").append(tr)
                 });
             }
         })

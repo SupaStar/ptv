@@ -96,6 +96,8 @@
                                                         <th >Total</th>
                                                     </tr>
                                                     </thead>
+                                                    <tbody id="tbProductosDetalladosP">
+                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>
