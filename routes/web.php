@@ -18,6 +18,17 @@ use App\Venta;
 if (env('APP_FORCE_HTTPS', false)) {
     URL::forceScheme('https');
 }
+//configuraciones
+Route::get('configuracionesGenerales/', "ConfiguracionGeneralController@configuraciones")->name("configuracionesGenerales");
+Route::post('agregarCorreo', "ConfiguracionGeneralController@agregaCorreo")->name("nuevoCorreo");
+Route::post('editarCorreo', "ConfiguracionGeneralController@editaCorreo")->name("editarCorreo");
+Route::get('/informacion/{id?}', "ConfiguracionGeneralController@infoCorreo")->name("informacionCorreo");
+Route::get('/eliminar/{id?}', "ConfiguracionGeneralController@eliminaCorreo")->name("eliminarCorreo");
+Route::get('/estado', "ConfiguracionGeneralController@estado")->name("estadoCorreo");
+
+
+
+
 Route::get("productos-prueba", "ProductosController@productosMasVendidos");
 Route::post("productos-registro", "ProductosController@create")->name("productos-registro");
 Route::post("categorias-registro", "CategoriasController@create")->name("categorias-registro");
