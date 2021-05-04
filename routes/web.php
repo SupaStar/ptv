@@ -24,7 +24,8 @@ Route::post('agregarCorreo', "ConfiguracionGeneralController@agregaCorreo")->nam
 Route::post('editarCorreo', "ConfiguracionGeneralController@editaCorreo")->name("editarCorreo");
 Route::get('/informacion/{id?}', "ConfiguracionGeneralController@infoCorreo")->name("informacionCorreo");
 Route::get('/eliminar/{id?}', "ConfiguracionGeneralController@eliminaCorreo")->name("eliminarCorreo");
-Route::get('/estado', "ConfiguracionGeneralController@estado")->name("estadoCorreo");
+Route::get('/estado/{id?}', "ConfiguracionGeneralController@estado")->name("estadoCorreo");
+
 
 
 

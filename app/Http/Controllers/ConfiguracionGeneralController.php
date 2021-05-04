@@ -125,13 +125,19 @@ class ConfiguracionGeneralController extends Controller
         }
     }
 
-    public function estado (Request $x){
+    public function estado ($id){
         DB::beginTransaction();
         try {
-            $info = ConfiguracionGeneral::find($x -> id);
+            $info = ConfiguracionGeneral::find($id);
             if($info){
-                $info->estado = $x -> estado;
-                $info -> save();
+                if($info->estado == 1){
+                    $info->estado = 0;
+                    $info -> save();
+                }
+                if($info->estado == 0){
+                    $info->estado = 1;
+                    $info -> save();
+                }
                 DB::commit();
                 return json_encode(["estatus" => "ok", "informacion" => ""]);
             }

@@ -96,11 +96,11 @@
                                 <tbody id="tbproducto">
                                 @foreach($configuraciones as $dato)
                                     <tr>
-                                        <th idCorreo="{{$dato->id}}">{{$dato -> id}} </th>
+                                        <th idCorreo="{{$dato->id}}">{{$dato -> id}}</th>
                                         <th>{{$dato -> correo}}</th>
                                         <th>
                                             <label class="switch">
-                                                <input type="checkbox" id="estadoTabla" @if($dato->estado == 1) checked @endif checkEstado="{{$dato -> estado}}" class="estado">
+                                                <input type="checkbox" id="estadoTabla" @if($dato->estado == 1) checked @endif checkEstado="{{$dato -> id}}" class="estado">
                                                 <span class="slider round"></span>
                                             </label>
                                         </th>
@@ -254,19 +254,54 @@
             });
 
             $('.estado').change(function (){
-                var id = $(this).attr('idCorreo');
-                var estado = $(this).prop('checked')== true? 1:0;
-                console.log(estado);
-                $.ajax({
-                    type: "get",
-                    url: '{{route('estadoCorreo')}}',
-                    dataType:'json',
-                    data: {'id':id,'estado':estado},
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                var id = $(this).attr('checkEstado');
+                //var estado = $(this).prop('checked')== true? 1:0;
+                console.log(id);
+                Swal.fire({
+                    title: '¿Estás seguro de editar el estado?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '¡Sí, editar!',
+                    cancelButtonText: '¡Cancelar!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        editarEstado(id);
                     }
                 })
             });
+
+            function editarEstado (id){
+                $.ajax(
+                    {
+                        type: "get",
+                        url: '/estado/'+id,
+                        dataType:'json',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function (response) {
+                            if(response.estatus == "ok"){
+                                Swal.fire(
+                                    'Estado editado!',
+                                    'Los el estado se edito correctamente.',
+                                    'success'
+                                ).then((result) => {
+                                    location.reload();
+                                })
+                            }else{
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: '¡Contacta al desarrollador!',
+                                })
+                            }
+                        }
+                    }
+                )
+            }
+
 
             $('.eliminarInfo').click(function (){
                 var id = $(this).attr('eliminarId');
@@ -325,7 +360,7 @@
                         success: function (response) {
                             if(response.estatus == "ok"){
                                 Swal.fire(
-                                    'Nota eliminada!',
+                                    'Correo eliminada!',
                                     'Los datos se eliminaron correctamente.',
                                     'success'
                                 ).then((result) => {
@@ -342,7 +377,6 @@
                     }
                 )
             }
-
         } );
     </script>
 @endsection
