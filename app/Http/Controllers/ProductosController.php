@@ -11,6 +11,7 @@ use App\Venta;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductosController extends Controller
 {
@@ -452,36 +453,27 @@ class ProductosController extends Controller
     }
 
     public function stockCaducidad (){
-        $informacionP = Producto::all();
-        $informacionA = ConfiguracionStock::first();
-        $fecha = $informacionA->fecha_caducidad;
-        //$x = $informacionP->fecha_caducidad;
-        $f = Carbon::now()->addDays($fecha)->format('Y-m-d');
-        $stocks = [];
-        $fechasD = [];
-        $fechas = [];
-        $dis = null;
-        for ($i = 0; $i<=$fecha; $i++){
-            $fe = Carbon::now()->addDays($i)->format('Y-m-d');
-            array_push($fechasD, $fe);
-        }
-        foreach ($informacionP as $x){
-            $stock = $x->stock - $informacionA->stock;
-            if($stock <=$informacionA->stock){
-                array_push($stocks, $x);
-            }
-            $dis = array_search($x->fecha_caducidad,$fechasD);
-            if ($dis != null){
-                array_push($fechas,$x);
+        $configuracion = ConfiguracionStock::first();
+        if(!$configuracion){
+            $configuracion = new ConfiguracionStock();
+            $configuracion->stock = 10;
+            $configuracion->fecha_caducidad = 10;
+            DB::beginTransaction();
+            try {
+                $configuracion->save();
+                DB::commit();
+            }catch (\Exception $e){
+                DB::rollback();
             }
         }
-        if(($fechas != null)||($stocks != null)){
-            return view("productos.productos-observacion",["estatus"=>"ok", "fechas" => $fechas , "stocks"=>$stocks]);
-        }
-
-        if(($fechas == null)&&($stocks == null)){
+        $sumaFechaActual = Carbon::now()->addDays($configuracion->fecha_caducidad)->format('Y-m-d');
+        $productosPorCaducar = Producto::where('fecha_caducidad','<=',$sumaFechaActual)->where('fecha_caducidad','>=','2000-01-01')->get();
+        $productosSinStock = Producto::where('stock','<=',$configuracion->stock)->get();
+        if(($productosSinStock == null)&&($productosPorCaducar == null))
             return view("productos.productos-observacion",["estatus"=>"no"]);
-        }
+
+        return view("productos.productos-observacion",["estatus"=>"ok", "fechas" => $productosPorCaducar , "stocks"=>$productosSinStock]);
+
     }
 }
 
