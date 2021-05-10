@@ -193,7 +193,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <input type="submit" value="Guardar nota" class="btn btn-primary">
+                            <input type="submit" value="Guardar" class="btn btn-primary">
                         </div>
                     </form>
                 </div>
@@ -331,6 +331,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function (response) {
+                            console.log(response);
                             if(response.estatus == "ok"){
                                 var informacion = response.informacion;
                                 $('#correoId').val(informacion.id)

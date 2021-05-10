@@ -25,6 +25,12 @@ Route::post('editarCorreo', "ConfiguracionGeneralController@editaCorreo")->name(
 Route::get('/informacion/{id?}', "ConfiguracionGeneralController@infoCorreo")->name("informacionCorreo");
 Route::get('/eliminar/{id?}', "ConfiguracionGeneralController@eliminaCorreo")->name("eliminarCorreo");
 Route::get('/estado/{id?}', "ConfiguracionGeneralController@estado")->name("estadoCorreo");
+Route::get('configuracionesStock/', "ConfiguracionGeneralController@configuracionesStock")->name("configuracionesStock");
+Route::post('agregarStock', "ConfiguracionGeneralController@agregarStock")->name("agregarStock");
+Route::get('/informacionStock/{id?}', "ConfiguracionGeneralController@infoStock")->name("infoStock");
+Route::post('editarStock', "ConfiguracionGeneralController@editaStock")->name("editarStock");
+Route::post('editarCaducidad', "ConfiguracionGeneralController@editaCaducidad")->name("editarCaducidad");
+Route::get('productosObservacion/', "ProductosController@stockCaducidad")->name("productosObservacion");
 
 
 

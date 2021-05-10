@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AperturaCaja;
 use App\Configuracion;
+use App\ConfiguracionStock;
 use App\Correos;
 use App\Mail\AbrirCajaMail;
 use App\Mail\CajaMail;
@@ -66,6 +67,7 @@ class PuntoVentaController extends Controller
             }
             else{
                 $producto->estado="Inactivo";
+
             }
         }
         return view("punto-venta.cobrar",compact('productos'));
@@ -73,11 +75,13 @@ class PuntoVentaController extends Controller
 
     public function buscar(Request $request)
     {
+        $f = ConfiguracionStock::first();
+        $cantidad = $f->stock;
         $busqueda = $request->input("busqueda");
-        $productos = Producto::where("nombre", "like", "%$busqueda%")->where("stock", ">=", 1)->where("estado", "=", "1")
-            ->orWhere("id", $busqueda)->where("stock", ">=", 1)->where("estado", "=", "1")
-            ->orWhere('descripcion', 'like', "%$busqueda%")->where("stock", ">=", 1)->where("estado", "=", "1")
-            ->orWhere('codigo', 'like', "%$busqueda%")->where("stock", ">=", 1)->orderBy("nombre")->where("estado", "=", "1")->get();
+        $productos = Producto::where("nombre", "like", "%$busqueda%")->where("stock", ">=", $cantidad)->where("estado", "=", "1")
+            ->orWhere("id", $busqueda)->where("stock", ">=", $cantidad)->where("estado", "=", "1")
+            ->orWhere('descripcion', 'like', "%$busqueda%")->where("stock", ">=", $cantidad)->where("estado", "=", "1")
+            ->orWhere('codigo', 'like', "%$busqueda%")->where("stock", ">=", $cantidad)->orderBy("nombre")->where("estado", "=", "1")->get();
         return response()->json($productos);
         // return view("layouts.resultado-busqueda-modal", compact("busqueda", "productos"));
     }
@@ -91,6 +95,7 @@ class PuntoVentaController extends Controller
         $verificarCierre = AperturaCaja::where("fecha_hora_cierre", null)->get()->count();
         if($verificarCierre > 1)
             return response()->json(["estado" => false, "errores" => ["Ocurrió un error, no se cerro la caja el día $verificarCierre->created_at. ¡Contacta al administrador!"]]);
+
 
         try {
             DB::beginTransaction();
@@ -149,8 +154,10 @@ class PuntoVentaController extends Controller
             if($verificarCierre)
                 return response()->json(["estado" => false, "errores" => ["Ocurrió un error, no se cerro la caja el día $verificarCierre->created_at. ¡Contacta al administrador!"]]);
 
+            $f = ConfiguracionStock::first();
+            $fecha = $f->fecha_caducidad;
             $productos = Producto::all();
-            $sigSemana = Carbon::now()->addDays(7)->format('Y-m-d');
+            $sigSemana = Carbon::now()->addDays($fecha)->format('Y-m-d');
             $productosCaducos = [];
             foreach ($productos as $producto) {
                 if ($producto->fecha_caducidad < $sigSemana) {
@@ -165,7 +172,7 @@ class PuntoVentaController extends Controller
             $conf->valor = "abierta";
             $conf->save();
 
-            Mail::to('johanguzmpe@gmail.com')->send(new AbrirCajaMail($request->input("inicial")));
+            Mail::to('emmanuelupt@gmail.com')->send(new AbrirCajaMail($request->input("inicial")));
             return response()->json(["estado" => true, 'detalle' => ['productos_a_caducar' => $productosCaducos]]);
         } catch (Exception $e) {
             return response()->json(["estado" => false, "errores" => ["Ocurrió un error al querer cambiar el estado de la caja."]]);
@@ -213,7 +220,7 @@ class PuntoVentaController extends Controller
             $apertura->fecha_hora_cierre = date("Y-m-d H:i:s");
             $apertura->save();
 
-            Mail::to('johanguzmpe@gmail.com')->send(new CerrarCajaMail($ventasTotales,$ventasTotalesTarjeta,$utilidades,$utilidadesTarjeta,$apertura->fecha_hora_cierre));
+            Mail::to('emmanuelupt@gmail.com')->send(new CerrarCajaMail($ventasTotales,$ventasTotalesTarjeta,$utilidades,$utilidadesTarjeta,$apertura->fecha_hora_cierre));
 
             //Mail::to('mag750729@gmail.com')->send(new CerrarCajaMail($ventasTotales,$utilidades,$apertura->fecha_hora_cierre));
 
@@ -227,6 +234,7 @@ class PuntoVentaController extends Controller
     }
 
     public function cobrarp(Request $request)
+
     {
         $verificarCierre = AperturaCaja::where("fecha_hora_cierre", null)->get();
         if(count($verificarCierre) > 1)
