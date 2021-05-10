@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Categoria;
 use App\CategoriaProducto;
+use App\ConfiguracionStock;
 use App\Perfil;
 use App\Producto;
 use App\Venta;
@@ -345,8 +346,9 @@ class ProductosController extends Controller
 
     }
     public function productosMasVendidos(){
-        $ventas = Venta::whereMonth('created_at',Carbon::now()->format('m'))->get();
+        $ventas = Venta::get();
         $productosTop=[];
+        //return response()->json($ventas);
         foreach ($ventas as $venta){
             $repeticiones=$venta->nRepeticionesP();
             foreach ($repeticiones as $clave=>$repeticion){
@@ -371,9 +373,7 @@ class ProductosController extends Controller
             //$p=[$prod,$producto['repeticiones']];
             array_push($productosCategoria,$p);
         }
-
         return response()->json($productosCategoria);
-
     }
     public function getProductos()
     {
@@ -451,8 +451,38 @@ class ProductosController extends Controller
         return redirect("/productos");
     }
 
+    public function stockCaducidad (){
+        $informacionP = Producto::all();
+        $informacionA = ConfiguracionStock::first();
+        $fecha = $informacionA->fecha_caducidad;
+        //$x = $informacionP->fecha_caducidad;
+        $f = Carbon::now()->addDays($fecha)->format('Y-m-d');
+        $stocks = [];
+        $fechasD = [];
+        $fechas = [];
+        $dis = null;
+        for ($i = 0; $i<=$fecha; $i++){
+            $fe = Carbon::now()->addDays($i)->format('Y-m-d');
+            array_push($fechasD, $fe);
+        }
+        foreach ($informacionP as $x){
+            $stock = $x->stock - $informacionA->stock;
+            if($stock <=$informacionA->stock){
+                array_push($stocks, $x);
+            }
+            $dis = array_search($x->fecha_caducidad,$fechasD);
+            if ($dis != null){
+                array_push($fechas,$x);
+            }
+        }
+        if(($fechas != null)||($stocks != null)){
+            return view("productos.productos-observacion",["estatus"=>"ok", "fechas" => $fechas , "stocks"=>$stocks]);
+        }
 
-
+        if(($fechas == null)&&($stocks == null)){
+            return view("productos.productos-observacion",["estatus"=>"no"]);
+        }
+    }
 }
 
 
