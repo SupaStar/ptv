@@ -208,7 +208,7 @@ class VentasController extends Controller
         $venta = Venta::find($idVenta);
         if($venta){
             $venta->productos;
-            $venta->usuario = User::find($venta->usuario_id)->first();
+            $venta->usuario = User::where('id',$venta->usuario_id)->first();
             return json_encode(["estatus" => "succes", "venta" => $venta]);
         }else{
             return json_encode(["estatus" => "error", "venta" => "No hay información"]);

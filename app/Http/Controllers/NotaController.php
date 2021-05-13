@@ -178,6 +178,7 @@ class NotaController extends Controller
         $nuevaFecha = date("Y-m-d",strtotime($fecha[0]."+ 1 days"));
         echo $nuevaFecha;
     }
+
     public function  productosErroneos(){
         $productos = Producto::all();
         echo "<hr><br>";

@@ -162,9 +162,7 @@
 @endsection
 @section('js')
     <script src="{{asset('/js/producto.js')}}"></script>
-
     <script src="{{asset('assets/js/datatables.min.js')}}"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
     <script>
         var productos = [];
@@ -182,7 +180,7 @@
                 id:"grafica",
             }
         }).done(function (response){
-            console.log(response);
+                console.log(response);
                 for(var x= 0; x<response.length;x++){
                     info = response [x];
                     partes  = info.split(";");
@@ -216,7 +214,6 @@
                         }
                     }
                 }
-
                 console.log(productos);
                 console.log(valores);
                 console.log(agrupadoCantidad);
@@ -264,7 +261,5 @@
                 }
             });
         }
-
-
     </script>
 @endsection

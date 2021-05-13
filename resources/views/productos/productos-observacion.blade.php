@@ -37,7 +37,7 @@
                                                     <th>{{$dato -> nombre}}</th>
                                                     <th>{{$dato -> fecha_caducidad}}</th>
                                                     <th>
-                                                        <a style="margin-right: 3px"  class="btn btn-primary editarInfo" type="button" verid="{{$dato->id}}">
+                                                        <a style="margin-right: 3px"  href="/verProducto/{{$dato->id}}" class="btn btn-primary verCaducidad" type="button" verCaducidad="{{$dato->id}}">
                                                             <i class="fa fa-eye"></i>
                                                         </a>
                                                     </th>
@@ -64,7 +64,7 @@
                                                     <th>{{$dato -> nombre}}</th>
                                                     <th>{{$dato -> stock}}</th>
                                                     <th>
-                                                        <a style="margin-right: 3px"  class="btn btn-primary editarInfo" type="button" verid="{{$dato->id}}">
+                                                        <a style="margin-right: 3px"  href="/verProducto/{{$dato->id}}" class="btn btn-primary stockId" type="button" verStock="{{$dato->id}}">
                                                             <i class="fa fa-eye"></i>
                                                         </a>
                                                     </th>

@@ -21,7 +21,6 @@ class PerfilController extends Controller
 
     public function updatePerfil(Request $request)
     {
-
         $usuario = Perfil::find($request->id);
         $usuario->name = $request->nombre;
         $usuario->lastname = $request->apellido;

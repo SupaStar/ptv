@@ -9,6 +9,7 @@ use App\Correos;
 use App\Mail\AbrirCajaMail;
 use App\Mail\CajaMail;
 use App\Mail\CerrarCajaMail;
+use App\Perfil;
 use App\Producto;
 use App\Reparacion;
 use App\Venta;
@@ -304,6 +305,18 @@ class PuntoVentaController extends Controller
         return view("punto-venta.ventas-semanal");
     }
 
+    public function ventasGenerales (){
+        $infoVentas = Venta::all();
+        $usuarios = Perfil::all();
+        return view("Ventas.ventas-general",["estatus"=>"ok", "ventas" => $infoVentas, "usuarios"=>$usuarios]);
+    }
+    public function ventasHoy (){
+        $fechaActual = Carbon::now()->format('Y-m-d '.'00:00:00');
+        $sigDia = Carbon::now()->addDays(1)->format('Y-m-d '.'00:00:00');
+        $infoVentas = Venta::where('created_at', '>=', $fechaActual)->where('created_at','<=',$sigDia)->get();
+        $usuarios = Perfil::all();
+        return view("Ventas.ventas-hoy",["estatus"=>"ok", "ventas" => $infoVentas, "usuarios"=>$usuarios]);
+    }
 }
 
 
