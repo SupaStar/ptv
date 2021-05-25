@@ -31,6 +31,7 @@ $.ajax({
     method:"get",
     url:"/getusuarios",
     success:function (response) {
+
         $('#tablausuarios').DataTable(
             {
                 data: response,
@@ -64,15 +65,15 @@ $.ajax({
                     {data: "email"},
                     {data: "estado"},
 
-                    {
-                        "render": function (data, type, row, meta) {
-                            if ($('#idadmin').val() == 1) {
-                                let id = row.id;
-                                return '<a id="btneditarusuario" style="margin-right: 3px" href="/editarusuario/' + id + '" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a><button id="btneliminausuario" onClick="obtenertb(' + id + ')"  class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>';
+                        {
+                            "render": function (data, type, row, meta) {
+                                if ($('#idadmin').val() == 1) {
+                                    let id = row.id;
+                                    return '<a id="btneditarusuario" style="margin-right: 3px" href="/editarusuario/' + id + '" class="btn btn-warning" type="button"><i class="fa fa-edit"></i></a><button id="btneliminausuario" onClick="obtenertb(' + id + ')"  class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>';
+                                }
                             }
-                        }
 
-                    }
+                        }
                 ]
 
             }
