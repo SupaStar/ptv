@@ -31,10 +31,9 @@ Route::get('/informacionStock/{id?}', "ConfiguracionGeneralController@infoStock"
 Route::post('editarStock', "ConfiguracionGeneralController@editaStock")->name("editarStock");
 Route::post('editarCaducidad', "ConfiguracionGeneralController@editaCaducidad")->name("editarCaducidad");
 Route::get('productosObservacion/', "ProductosController@stockCaducidad")->name("productosObservacion");
-
-
-
-
+Route::get('/verProducto/{id?}', 'ProductosController@verProducto')->name("verProducto");
+Route::get('ventasPrueba/', "PuntoVentaController@ventasGenerales")->name("ventasPrueba");
+Route::get('ventasActuales/', "PuntoVentaController@ventasHoy")->name("ventasPrueba");
 
 Route::get("productos-prueba", "ProductosController@productosMasVendidos");
 Route::post("productos-registro", "ProductosController@create")->name("productos-registro");

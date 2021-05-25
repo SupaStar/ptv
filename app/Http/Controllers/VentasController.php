@@ -104,13 +104,13 @@ class VentasController extends Controller
     public function getVentasApertura()
     {
         $apertura = AperturaCaja::where("fecha_hora_cierre", null)->first();
-        $fecha = explode(" ", $apertura->created_at);
-        $nuevaFecha = date("Y-m-d", strtotime($fecha[0] . "+ 1 days"));
+        $fecha = explode(" ",$apertura->created_at);
+        $nuevaFecha = date("Y-m-d",strtotime($fecha[0]."+ 1 days"));
 
-        $ventas = Venta::whereDate("created_at", "=", $fecha[0])->get();
+        $ventas = Venta::whereDate("created_at", "=",$fecha[0])->get();
         foreach ($ventas as $venta) {
             $venta->productos;
-            $venta->tipo_venta = $venta->tipo_venta == 0 ? "Efectivo" : "Pago con tarjeta";
+            $venta->tipo_venta=$venta->tipo_venta==0?"Efectivo":"Pago con tarjeta";
             $usuario = User::all()->where('id', '=', $venta->usuario_id);
             foreach ($usuario as $us) {
                 $venta->usuario = $us->name;
@@ -125,7 +125,7 @@ class VentasController extends Controller
         $ventas = Venta::whereDate("created_at", "=", Carbon::now()->format('Y-m-d'))->get();
         foreach ($ventas as $venta) {
             $venta->productos;
-            $venta->tipo_venta = $venta->tipo_venta == 0 ? "Efectivo" : "Pago con tarjeta";
+            $venta->tipo_venta=$venta->tipo_venta==0?"Efectivo":"Pago con tarjeta";
             $usuario = User::all()->where('id', '=', $venta->usuario_id);
             foreach ($usuario as $us) {
                 $venta->usuario = $us->name;
@@ -185,7 +185,7 @@ class VentasController extends Controller
         foreach ($ventas as $venta) {
             $venta->cp = DB::table('ventas_productos')->where('venta_id', '=', $venta->id)->get();
             $venta->usuarios = Perfil::find($venta->usuario_id);
-            $venta->tipo_venta = $venta->tipo_venta == 0 ? "Efectivo" : "Pago con tarjeta";
+            $venta->tipo_venta=$venta->tipo_venta==0?"Efectivo":"Pago con tarjeta";
             foreach ($venta->cp as $cp) {
                 $cp->producto = Producto::find($cp->producto_id);
             }
@@ -204,48 +204,15 @@ class VentasController extends Controller
         return response()->json($ventas);
     }
 
-    public function detallesVenta($idVenta)
-    {
+    public function detallesVenta($idVenta){
         $venta = Venta::find($idVenta);
-        if ($venta) {
+        if($venta){
             $venta->productos;
             $venta->usuario = User::find($venta->usuario_id)->first();
             return json_encode(["estatus" => "succes", "venta" => $venta]);
-        } else {
+        }else{
             return json_encode(["estatus" => "error", "venta" => "No hay información"]);
         }
     }
 
-
-    public function devoluciones()
-    {
-        return view("/Ventas/devoluciones");
-    }
-
-
-    public function ProductoDevolucion()
-    {
-        $productos = Producto::orderBy("estado", "DESC")->where("estado", "=", 1)->where("stock", ">", 0)->get();
-        foreach ($productos as $producto) {
-            if ($producto->estado == 1) {
-                $producto->estado = "Activo";
-            } else {
-                $producto->estado = "Inactivo";
-
-            }
-        }
-        return view("/Ventas/devoluciones", compact('productos'));
-    }
-
-
-    public function actualizarVenta(Request $request){
-
-
-
-    }
 }
-
-
-
-
-

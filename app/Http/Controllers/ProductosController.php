@@ -475,6 +475,14 @@ class ProductosController extends Controller
         return view("productos.productos-observacion",["estatus"=>"ok", "fechas" => $productosPorCaducar , "stocks"=>$productosSinStock]);
 
     }
+    public function verProducto($id)
+    {
+        $producto=Producto::find($id);
+        $categoria=CategoriaProducto::where("id_producto","=",$id)->get();
+        //$categoria=Categoria::where("id","=",$categoriaproducto->id_categoria)->get();
+        //echo $categoriaproducto->id_categoria;
+        return view("productos.ver-producto", ["estatus"=>"ok","producto" => $producto, "categoria"=> $categoria]);
+    }
 }
 
 
