@@ -19,8 +19,8 @@
                                 @endif
 
                                 @if($estatus == "ok")
-                                        <p>Productos por caducar</p>
-                                        <div class="table-responsive table mt-2" id="tabla" role="grid" aria-describedby="dataTable_info">
+                                    <p>Productos por caducar</p>
+                                    <div class="table-responsive table mt-2" id="tabla" role="grid" aria-describedby="dataTable_info">
                                         <table id="datatable-caducidadProductos" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <tr>
@@ -37,7 +37,7 @@
                                                     <th>{{$dato -> nombre}}</th>
                                                     <th>{{$dato -> fecha_caducidad}}</th>
                                                     <th>
-                                                        <a style="margin-right: 3px"  class="btn btn-primary editarInfo" type="button" verid="{{$dato->id}}">
+                                                        <a style="margin-right: 3px"  href="/verProducto/{{$dato->id}}" class="btn btn-primary verCaducidad" type="button" verCaducidad="{{$dato->id}}">
                                                             <i class="fa fa-eye"></i>
                                                         </a>
                                                     </th>
@@ -46,8 +46,8 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                        <p>Productos por terminar</p>
-                                        <div class="table-responsive table mt-2" id="tabla" role="grid" aria-describedby="dataTable_info">
+                                    <p>Productos por terminar</p>
+                                    <div class="table-responsive table mt-2" id="tabla" role="grid" aria-describedby="dataTable_info">
                                         <table id="datatable-Stock" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <tr>
@@ -64,7 +64,7 @@
                                                     <th>{{$dato -> nombre}}</th>
                                                     <th>{{$dato -> stock}}</th>
                                                     <th>
-                                                        <a style="margin-right: 3px"  class="btn btn-primary editarInfo" type="button" verid="{{$dato->id}}">
+                                                        <a style="margin-right: 3px"  href="/verProducto/{{$dato->id}}" class="btn btn-primary stockId" type="button" verStock="{{$dato->id}}">
                                                             <i class="fa fa-eye"></i>
                                                         </a>
                                                     </th>
