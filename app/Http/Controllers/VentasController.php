@@ -214,5 +214,31 @@ class VentasController extends Controller
             return json_encode(["estatus" => "error", "venta" => "No hay información"]);
         }
     }
+public function devoluciones()
+{
+    return view("/Ventas/devoluciones");
+}
+
+
+    public function ProductoDevolucion()
+    {
+        $productos = Producto::orderBy("estado", "DESC")->where("estado", "=", 1)->where("stock", ">", 0)->get();
+        foreach ($productos as $producto) {
+            if ($producto->estado == 1) {
+                $producto->estado = "Activo";
+            } else {
+                $producto->estado = "Inactivo";
+
+            }
+        }
+        return view("/Ventas/devoluciones", compact('productos'));
+    }
+
+
+    public function actualizarVenta(Request $request){
+
+
+
+    }
 
 }

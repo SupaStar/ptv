@@ -9,7 +9,6 @@ use App\Correos;
 use App\Mail\AbrirCajaMail;
 use App\Mail\CajaMail;
 use App\Mail\CerrarCajaMail;
-use App\Perfil;
 use App\Producto;
 use App\Reparacion;
 use App\Venta;
@@ -23,6 +22,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use phpDocumentor\Reflection\Types\Nullable;
+use App\Perfil;
 
 class PuntoVentaController extends Controller
 {
@@ -173,7 +173,7 @@ class PuntoVentaController extends Controller
             $conf->valor = "abierta";
             $conf->save();
 
-            Mail::to('emmanuelupt@gmail.com')->send(new AbrirCajaMail($request->input("inicial")));
+            Mail::to('johanguzmpe@gmail.com')->send(new AbrirCajaMail($request->input("inicial")));
             return response()->json(["estado" => true, 'detalle' => ['productos_a_caducar' => $productosCaducos]]);
         } catch (Exception $e) {
             return response()->json(["estado" => false, "errores" => ["Ocurrió un error al querer cambiar el estado de la caja."]]);
@@ -221,7 +221,7 @@ class PuntoVentaController extends Controller
             $apertura->fecha_hora_cierre = date("Y-m-d H:i:s");
             $apertura->save();
 
-            Mail::to('emmanuelupt@gmail.com')->send(new CerrarCajaMail($ventasTotales,$ventasTotalesTarjeta,$utilidades,$utilidadesTarjeta,$apertura->fecha_hora_cierre));
+            Mail::to('johanguzmpe@gmail.com')->send(new CerrarCajaMail($ventasTotales,$ventasTotalesTarjeta,$utilidades,$utilidadesTarjeta,$apertura->fecha_hora_cierre));
 
             //Mail::to('mag750729@gmail.com')->send(new CerrarCajaMail($ventasTotales,$utilidades,$apertura->fecha_hora_cierre));
 
@@ -304,7 +304,6 @@ class PuntoVentaController extends Controller
     {
         return view("punto-venta.ventas-semanal");
     }
-
     public function ventasGenerales (){
         $infoVentas = Venta::all();
         $usuarios = Perfil::all();

@@ -31,14 +31,9 @@ Route::get('/informacionStock/{id?}', "ConfiguracionGeneralController@infoStock"
 Route::post('editarStock', "ConfiguracionGeneralController@editaStock")->name("editarStock");
 Route::post('editarCaducidad', "ConfiguracionGeneralController@editaCaducidad")->name("editarCaducidad");
 Route::get('productosObservacion/', "ProductosController@stockCaducidad")->name("productosObservacion");
-
 Route::get('/verProducto/{id?}', 'ProductosController@verProducto')->name("verProducto");
 Route::get('ventasPrueba/', "PuntoVentaController@ventasGenerales")->name("ventasPrueba");
 Route::get('ventasActuales/', "PuntoVentaController@ventasHoy")->name("ventasPrueba");
-
-
-
-
 
 Route::get("productos-prueba", "ProductosController@productosMasVendidos");
 Route::post("productos-registro", "ProductosController@create")->name("productos-registro");
@@ -99,7 +94,6 @@ Route::post('registrarusuario', 'PerfilController@registrarusuario');
 Route::get('/obtenerproductos', 'ProductosController@productos');
 Route::get('/obtenercategoria', 'CategoriaController@encontrar');
 Route::get('/editarproducto/{id}', 'ProductosController@editap');
-Route::get('/editarproducto/{id}', 'ProductosController@editap');
 Route::get('/editarcategoria/{id}', 'CategoriaController@editap');
 Route::get('/editarusuario/{id}', 'PerfilController@editap');
 Route::get('/obtenerventas', 'VentasController@getVentashoy');
@@ -136,6 +130,10 @@ Route::get('misnotas/eliminar/{id?}', "NotaController@eliminar")->name("notas.in
 Route::post('agregar-nota', "NotaController@agregar")->name("notas.agregar");
 Route::post('editar-nota', "NotaController@editar")->name("notas.editar");
 
+//Devoluciones
+Route::get('devoluciones/', "VentasController@devoluciones")->name("devoluciones");
+Route::get('devoluciones/{id?}', "VentasController@BuscarVenta")->name("devoluciones.detalles");
+Route::get('devoluciones', "VentasController@ProductoDevolucion")->name("devoluciones.producto");
 
 // Modales
 Route::post("/buscar", "PuntoVentaController@buscar")->name("buscar");

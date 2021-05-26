@@ -19,8 +19,8 @@
                                 @endif
 
                                 @if($estatus == "ok")
-                                        <p>Productos por caducar</p>
-                                        <div class="table-responsive table mt-2" id="tabla" role="grid" aria-describedby="dataTable_info">
+                                    <p>Productos por caducar</p>
+                                    <div class="table-responsive table mt-2" id="tabla" role="grid" aria-describedby="dataTable_info">
                                         <table id="datatable-caducidadProductos" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <tr>
@@ -46,8 +46,8 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                        <p>Productos por terminar</p>
-                                        <div class="table-responsive table mt-2" id="tabla" role="grid" aria-describedby="dataTable_info">
+                                    <p>Productos por terminar</p>
+                                    <div class="table-responsive table mt-2" id="tabla" role="grid" aria-describedby="dataTable_info">
                                         <table id="datatable-Stock" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <tr>
