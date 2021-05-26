@@ -235,10 +235,17 @@ public function devoluciones()
     }
 
 
-    public function actualizarVenta(Request $request){
+    public function devolverproductos(Request $request){
 
+$totalinicial= $request->totalinicial;
+$totalfinal=$request->totalfinal;
+$cambio=$request->cambio;
 
+echo $totalfinal;
+echo $totalinicial;
+echo $cambio;
 
     }
+
 
 }

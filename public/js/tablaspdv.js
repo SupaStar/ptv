@@ -67,6 +67,7 @@ function obtenertb(id)
                 },
             success: function (response)
             {
+
                 $('#idp').val(response.id)
                 $('#producto').val(response.nombre)
                 $('#precio').val(response.venta)
@@ -102,6 +103,7 @@ $(document).on('click', '#btneditanota', function(){
         valores.push($(this).html());
 
     });
+    console.log(valores);
     $('#idp').val(valores[0]);
     $('#producto').val(valores[1]);
     $('#precio').val(valores[3]);
@@ -138,6 +140,7 @@ $(document).on('click', '#btnpago', function(event){
         });
         parametros.push(tr);
     });
+
    var cambio= $('#inputpago').val()-$('#inputtotal').val()
     if(cambio>=0){
         $.ajax({

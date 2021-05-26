@@ -9,14 +9,12 @@
             <div id="content">
                 <div class="container-fluid ">
                     <h3>Devoluciones</h3>
-                    <form method="post" action="{{""}}" enctype="multipart/form-data">
+                    <form method="post" action="{{""}}">
                         {{ csrf_field() }}
-
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="text-md-right dataTables_filter" id="dataTable_filter">
-
                                     </div>
                                 </div>
                             </div>
@@ -39,57 +37,24 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <!--
-                                <div class="col-md-6 col-xl-5">
-                                    <p class="text-primary m-0 font-weight-bold">Productos</p>
-                                    <div class="row">
-                                        <div class="col">
-
-                                            <div style="margin-top: 30px;" class="table-responsive table-sm">
-                                                <table id="tbproductosb" class="table table-sm table-striped table-hover">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Código</th>
-                                                        <th>Nombre del producto</th>
-                                                        <th>Precio</th>
-                                                        <th >Stock</th>
-                                                        <th>Acción</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody id="tablaproducto">
-                                                    @foreach($productos as $producto)
-                                                        <tr><td>{{$producto->codigo}}</td>
-                                                            <td>{{$producto->nombre}}</td>
-                                                            <td>{{$producto->venta}}</td>
-                                                            <td>{{$producto->stock}}</td>
-                                                            <td><a id="btnadd" onClick="obtenertb({{$producto->id}})" class="btn btn btn-success" type="button"><i class="fa fa-plus"></i></a></td></tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
--->
                                 <div class="col border-left">
                                     <p class="text-primary m-0 font-weight-bold">Total</p>
                                     <form id="formnota">
                                         <div class="form-row">
                                             <div class="col-xl-2">
                                                 <h1 style="font-size: 18px;height: 23px;margin-top: 9px;width: 78.3px;">Producto:</h1>
-                                                <input  id="producto" disabled class="form-control" type="text">
-                                                <input  id="stock" disabled class="form-control" type="text">
-
+                                                <input id="referenciaNumVenta" hidden class="form-control" type="text">
                                             </div>
-                                            <div  class="col-xl-10"><input id="idp" disabled class="form-control" type="text"></div>
+                                            <div  class="col-xl-10"><input id="producto" disabled class="form-control" type="text"></div>
                                         </div>
                                         <div style="margin-top: 20px;" class="form-row">
                                             <div class="col">
                                                 <div class="form-row">
                                                     <div class="col-xl-4">
                                                         <h1 style="font-size: 18px;height: 23px;margin-top: 9px;width: 78.3px;">Precio:</h1>
-                                                        <input id="idp"  class="form-control" type="text">
+                                                        <input id="idp" hidden class="form-control" type="text">
+                                                        <input id="descripcion" hidden class="form-control" type="text">
+
                                                     </div>
                                                     <div class="col"><input id="precio" disabled class="form-control" type="number" style="width: 100%;"></div>
                                                 </div>
@@ -108,18 +73,17 @@
                                             <div class="col">
                                                 <div class="form-row">
 
-                                                    <div class="col float-left"><button disabled id="btnenvio" class="btn btn-primary" type="submit">Agregar Producto</button></div>
+                                                    <div class="col float-left"><button disabled id="btnenvio2" class="btn btn-primary" type="submit">Agregar Producto</button></div>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </form>
                                     <form>
                                         <div class="form-row">
                                             <div class="col">
                                                 <h1 style="font-size: 18px;height: 23px;margin-top: 9px;width: 78.3px;">Cuenta:</h1>
                                                 <div class="table-responsive-sm">
-                                                    <table id="tbcuenta" class="display nowrap" cellspacing="0" width="100%">
+                                                    <table id="tbcuenta" class="display nowrap tbejemplo" cellspacing="0" width="100%">
                                                         <thead>
                                                         <tr>
                                                             <th hidden>id</th>
@@ -143,33 +107,12 @@
                                             </div>
                                         </div>
                                         <div class="form-row">
-                                            <div class="col text-right" style="margin-top: 10px;"><a href="/cobrar" class="btn btn-danger" type="button" style="margin-left: 0px;margin-right: 5px;">Cancelar</a><button id="btnpagar" class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal">Actualizar compra</button></div>
+                                            <div class="col text-right" style="margin-top: 10px;"><a  id="btncancelar" class="btn btn-danger" type="button" style="margin-left: 0px;margin-right: 5px;">Cancelar</a><button   onclick="datosComparar()" class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-devolucion">continuar</button></div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <label class="form-text">Motivo de devolucion</label>
-                            <select class="form-control" required >
-                                <option value="" selected disabled>Selecciona una...</option>
-                                <option value="Baja">Producto roto/Abierto/caducado etc..</option>
-                                <option  value="Media">Error en el pedido</option>
-                                <option value="Alta">otro error</option>
-                                <option value="Alta">otro... espesifique en obsevaciones</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-text">Observaciones*</label>
-                            <textarea class="form-control" rows="5" required name="descripcion_devolucion">{{ old('descripcion_devolucion') }}</textarea>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <input type="submit" value="Devolver" class="btn btn-primary">
-                        </div>
-
                     </form>
                         </div>
                     </div>
@@ -180,7 +123,59 @@
             <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
 
 
+        <div class="modal fade" id="modal-devolucion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Devolucion</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="" enctype="multipart/form-data">
+                            <form>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <h1 style="font-size: 18px;height: 23px;margin-top: 9px;width: 78.3px;">Devolucion:</h1>
+                                        <div class="table-responsive-sm">
+                                            <table id="tbcuenta2" class="display nowrap text-center" cellspacing="0" width="100%">
+                                                <thead>
+                                                <tr>
+                                                    <th hidden>id</th>
+                                                    <th>Producto</th>
+                                                    <th>Precio</th>
+                                                    <th>Devuelto</th>
+                                                    <th>Total</th>
+                                                    <th>Motivo</th>
+                                                </tr>
+                                                </thead>
 
+                                                <tbody id="tbdevolucion" class="text-center">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <div class="form-group">
+                                <label class="form-text">Observaciones*</label>
+                                <textarea class="form-control" rows="5" required name="descripcion_devolucion">{{ old('descripcion_devolucion') }}</textarea>
+                            </div>
+                            <input hidden type="submit" id="totalinicial" class="btn btn-primary">
+                            <input hidden type="submit" id="totalfinal"  class="btn btn-primary">
+                            <input hidden type="submit"  id="cambio" class="btn btn-primary">
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="submit" value="confirmar" id="confirmar" class="btn btn-primary">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         @endsection
         @section('js')
