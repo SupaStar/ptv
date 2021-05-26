@@ -132,8 +132,8 @@ Route::post('editar-nota', "NotaController@editar")->name("notas.editar");
 
 //Devoluciones
 Route::get('devoluciones/', "VentasController@devoluciones")->name("devoluciones");
-Route::get('devoluciones/{id?}', "VentasController@BuscarVenta")->name("devoluciones.detalles");
 Route::get('devoluciones', "VentasController@ProductoDevolucion")->name("devoluciones.producto");
+Route::post('devoluciones/devolverproductos', "VentasController@devolverproductos")->name("devolver.productos");
 
 // Modales
 Route::post("/buscar", "PuntoVentaController@buscar")->name("buscar");
