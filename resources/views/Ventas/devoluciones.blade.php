@@ -163,9 +163,13 @@
                                 <label class="form-text">Observaciones*</label>
                                 <textarea class="form-control" rows="5" required name="descripcion_devolucion">{{ old('descripcion_devolucion') }}</textarea>
                             </div>
-                            <input hidden type="submit" id="totalinicial" class="btn btn-primary">
-                            <input hidden type="submit" id="totalfinal"  class="btn btn-primary">
-                            <input hidden type="submit"  id="cambio" class="btn btn-primary">
+                            <input hidden id="totalinicial">
+                            <input hidden  id="totalfinal">
+                            <input hidden   id="cambio">
+                            <input type="hidden" id="totalfinal" name="totalfinal" >
+                            <input type="hidden" id="totalinicial" name="totalinicial" >
+                            <input type="hidden" id="cambio" name="cambio" >
+
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
