@@ -1,3 +1,8 @@
+var idVenta;
+var totalinicial;
+var totalfinal;
+var cambio;
+var suma;
 $(document).ready(function ()
 {
 
@@ -28,6 +33,7 @@ function buscarventa(id) {
             "_token": $("meta[name='csrf-token']").attr("content")
         },
         success: function (response) {
+            idVenta = id;
             $('#tbnota').empty();
             $('#referenciaNumVenta').val(id);
             var nVentas = response.length;
@@ -58,7 +64,7 @@ function buscarventa(id) {
                     return a + b;
                 }, 0);
                 $('#totalpagar').val(suma)
-
+                //agregarDevolucion (idVenta);
             });
         }
     })
@@ -94,7 +100,7 @@ function buscarventa(id) {
         $("td.subtotal").each(function(){
             data.push(parseFloat($(this).text()));
         });
-        var suma = data.reduce(function(a,b){ return a+b; },0);
+        suma = data.reduce(function(a,b){ return a+b; },0);
         $('#totalpagar').val(suma)
     });
     $("#btnenvio2").on("click",function(event){
@@ -179,22 +185,23 @@ function datosComparar(){
         });
         parametros.push(tr);
     });
+
     var cantidadp = parametros.length;
-    var totalinicial=0;
+    totalinicial=0;
     for (m=0; m<cantidadp; m++){
         totalinicial=totalinicial+parseInt(parametros[m][5]);
 
     }
-    console.log(totalinicial);
-    var totalfinal= $('#totalpagar').val();
-    var cambio= totalinicial-totalfinal;
+    //console.log(totalinicial);
+    totalfinal= $('#totalpagar').val();
+    cambio= totalinicial-totalfinal;
 
     $('#totalinicial').val(totalinicial);
     $('#totalfinal').val(totalfinal);
     $('#cambio').val(cambio);
 
 
-    console.log(parametros);
+    //console.log(parametros);
 
 
 var opciondevo = '  <select class="form-control miselect" required >\n' +
@@ -253,7 +260,6 @@ $(document).on('click', '#confirmar', function(event) {
     var parametros = [];
     var motivos=[];
     let selects = $('.miselect');
-
     selects.each(function () {
         let select = $(this);
         motivos.push(select.val());
@@ -272,28 +278,32 @@ $(document).on('click', '#confirmar', function(event) {
                 }
 
             }
-
-
         });
-
         parametros.push(tr);
     });
+    agregarDevolucion(parametros,idVenta,totalinicial,totalfinal,cambio);
+});
 
-
-        $.ajax({
-            method: "post",
-            url: "/devolverproductos",
-
+function agregarDevolucion (parametros,idVenta,totalinicial,totalfinal,cambio){
+    var params ={"totalinicial": totalinicial, "totalfinal":totalfinal, "cambio":cambio};
+    console.log(parametros); console.log(idVenta); console.log(totalinicial); console.log(totalfinal); console.log(cambio);
+    $.ajax(
+        {
+            type: "post",
+            url: 'devoluciones/devolverproductos',
 
             data: {
-                "producto": parametros,
-                "_token": $("meta[name='csrf-token']").attr("content")
+                "totalinicial": totalinicial,
+                "totalfinal":totalfinal,
+                "cambio": cambio,
+                "_token": $("meta[name='csrf-token']").attr("content"),
             },
-            success: function (response) {
+            success: function (response)
+            {
 
             }
 
+        }
 
-        })
-
-});
+    )
+}

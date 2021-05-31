@@ -133,43 +133,37 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="post" action="" enctype="multipart/form-data">
-                            <form>
-                                <div class="form-row">
-                                    <div class="col">
-                                        <h1 style="font-size: 18px;height: 23px;margin-top: 9px;width: 78.3px;">Devolucion:</h1>
-                                        <div class="table-responsive-sm">
-                                            <table id="tbcuenta2" class="display nowrap text-center" cellspacing="0" width="100%">
-                                                <thead>
-                                                <tr>
-                                                    <th hidden>id</th>
-                                                    <th>Producto</th>
-                                                    <th>Precio</th>
-                                                    <th>Devuelto</th>
-                                                    <th>Total</th>
-                                                    <th>Motivo</th>
-                                                </tr>
-                                                </thead>
+                        <form method="post" action="{{route('devolver.productos')}}" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <input type="hidden" id="totalfinal" name="totalfinal" >
+                            <input type="hidden" id="totalinicial" name="totalinicial" >
+                            <input type="hidden" id="cambio" name="cambio" >
+                            <div class="form-row">
+                                <div class="col">
+                                    <h1 style="font-size: 18px;height: 23px;margin-top: 9px;width: 78.3px;">Devolucion:</h1>
+                                    <div class="table-responsive-sm">
+                                        <table id="tbcuenta2" class="display nowrap text-center" cellspacing="0" width="100%">
+                                            <thead>
+                                            <tr>
+                                                <th hidden>id</th>
+                                                <th>Producto</th>
+                                                <th>Precio</th>
+                                                <th>Devuelto</th>
+                                                <th>Total</th>
+                                                <th>Motivo</th>
+                                            </tr>
+                                            </thead>
 
-                                                <tbody id="tbdevolucion" class="text-center">
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                            <tbody id="tbdevolucion" class="text-center">
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-
-                            </form>
+                            </div>
                             <div class="form-group">
                                 <label class="form-text">Observaciones*</label>
                                 <textarea class="form-control" rows="5" required name="descripcion_devolucion">{{ old('descripcion_devolucion') }}</textarea>
                             </div>
-                            <input hidden id="totalinicial">
-                            <input hidden  id="totalfinal">
-                            <input hidden   id="cambio">
-                            <input type="hidden" id="totalfinal" name="totalfinal" >
-                            <input type="hidden" id="totalinicial" name="totalinicial" >
-                            <input type="hidden" id="cambio" name="cambio" >
-
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -236,15 +236,15 @@ public function devoluciones()
 
 
     public function devolverproductos(Request $request){
+        $totalinicial = 2;
+    $totalinicial= $request->totalinicial;
+    $totalfinal=$request->totalfinal;
+    $cambio=$request->cambio;
 
-$totalinicial= $request->totalinicial;
-$totalfinal=$request->totalfinal;
-$cambio=$request->cambio;
-
-echo $totalfinal;
-echo $totalinicial;
-echo $cambio;
-
+    echo $totalfinal;
+    echo $totalinicial;
+    echo $cambio;
+    return view("/Ventas/devoluciones", ["estatus"=>"ok", "totalinicial"=>$totalinicial]);
     }
 
 
