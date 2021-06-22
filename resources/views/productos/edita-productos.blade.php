@@ -38,13 +38,13 @@
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label for="compra"><strong>Compra</strong></label>
-                                                        <input value="{{$producto->compra}}" class="form-control" type="number" id="compra" name="compra" placeholder="Compra">
+                                                        <input value="{{$producto->compra}}" step="0.01" class="form-control" type="number" id="compra" name="compra" placeholder="Compra">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label for="venta"><strong>Venta</strong></label>
-                                                        <input value="{{$producto->venta}}" class="form-control" type="number" id="venta" name="venta" placeholder="Venta">
+                                                        <input value="{{$producto->venta}}" step="0.01" class="form-control" type="number" id="venta" name="venta" placeholder="Venta">
                                                     </div>
                                                 </div>
                                             </div>
@@ -106,7 +106,7 @@
                                                         <label for="estado"><strong>Estado</strong></label>
                                                         <select class="form-control" required id="estado" name="estado">
                                                             <option selected disabled>Seleccione un estado</option>
-                                                            @if($producto->estado=="Activo")
+                                                            @if($producto->estado=="1")
                                                         <option selected value="1" >Activo</option>
                                                                 <option value="0">Inactivo</option>
 
