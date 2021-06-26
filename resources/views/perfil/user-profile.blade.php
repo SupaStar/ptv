@@ -4,6 +4,8 @@
 
 @endsection
 @section('contenido')
+
+
     <div id="wrapper">
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
@@ -16,7 +18,7 @@
                                     <div class="card shadow mb-3" align="center">
                                         <div class="card-header py-3">
                                             <p class="text-primary m-0 font-weight-bold">
-                                                <i class="fa fa-cog"></i>
+                                                <i class="fa fa-cog" aria-hidden="true"></i>
                                                 Editar información
                                             </p>
                                         </div>
@@ -34,7 +36,7 @@
                                                 {{ csrf_field() }}
                                                 <input value="{{$usuario=Auth::user()->id}}" class="form-control" type="text" id="id" name="id" hidden>
 
-                                                <div class="form-ro21w">
+                                                <div class="form-row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <i class="fa fa-user-md icono" aria-hidden="true"></i>

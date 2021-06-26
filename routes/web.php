@@ -18,23 +18,6 @@ use App\Venta;
 if (env('APP_FORCE_HTTPS', false)) {
     URL::forceScheme('https');
 }
-//configuraciones
-Route::get('configuracionesGenerales/', "ConfiguracionGeneralController@configuraciones")->name("configuracionesGenerales");
-Route::post('agregarCorreo', "ConfiguracionGeneralController@agregaCorreo")->name("nuevoCorreo");
-Route::post('editarCorreo', "ConfiguracionGeneralController@editaCorreo")->name("editarCorreo");
-Route::get('/informacion/{id?}', "ConfiguracionGeneralController@infoCorreo")->name("informacionCorreo");
-Route::get('/eliminar/{id?}', "ConfiguracionGeneralController@eliminaCorreo")->name("eliminarCorreo");
-Route::get('/estado/{id?}', "ConfiguracionGeneralController@estado")->name("estadoCorreo");
-Route::get('configuracionesStock/', "ConfiguracionGeneralController@configuracionesStock")->name("configuracionesStock");
-Route::post('agregarStock', "ConfiguracionGeneralController@agregarStock")->name("agregarStock");
-Route::get('/informacionStock/{id?}', "ConfiguracionGeneralController@infoStock")->name("infoStock");
-Route::post('editarStock', "ConfiguracionGeneralController@editaStock")->name("editarStock");
-Route::post('editarCaducidad', "ConfiguracionGeneralController@editaCaducidad")->name("editarCaducidad");
-Route::get('productosObservacion/', "ProductosController@stockCaducidad")->name("productosObservacion");
-Route::get('/verProducto/{id?}', 'ProductosController@verProducto')->name("verProducto");
-Route::get('ventasPrueba/', "PuntoVentaController@ventasGenerales")->name("ventasPrueba");
-Route::get('ventasActuales/', "PuntoVentaController@ventasHoy")->name("ventasPrueba");
-
 Route::get("productos-prueba", "ProductosController@productosMasVendidos");
 Route::post("productos-registro", "ProductosController@create")->name("productos-registro");
 Route::post("categorias-registro", "CategoriasController@create")->name("categorias-registro");
@@ -130,10 +113,6 @@ Route::get('misnotas/eliminar/{id?}', "NotaController@eliminar")->name("notas.in
 Route::post('agregar-nota', "NotaController@agregar")->name("notas.agregar");
 Route::post('editar-nota', "NotaController@editar")->name("notas.editar");
 
-//Devoluciones
-Route::get('devoluciones/', "VentasController@devoluciones")->name("devoluciones");
-Route::get('devoluciones', "VentasController@ProductoDevolucion")->name("devoluciones.producto");
-Route::post('devoluciones/devolverproductos', "VentasController@devolverproductos")->name("devolver.productos");
 
 // Modales
 Route::post("/buscar", "PuntoVentaController@buscar")->name("buscar");

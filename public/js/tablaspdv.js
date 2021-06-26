@@ -1,8 +1,7 @@
 $("#btnenvio").on("click",function(event){
-
-
-
     event.preventDefault();
+    $('#btnenvio').prop("disabled",true)
+    $('#cantidad').prop("disabled",true)
     $.ajax(
         {
             type: "post",
@@ -67,7 +66,6 @@ function obtenertb(id)
                 },
             success: function (response)
             {
-
                 $('#idp').val(response.id)
                 $('#producto').val(response.nombre)
                 $('#precio').val(response.venta)
@@ -103,7 +101,6 @@ $(document).on('click', '#btneditanota', function(){
         valores.push($(this).html());
 
     });
-    console.log(valores);
     $('#idp').val(valores[0]);
     $('#producto').val(valores[1]);
     $('#precio').val(valores[3]);
@@ -140,13 +137,13 @@ $(document).on('click', '#btnpago', function(event){
         });
         parametros.push(tr);
     });
-
    var cambio= $('#inputpago').val()-$('#inputtotal').val()
     if(cambio>=0){
+        $("#btnpago").prop("disabled",true);
+
         $.ajax({
             method:"post",
             url:"/cobrarp",
-
             data:{
                 "producto":parametros, "total":$('#inputtotal').val(),"denominacion":$('#inputpago').val(),
                 'tipo_venta':$("#tipo_venta").val(),
@@ -154,6 +151,7 @@ $(document).on('click', '#btnpago', function(event){
             },
             success:function (response)
             {
+                console.log(response);
                 if(response.estado != false){
                     imprimirTicketVentas(parametros, $('#inputtotal').val(), function () {
                         alerta("Listo, <b>no olvides dar ticket al cliente</b><br>Cambio: $" + (parseFloat(denominacion) - parseFloat(_t)).toFixed(2), "success");
@@ -172,6 +170,7 @@ $(document).on('click', '#btnpago', function(event){
                 }
             }
         })
+
     }else{
         alertify.error("Su pago no cubre el total de la venta")
     }

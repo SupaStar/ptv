@@ -178,6 +178,9 @@
     <script src="{{asset('assets/js/datatables.min.js')}}"></script>
     <script src="{{asset('/js/sweetalert/sweetalert.min.js')}}"></script>
     <script>
+
+
+
         @if($errors->all())
             @if(!$errors->has('errorRegistro'))
                 $("#modal-agregar-nota").modal("show");

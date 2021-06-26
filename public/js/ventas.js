@@ -55,7 +55,7 @@ $(document).ready(function () {
                             {data: "usuarios.name"},
                             {data: "created_at"},
                             {data: "total"},
-                            {data: "cp.0.cantidad"}
+                            {data: "tipo_venta"}
                         ]
 
                     }
@@ -98,4 +98,3 @@ $(document).ready(function () {
         })
     })
 })
-

@@ -20,7 +20,7 @@ class ProductosImport implements ToModel, WithHeadingRow
         if (!$bd) {
             return new Producto([
                 'nombre' => $row['nombre'],
-                'compra' => doubleval($row['compra']),
+                'compra' => doubleval($row['venta'])/2,
                 'venta' => doubleval($row['venta']),
                 'stock' => doubleval($row['stock']),
                 'fecha_caducidad' => date('Y-m-d',strtotime('1899-12-31+'.(intval($row['caducidad'])-1).' days')),

@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Categoria;
 use App\CategoriaProducto;
-use App\ConfiguracionStock;
 use App\Perfil;
 use App\Producto;
 use App\Venta;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ProductosController extends Controller
 {
@@ -173,6 +171,11 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
+        $verifica = Producto::where("codigo", $request ->codigo)->orWhere('nombre',$request->nombre)->first();
+
+        if ($verifica != null)
+            return redirect("/registrarproducto")->with('Codigo', 'OK');
+
         $producto = new Producto();
         $categoriaproducto= new CategoriaProducto();
         $producto->nombre = $request->nombre;
@@ -189,18 +192,12 @@ class ProductosController extends Controller
         }
         if($request -> fecha_caducidad<Carbon::now()->format("Y-m-d")){
             return redirect("/registrarproducto")->with('Caducado', 'OK');
-
-        }
-        else {
-            $producto->fecha_caducidad = $request->fecha_caducidad;
-        }$producto->descripcion = $request->descripcion;
-        if ($usuariouser = Producto::all()->where("codigo", $request -> codigo)->count() >= 1) {
-
-            return redirect("/registrarproducto")->with('Codigo', 'OK');
         } else {
-
-            $producto -> codigo = $request -> codigo;
-        }$producto->save();
+            $producto->fecha_caducidad = $request->fecha_caducidad;
+        }
+        $producto->descripcion = $request->descripcion;
+        $producto -> codigo = $request -> codigo;
+        $producto->save();
         $categoriaproducto->id_producto=$producto->id;
         $categoriaproducto->id_categoria=$request->idcategoria;
         $categoriaproducto->save();
@@ -346,11 +343,9 @@ class ProductosController extends Controller
         }
 
     }
-
     public function productosMasVendidos(){
-        $ventas = Venta::get();
+        $ventas = Venta::whereMonth('created_at',Carbon::now()->format('m'))->get();
         $productosTop=[];
-        //return response()->json($ventas);
         foreach ($ventas as $venta){
             $repeticiones=$venta->nRepeticionesP();
             foreach ($repeticiones as $clave=>$repeticion){
@@ -375,7 +370,9 @@ class ProductosController extends Controller
             //$p=[$prod,$producto['repeticiones']];
             array_push($productosCategoria,$p);
         }
+
         return response()->json($productosCategoria);
+
     }
     public function getProductos()
     {
@@ -391,18 +388,11 @@ class ProductosController extends Controller
         $producto=Producto::find($id);
         $categoriaproducto=CategoriaProducto::where("id_producto","=",$id)->get();
         $categoria=Categoria::all();
+
+
+
         return view("productos/edita-productos")->with(compact("producto",$producto))->with(compact("categoria",$categoria))->with("categoriap",$categoriaproducto);
     }
-
-    public function verProducto($id)
-    {
-        $producto=Producto::find($id);
-        $categoria=CategoriaProducto::where("id_producto","=",$id)->get();
-        //$categoria=Categoria::where("id","=",$categoriaproducto->id_categoria)->get();
-        //echo $categoriaproducto->id_categoria;
-        return view("productos.ver-producto", ["estatus"=>"ok","producto" => $producto, "categoria"=> $categoria]);
-    }
-
     public function findp(Request $request)
     {
         $producto=Producto::find($request->id);
@@ -460,29 +450,7 @@ class ProductosController extends Controller
         return redirect("/productos");
     }
 
-    public function stockCaducidad (){
-        $configuracion = ConfiguracionStock::first();
-        if(!$configuracion){
-            $configuracion = new ConfiguracionStock();
-            $configuracion->stock = 10;
-            $configuracion->fecha_caducidad = 10;
-            DB::beginTransaction();
-            try {
-                $configuracion->save();
-                DB::commit();
-            }catch (\Exception $e){
-                DB::rollback();
-            }
-        }
-        $sumaFechaActual = Carbon::now()->addDays($configuracion->fecha_caducidad)->format('Y-m-d');
-        $productosPorCaducar = Producto::where('fecha_caducidad','<=',$sumaFechaActual)->where('fecha_caducidad','>=','2000-01-01')->get();
-        $productosSinStock = Producto::where('stock','<=',$configuracion->stock)->get();
-        if(($productosSinStock == null)&&($productosPorCaducar == null))
-            return view("productos.productos-observacion",["estatus"=>"no"]);
 
-        return view("productos.productos-observacion",["estatus"=>"ok", "fechas" => $productosPorCaducar , "stocks"=>$productosSinStock]);
-
-    }
 
 }
 

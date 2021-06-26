@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model
 {
     protected $table = "productos";
-    protected $fillable = ['nombre', 'compra', 'venta', 'stock', 'fecha_caducidad', 'codigo', 'descripcion', 'estado'];
+
 
     public function ventas()
     {

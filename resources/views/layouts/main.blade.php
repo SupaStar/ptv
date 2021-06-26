@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="/css/styles.css?v={{config("app.version")}}">
     @yield("css")
 </head>
+</head>
+
 <body>
     @if(session("estado"))
     <div class="notificacion alert alert-info alert-dismissible" role="alert">

@@ -157,7 +157,6 @@ class VentasController extends Controller
 
     public function ventashoy()
     {
-
         return view("Ventas/ventas-hoy");
     }
 
@@ -208,44 +207,11 @@ class VentasController extends Controller
         $venta = Venta::find($idVenta);
         if($venta){
             $venta->productos;
-            $venta->usuario = User::where('id',$venta->usuario_id)->first();
+            $venta->usuario = User::find($venta->usuario_id)->first();
             return json_encode(["estatus" => "succes", "venta" => $venta]);
         }else{
             return json_encode(["estatus" => "error", "venta" => "No hay información"]);
         }
     }
-public function devoluciones()
-{
-    return view("/Ventas/devoluciones");
-}
-
-
-    public function ProductoDevolucion()
-    {
-        $productos = Producto::orderBy("estado", "DESC")->where("estado", "=", 1)->where("stock", ">", 0)->get();
-        foreach ($productos as $producto) {
-            if ($producto->estado == 1) {
-                $producto->estado = "Activo";
-            } else {
-                $producto->estado = "Inactivo";
-
-            }
-        }
-        return view("/Ventas/devoluciones", compact('productos'));
-    }
-
-
-    public function devolverproductos(Request $request){
-        $totalinicial = 2;
-    $totalinicial= $request->totalinicial;
-    $totalfinal=$request->totalfinal;
-    $cambio=$request->cambio;
-
-    echo $totalfinal;
-    echo $totalinicial;
-    echo $cambio;
-    return view("/Ventas/devoluciones", ["estatus"=>"ok", "totalinicial"=>$totalinicial]);
-    }
-
 
 }

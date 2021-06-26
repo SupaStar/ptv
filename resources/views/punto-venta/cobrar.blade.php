@@ -6,13 +6,7 @@
 @endsection
 @section('contenido')
     <div class="container-fluid">
-        <h3 class="text-dark mb-4">Cobrar</h3>
-        <div class="col-md-12 text-nowrap text-left">
-            <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#modal-devolucion" type="button">Devolucion de producto</a>
-            @foreach ($errors->get('errorRegistro') as $error)
-                <div class="alert alert-danger">{{ $error }}</div>
-            @endforeach
-        </div>
+        <h3 class="text-dark mb-4">Cobrar</h3><button class="btn btn-primary" type="submit">Devolución de producto</button>
         <div class="card shadow mb-5">
             <div class="card-header py-3"></div>
             <div class="card-body">
@@ -148,19 +142,17 @@
                                     <div class="col-xl-3 offset-xl-2">
                                         <h1 style="font-size: 20px;">Total a pagar: $</h1>
                                     </div>
-                                    <div class="col-xl-6"><input disabled id="inputtotal" type="number"
-                                                                 class="form-control"/></div>
+                                    <div class="col-xl-6"><input disabled id="inputtotal" type="number" class="form-control" /></div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-xl-3 offset-xl-2">
                                         <h1 style="font-size: 20px;">Efectivo recibido: $</h1>
                                     </div>
-                                    <div class="col-xl-6"><input id="inputpago" class="form-control" type="number"/>
-                                    </div>
+                                    <div class="col-xl-6"><input id="inputpago" class="form-control" type="number" /></div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-xl-3 offset-xl-2">
-                                        <h1 style="font-size: 20px;">Forma de pago</h1>
+                                        <h1 style="font-size: 20px;" >Forma de pago</h1>
                                     </div>
                                     <div class="col-xl-6"><select class="form-control" aria-label="tipo_venta" name="tipo_venta" id="tipo_venta">
                                             <option selected value="0">Efectivo</option>
@@ -175,8 +167,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
     <input type="hidden" id="ruta-buscar" value="{{route('buscar')}}">
     <input type="hidden" id="ruta-cobrar" value="{{route('cobrar')}}">
