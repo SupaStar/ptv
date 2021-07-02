@@ -81,7 +81,7 @@ Route::get('/editarcategoria/{id}', 'CategoriaController@editap');
 Route::get('/editarusuario/{id}', 'PerfilController@editap');
 Route::get('/obtenerventas', 'VentasController@getVentashoy');
 Route::get('/obtenerventasApertura', 'VentasController@getVentasApertura');
-Route::get('/detallesVenta/{id}', 'VentasController@detallesVenta');
+Route::get('/detallesVenta/{id}', 'VentasController@detallesVenta')->name('buscar.venta.id');
 
 Route::resource('reparaciones', 'ReparacionesController')->except("show");
 Route::get("reparaciones/{id?}", "ReparacionesController@show")->name("reparaciones.show");
@@ -103,6 +103,10 @@ Route::get('/logout',function (){
    return redirect()->route('punto-venta');
 });
 
+// -- Devoluciones
+Route::get("/devolucion", "VentasController@devolucion")->name("devolucion");
+Route::get("/devolucion/{id}", "VentasController@crearDevolucion")->name("crear.devolucion");
+Route::post("/agregar-producto-devolucion", "VentasController@agregarProductoDevolucion")->name("agregar.producto.devolucion");
 
 // -- Notas
 Route::get('prueba/', "NotaController@prueba")->name("notas.prueba");

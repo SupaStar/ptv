@@ -8,11 +8,14 @@ use App\Perfil;
 use App\Producto;
 use App\User;
 use App\Venta;
+use App\Venta_Producto;
 use App\VentaProducto;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
+
 
 class VentasController extends Controller
 {
@@ -207,11 +210,87 @@ class VentasController extends Controller
         $venta = Venta::find($idVenta);
         if($venta){
             $venta->productos;
-            $venta->usuario = User::find($venta->usuario_id)->first();
+            $venta->usuario = User::find($venta->usuario_id);
+            $venta->tipo_venta=$venta->tipo_venta==0?"Efectivo":"Pago con tarjeta";
             return json_encode(["estatus" => "succes", "venta" => $venta]);
         }else{
             return json_encode(["estatus" => "error", "venta" => "No hay información"]);
         }
     }
+
+    public function devolucion(){
+
+        $ventas = Venta::whereDate("created_at", "=", Carbon::now()->format('Y-m-d'))->get();
+        foreach ($ventas as $venta) {
+            $venta->productos;
+            $venta->tipo_venta=$venta->tipo_venta==0?"Efectivo":"Pago con tarjeta";
+        }
+        return view("ventas/devolucion",["ventas" => $ventas]);
+
+    }
+
+    public function crearDevolucion($id){
+        $venta = Venta::find($id);
+        if(!$venta)
+            return redirect()->route('devolucion');
+
+        $venta->tipo_venta=$venta->tipo_venta==0?"Efectivo":"Pago con tarjeta";
+        $venta->productos();
+        $venta->usuario;
+
+       return view("ventas/devoluciones",['venta' => $venta]);
+    }
+
+    public function agregarProductoDevolucion(Request $datos){
+        if(!$datos->codigo || !$datos->ventaId)
+            return response()->json(["estatus" => "error", "mensaje" => "Información incompleta"]);
+
+        $producto = Producto::where('codigo',$datos->codigo)->first();
+        if(!$producto)
+            return response()->json(["estatus" => "error", "mensaje" => "No se encontró el producto"]);
+
+        $venta = Venta::find($datos->ventaId);
+        if(!$venta)
+            return response()->json(["estatus" => "error", "mensaje" => "No se encontró la venta"]);
+
+        $ventaProducto = Venta_Producto::where('venta_id',$venta->id)->where('producto_id',$producto->id)->first();
+
+         DB::beginTransaction();
+        try {
+        if($ventaProducto){
+            $ventaProducto->compra = $producto->compra;
+            $ventaProducto->venta = $producto->venta;
+            $ventaProducto->cantidad = $ventaProducto->cantidad + 1;
+            $ventaProducto->save();
+            DB::commit();
+            return response()->json(["estatus" => "ok", "mensaje" => "Se actualizó la cantidad correctamente"]);
+        }
+
+        }catch (\Exception $e){
+            DB::rollback();
+            //echo json_encode($e);
+            return response()->json(["estatus" => "error", "mensaje" => "Ocurrio un error inesperado consulta al desarrolador"]);
+
+    } DB::beginTransaction();
+        try {
+            if(!$ventaProducto){
+                $ventaProducto = new Venta_Producto();
+                $ventaProducto->venta_id = $venta->id;
+                $ventaProducto->producto_id = $producto->id;
+                $ventaProducto->compra = $producto->compra;
+                $ventaProducto->venta = $producto->venta;
+                $ventaProducto->cantidad = 1;
+                $ventaProducto->save();
+                DB::commit();
+                return response()->json(["estatus" => "ok", "mensaje" => "Se agregó corectamente el producto"]);
+            }
+
+        }catch (\Exception $e){
+            DB::rollback();
+            //echo json_encode($e);
+            return response()->json(["estatus" => "error", "mensaje" => "Ocurrio un error inesperado consulta al desarrolador"]);
+
+        }
+        }
 
 }

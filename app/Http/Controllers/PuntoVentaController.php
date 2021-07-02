@@ -302,6 +302,8 @@ class PuntoVentaController extends Controller
         return view("punto-venta.ventas-semanal");
     }
 
+
+
 }
 
 
