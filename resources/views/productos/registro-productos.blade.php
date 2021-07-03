@@ -115,7 +115,7 @@
                 alertify.error("El producto no se puede registrar, esta caducado o apunto de caducar")
             @endif
             @if(session('Codigo'))
-                alertify.error("El producto no se puede registrar, código repetido")
+                alertify.error("El producto no se puede registrar, código o nombre repetido")
             @endif
         })
 

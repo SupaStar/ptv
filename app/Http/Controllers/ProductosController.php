@@ -160,7 +160,7 @@ class ProductosController extends Controller
         $productos -> descripcion = $request -> descripcion;
         $productos->save();
 
-        return redirect("/productos");
+        return redirect("/productos",["codigo" => 200, "mensaje" => "Producto agregado correctamente"]);
     }
 
     /**
@@ -201,7 +201,8 @@ class ProductosController extends Controller
         $categoriaproducto->id_producto=$producto->id;
         $categoriaproducto->id_categoria=$request->idcategoria;
         $categoriaproducto->save();
-        return redirect("/productos");
+        return redirect("/productos")->with('agregado', 'OK');
+
     }
 
     /**
