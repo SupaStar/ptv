@@ -99,6 +99,24 @@
                                                </tr>
                                            @endforeach
                                             </tbody>
+                                            <thead class="">
+                                            <tr class="thead-dark">
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
+                                                <th scope="col"> </th>
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
+                                                <th scope="col" class="text-right">Nuevo Total: </th>
+                                                <th scope="col">$50.00</th>
+                                                <th scope="col"><button class="btn btn-primary form-control" type="button">Confirmar Devolución</button></th>
+                                            </tr>
+                                            </thead>
                                         </table>
                                 </div>
                             </div>
