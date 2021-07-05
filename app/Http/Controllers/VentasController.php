@@ -274,6 +274,12 @@ class VentasController extends Controller
                     $ventaProducto->cantidad = $ventaProducto->cantidad + 1;
                 $ventaProducto->save();
 
+                $nueva = NuevaTabla::where('venta_id',$venta->id)->first();
+                if(!$nueva){
+                    $nueva = new NuevaTabla();
+                    $nueva->venta_id = $venta->id;
+                }
+
                 $informacionVenta["producto"] = $producto;
                 $informacionVenta["precioVenta"] = $producto->venta;
                 $informacionVenta["cantidad"] = $ventaProducto->cantidad;
@@ -298,6 +304,12 @@ class VentasController extends Controller
                 $ventaProducto->cantidad = 1;
                 $ventaProducto->save();
                 DB::commit();
+
+                $nueva = NuevaTabla::where('venta_id',$venta->id)->first();
+                if(!$nueva){
+                    $nueva = new NuevaTabla();
+                    $nueva->venta_id = $venta->id;
+                }
 
                 $informacionVenta["producto"] = $producto;
                 $informacionVenta["precioVenta"] = $producto->venta;
