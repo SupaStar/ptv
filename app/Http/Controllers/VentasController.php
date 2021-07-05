@@ -256,6 +256,9 @@ class VentasController extends Controller
         if(isset($datos->cantidad)){
             if($datos->cantidad <= 0 || $datos->cantidad == '' || $datos->cantidad == null)
             return response()->json(["estatus" => "error", "mensaje" => "No se encontró la venta"]);
+
+            if($producto->stock < $datos->cantidad)
+                return response()->json(["estatus" => "error", "mensaje" => "No se cuenta con esa cantidad de productos en stock"]);
         }
 
         $ventaProducto = Venta_Producto::where('venta_id',$venta->id)->where('producto_id',$producto->id)->first();
@@ -333,6 +336,8 @@ class VentasController extends Controller
         try {
             DB::beginTransaction();
             $ventaProducto->delete();
+            $producto->stock = $producto->stock + $ventaProducto->cantidad;
+            $producto->save();
             DB::commit();
             return response()->json(["estatus" => "ok", "mensaje" => "Se elimino correctamente el producto"]);
         }catch (\Exception $e){
