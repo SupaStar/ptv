@@ -9,7 +9,7 @@
     <div class="d-flex flex-column" id="content-wrapper">
         <div id="content">
             <div class="container-fluid">
-                <h3 class="text-dark mb-4">Devoluciones</h3>
+                <h3 class="text-dark mb-4">Devoluciones del día</h3>
                 <div class="card shadow">
                     <div class="card-header py-3">
                         <p class="text-primary m-0 font-weight-bold">Informacion de ventas del día</p>
@@ -183,35 +183,6 @@
                                     $('#tipo').val(venta.tipo_venta);
 
                                     $('#modal-realizar-devolucion').modal("show");
-                                }else{
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Oops...',
-                                        text: '¡Contacta al desarrollador!',
-                                    })
-                                }
-                            }
-                        }
-                    )
-                }
-                function eliminarnota (id){
-                    $.ajax(
-                        {
-                            type: "get",
-                            url: '/misnotas/eliminar/'+id,
-                            dataType:'json',
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            success: function (response) {
-                                if(response.estatus == "ok"){
-                                    Swal.fire(
-                                        'Nota eliminada!',
-                                        'Los datos se eliminaron correctamente.',
-                                        'success'
-                                    ).then((result) => {
-                                        location.reload();
-                                    })
                                 }else{
                                     Swal.fire({
                                         icon: 'error',

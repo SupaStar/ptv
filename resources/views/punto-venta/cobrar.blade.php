@@ -6,7 +6,7 @@
 @endsection
 @section('contenido')
     <div class="container-fluid">
-        <h3 class="text-dark mb-4">Cobrar</h3><button class="btn btn-primary" type="submit">Devolución de producto</button>
+        <h3 class="text-dark mb-4">Cobrar</h3><a href="{{route("devolucion")}}" class="btn btn-primary" type="submit">Devolución de producto</a>
         <div class="card shadow mb-5">
             <div class="card-header py-3"></div>
             <div class="card-body">
