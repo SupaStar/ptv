@@ -87,20 +87,19 @@
                                                 <th scope="col">Eliminar</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="tabla-contenido">
                                            @foreach($venta->productos as $producto)
-                                               <tr>
-                                               <th scope="row">{{$producto->id}}</th>
-                                               <th>{{$producto->nombre}}</th>
-                                               <th>{{$producto->pivot->venta}}</th>
-                                               <th>{{$producto->pivot->cantidad}}</th>
-                                               <th>{{$producto->pivot->cantidad * $producto->pivot->venta}}</th>
-                                               <th><a href="#"><i class="fa fa-2x fa-trash"></i></a></th>
+                                               <tr id="tr-{{$producto->id}}">
+                                                   <th scope="row">{{$producto->id}}</th>
+                                                   <th>{{$producto->nombre}}</th>
+                                                   <th><p id="producto-venta-{{$producto->id}}">{{$producto->pivot->venta}}</p></th>
+                                                   <th><input type="number" id="producto-cantidad-{{$producto->id}}" onfocusout="verificarCantidad(this);" class="form-control verificar-cantidad" producto-codigo="{{$producto->codigo}}" value="{{$producto->pivot->cantidad}}"></th>
+                                                   <th><p id="producto-subtotal-{{$producto->id}}">{{$producto->pivot->cantidad * $producto->pivot->venta}}</p></th>
+                                                   <th><a class="eliminar-producto" onclick="eliminarProducto({{$producto->id}})"><i class="fa fa-2x fa-trash"></i></a></th>
                                                </tr>
                                            @endforeach
                                             </tbody>
                                         </table>
-
                                 </div>
                             </div>
                         </div>
@@ -113,6 +112,8 @@
             <script src="{{asset('/js/sweetalert/sweetalert.min.js')}}"></script>
             <script>
                 var token = '{{csrf_token()}}';
+                var ventaId = $("#ventaId").val();
+
                 function agregarProducto(){
                     if($("#codigo-producto-nuevo").val() == '' || $("#codigo-producto-nuevo").val() == null){
                         Swal.fire({
@@ -146,6 +147,21 @@
                                     text: respuesta.mensaje,
                                 })
                             }else{
+
+                                if(respuesta.detalles.tipo == "agregado"){
+                                    let producto = respuesta.detalles.producto;
+                                    console.log(respuesta.detalles);
+                                    let tr =
+                                        '<tr id="tr-'+producto.id+'">' +
+                                        '<th scope="row">'+producto.id+'</th>' +
+                                        '<th>'+producto.nombre+'</th>' +
+                                        '<th><p id="producto-venta-'+producto.id+'">'+respuesta.detalles.precioVenta+'</p>' +
+                                        '<th><input type="number" id="producto-cantidad-'+producto.id+'" onfocusout="verificarCantidad(this);"  class="form-control verificar-cantidad" producto-codigo="'+producto.codigo+'" value="'+respuesta.detalles.cantidad+'"></th>' +
+                                        '<th><p id="producto-subtotal-'+producto.id+'">'+respuesta.detalles.cantidad * respuesta.detalles.precioVenta+'</p></th>'+
+                                        '<th><a class="eliminar-producto" onclick="eliminarProducto('+producto.id+')"><i class="fa fa-2x fa-trash"></i></a></th>'
+                                    '</tr>';
+                                    $("#tabla-contenido").append(tr);
+                                }
                                 Swal.fire({
                                     position: 'top-end',
                                     icon: 'success',
@@ -154,8 +170,102 @@
                                     timer: 1500
                                 })
                             }
-                        }});
+                        }
+                    });
 
+                }
+
+                function verificarCantidad(elemento){
+                    console.log("elemento");
+                    var elemento = document.getElementById(elemento.getAttribute('id'));
+                    let productoCodigo = elemento.getAttribute('producto-codigo');
+                    let cantidad = elemento.value;
+                    if(cantidad <= 0 || cantidad == null || cantidad == ''){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: '¡Ingresa una cantidad valida!',
+                        }).then(() => {
+                            elemento.focus();
+                        });
+                        return false;
+                    }
+
+                    var form_data = new FormData();
+                    form_data.append('codigo', productoCodigo);
+                    form_data.append('cantidad', cantidad);
+                    form_data.append('ventaId', ventaId);
+                    form_data.append('_token', token);
+                    $.ajax({
+                        url: '/agregar-producto-devolucion',
+                        dataType: 'json',
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: form_data,
+                        type: 'post',
+                        success: function(respuesta){
+                            // console.log(respuesta);
+                            if(respuesta.estatus!= 'ok'){
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: respuesta.mensaje,
+                                })
+                            }else{
+                                let nuevaCantidad = respuesta.detalles.cantidad;
+                                let nuevoSubtotal = respuesta.detalles.subtotal;
+                                let precioVenta = respuesta.detalles.precioVenta;
+                                let producto = respuesta.detalles.producto;
+                                $("#producto-venta-"+producto.id).html(precioVenta);
+                                $("#producto-cantidad-"+producto.id).val(cantidad);
+                                $("#producto-subtotal-"+producto.id).html(nuevoSubtotal);
+                            }
+                        }
+                    });
+
+                }
+
+                function eliminarProducto(productoId){
+
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: "¡No podrás restaurar la información!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: '¡Sí, borrar esto!',
+                        cancelButtonText: '¡Cancelar!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var form_data = new FormData();
+                            form_data.append('productoId', productoId);
+                            form_data.append('ventaId', ventaId);
+                            form_data.append('_token', token);
+                            $.ajax({
+                                url: '/eliminar-producto-devolucion',
+                                dataType: 'json',
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                data: form_data,
+                                type: 'post',
+                                success: function(respuesta){
+                                    // console.log(respuesta);
+                                    if(respuesta.estatus!= 'ok'){
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text: respuesta.mensaje,
+                                        })
+                                    }else{
+                                        $("#tr-"+productoId).remove();
+                                    }
+                                }
+                            });
+                        }
+                    });
                 }
             </script>
 @endsection

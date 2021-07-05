@@ -107,6 +107,7 @@ Route::get('/logout',function (){
 Route::get("/devolucion", "VentasController@devolucion")->name("devolucion");
 Route::get("/devolucion/{id}", "VentasController@crearDevolucion")->name("crear.devolucion");
 Route::post("/agregar-producto-devolucion", "VentasController@agregarProductoDevolucion")->name("agregar.producto.devolucion");
+Route::post("/eliminar-producto-devolucion", "VentasController@eliminarProductoDevolucion")->name("eliminar.producto.devolucion");
 
 // -- Notas
 Route::get('prueba/', "NotaController@prueba")->name("notas.prueba");

@@ -169,8 +169,8 @@ class PuntoVentaController extends Controller
             $conf->save();
 
             Mail::to('emmanuelupt@gmail.com')->send(new AbrirCajaMail($request->input("inicial")));
-            Mail::to('mag750729@gmail.com')->send(new AbrirCajaMail($request->input("inicial")));
-            Mail::to('garciagonzalezmariana07@gmail.com')->send(new AbrirCajaMail($request->input("inicial")));
+            //Mail::to('mag750729@gmail.com')->send(new AbrirCajaMail($request->input("inicial")));
+            //Mail::to('garciagonzalezmariana07@gmail.com')->send(new AbrirCajaMail($request->input("inicial")));
             return response()->json(["estado" => true, 'detalle' => ['productos_a_caducar' => $productosCaducos]]);
         } catch (Exception $e) {
             return response()->json(["estado" => false, "errores" => ["Ocurrió un error al querer cambiar el estado de la caja."]]);
@@ -219,8 +219,8 @@ class PuntoVentaController extends Controller
             $apertura->save();
 
             Mail::to('emmanuelupt@gmail.com')->send(new CerrarCajaMail($ventasTotales,$ventasTotalesTarjeta,$utilidades,$utilidadesTarjeta,$apertura->fecha_hora_cierre));
-            Mail::to('mag750729@gmail.com')->send(new CerrarCajaMail($ventasTotales,$ventasTotalesTarjeta,$utilidades,$utilidadesTarjeta,$apertura->fecha_hora_cierre));
-            Mail::to('garciagonzalezmariana07@gmail.com')->send(new CerrarCajaMail($ventasTotales,$ventasTotalesTarjeta,$utilidades,$utilidadesTarjeta,$apertura->fecha_hora_cierre));
+            //Mail::to('mag750729@gmail.com')->send(new CerrarCajaMail($ventasTotales,$ventasTotalesTarjeta,$utilidades,$utilidadesTarjeta,$apertura->fecha_hora_cierre));
+            //Mail::to('garciagonzalezmariana07@gmail.com')->send(new CerrarCajaMail($ventasTotales,$ventasTotalesTarjeta,$utilidades,$utilidadesTarjeta,$apertura->fecha_hora_cierre));
 
             session()->flash('estado', "Caja cerrada<br>
                 Monto inicial: <b>$ " . number_format($apertura->monto_inicio, 2) . "</b><br>

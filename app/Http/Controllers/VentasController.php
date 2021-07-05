@@ -253,27 +253,40 @@ class VentasController extends Controller
         if(!$venta)
             return response()->json(["estatus" => "error", "mensaje" => "No se encontró la venta"]);
 
-        $ventaProducto = Venta_Producto::where('venta_id',$venta->id)->where('producto_id',$producto->id)->first();
-
-         DB::beginTransaction();
-        try {
-        if($ventaProducto){
-            $ventaProducto->compra = $producto->compra;
-            $ventaProducto->venta = $producto->venta;
-            $ventaProducto->cantidad = $ventaProducto->cantidad + 1;
-            $ventaProducto->save();
-            DB::commit();
-            return response()->json(["estatus" => "ok", "mensaje" => "Se actualizó la cantidad correctamente"]);
+        if(isset($datos->cantidad)){
+            if($datos->cantidad <= 0 || $datos->cantidad == '' || $datos->cantidad == null)
+            return response()->json(["estatus" => "error", "mensaje" => "No se encontró la venta"]);
         }
 
+        $ventaProducto = Venta_Producto::where('venta_id',$venta->id)->where('producto_id',$producto->id)->first();
+        $informacionVenta = [];
+        try {
+            if($ventaProducto){
+                DB::beginTransaction();
+                $ventaProducto->compra = $producto->compra;
+                $ventaProducto->venta = $producto->venta;
+                if(isset($datos->cantidad))
+                    $ventaProducto->cantidad = $datos->cantidad;
+                else
+                    $ventaProducto->cantidad = $ventaProducto->cantidad + 1;
+                $ventaProducto->save();
+
+                $informacionVenta["producto"] = $producto;
+                $informacionVenta["precioVenta"] = $producto->venta;
+                $informacionVenta["cantidad"] = $ventaProducto->cantidad;
+                $informacionVenta["subtotal"] = $ventaProducto->cantidad * $ventaProducto->venta;
+                $informacionVenta["tipo"] = "modificacion";
+
+                DB::commit();
+                return response()->json(["estatus" => "ok", "mensaje" => "Se actualizó la cantidad correctamente", "detalles" => $informacionVenta]);
+            }
         }catch (\Exception $e){
             DB::rollback();
-            //echo json_encode($e);
             return response()->json(["estatus" => "error", "mensaje" => "Ocurrio un error inesperado consulta al desarrolador"]);
-
-    } DB::beginTransaction();
+        }
         try {
             if(!$ventaProducto){
+                DB::beginTransaction();
                 $ventaProducto = new Venta_Producto();
                 $ventaProducto->venta_id = $venta->id;
                 $ventaProducto->producto_id = $producto->id;
@@ -282,15 +295,50 @@ class VentasController extends Controller
                 $ventaProducto->cantidad = 1;
                 $ventaProducto->save();
                 DB::commit();
-                return response()->json(["estatus" => "ok", "mensaje" => "Se agregó corectamente el producto"]);
-            }
 
+                $informacionVenta["producto"] = $producto;
+                $informacionVenta["precioVenta"] = $producto->venta;
+                $informacionVenta["cantidad"] = $ventaProducto->cantidad;
+                $informacionVenta["subtotal"] = $ventaProducto->cantidad * $ventaProducto->venta;
+                $informacionVenta["tipo"] = "agregado";
+
+                return response()->json(["estatus" => "ok", "mensaje" => "Se agregó corectamente el producto", "detalles" => $informacionVenta]);
+            }
         }catch (\Exception $e){
             DB::rollback();
-            //echo json_encode($e);
             return response()->json(["estatus" => "error", "mensaje" => "Ocurrio un error inesperado consulta al desarrolador"]);
-
         }
+    }
+
+    public function eliminarProductoDevolucion(Request $datos){
+
+        if(!$datos->productoId)
+            return response()->json(["estatus" => "error", "mensaje" => "Ocurrio un error, no se pasó el parametro producto"]);
+
+        if(!$datos->ventaId)
+            return response()->json(["estatus" => "error", "mensaje" => "Ocurrio un error, no se pasó el parametro venta"]);
+
+        $producto = Producto::find($datos->productoId);
+        if(!$producto)
+            return response()->json(["estatus" => "error", "mensaje" => "Ocurrio un error, no se encontró el producto"]);
+
+        $venta = Venta::find($datos->ventaId);
+        if(!$venta)
+            return response()->json(["estatus" => "error", "mensaje" => "Ocurrio un error, no se encontró la venta"]);
+
+        $ventaProducto = Venta_Producto::where('venta_id',$venta->id)->where('producto_id',$producto->id)->first();
+        if(!$ventaProducto)
+            return response()->json(["estatus" => "error", "mensaje" => "Ocurrio un error, no es posible encontrar el producto en la venta"]);
+
+        try {
+            DB::beginTransaction();
+            $ventaProducto->delete();
+            DB::commit();
+            return response()->json(["estatus" => "ok", "mensaje" => "Se elimino correctamente el producto"]);
+        }catch (\Exception $e){
+            DB::rollback();
+            return response()->json(["estatus" => "error", "mensaje" => "Ocurrio un error inesperado consulta al desarrolador"]);
         }
 
+    }
 }
