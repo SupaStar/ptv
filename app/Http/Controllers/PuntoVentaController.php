@@ -31,9 +31,9 @@ class PuntoVentaController extends Controller
 
     public function index()
     {
-        $fecha = null;
         $apertura = AperturaCaja::where("fecha_hora_cierre",null)->first();
         if($apertura){
+            $fecha = null;
             $fechaN = explode(" ",$apertura->created_at);
             $fecha = $fechaN[0];
         }

@@ -10,6 +10,7 @@ use App\User;
 use App\Venta;
 use App\Venta_Producto;
 use App\VentaProducto;
+use App\ventas_productos_devoluciones;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -264,8 +265,22 @@ class VentasController extends Controller
         $ventaProducto = Venta_Producto::where('venta_id',$venta->id)->where('producto_id',$producto->id)->first();
         $informacionVenta = [];
         try {
+            DB::beginTransaction();
+//            $respaldoVenta = ventas_productos_devoluciones::where('venta_id',$venta->id)->first();
+//            if(!$respaldoVenta){
+//                $respaldoVenta = new ventas_productos_devoluciones();
+//                $respaldoVenta->venta_id = $venta->id;
+//                $productoVenta = Venta_Producto::where('venta_id',$venta->id)->get();
+//                foreach ($productoVenta as $productoventa){
+//                    $respaldoVenta->producto_id = $productoventa->id;
+//                    $respaldoVenta->compra = $productoventa->compra;
+//                    $respaldoVenta->venta =$productoventa->venta;
+//                    $respaldoVenta->cantidad= $productoventa->cantidad;
+//                }
+//                $respaldoVenta->save();
+//            }
             if($ventaProducto){
-                DB::beginTransaction();
+
                 $ventaProducto->compra = $producto->compra;
                 $ventaProducto->venta = $producto->venta;
                 if(isset($datos->cantidad))
@@ -274,17 +289,22 @@ class VentasController extends Controller
                     $ventaProducto->cantidad = $ventaProducto->cantidad + 1;
                 $ventaProducto->save();
 
-                $nueva = NuevaTabla::where('venta_id',$venta->id)->first();
-                if(!$nueva){
-                    $nueva = new NuevaTabla();
-                    $nueva->venta_id = $venta->id;
+//
+
+                $ventaProductos = Venta_Producto::where("venta_id",$venta->id)->get();
+                $suma = 0;
+                foreach ($ventaProductos as $productoVenta){
+                    $suma = $suma + $productoVenta->cantidad * $productoVenta->venta;
                 }
 
                 $informacionVenta["producto"] = $producto;
                 $informacionVenta["precioVenta"] = $producto->venta;
                 $informacionVenta["cantidad"] = $ventaProducto->cantidad;
                 $informacionVenta["subtotal"] = $ventaProducto->cantidad * $ventaProducto->venta;
+                $informacionVenta["totalNuevo"] = $suma;
                 $informacionVenta["tipo"] = "modificacion";
+
+
 
                 DB::commit();
                 return response()->json(["estatus" => "ok", "mensaje" => "Se actualizó la cantidad correctamente", "detalles" => $informacionVenta]);
@@ -294,8 +314,23 @@ class VentasController extends Controller
             return response()->json(["estatus" => "error", "mensaje" => "Ocurrio un error inesperado consulta al desarrolador"]);
         }
         try {
+            DB::beginTransaction();
+//            $respaldoVenta = ventas_productos_devoluciones::where('venta_id',$venta->id)->first();
+//            if(!$respaldoVenta){
+//                $respaldoVenta = new ventas_productos_devoluciones();
+//                $respaldoVenta->venta_id = $venta->id;
+//                $productoVenta = Venta_Producto::where('venta_id',$venta->id)->get();
+//                foreach ($productoVenta as $productoventa){
+//                    $respaldoVenta->producto_id = $productoventa->id;
+//                    $respaldoVenta->compra = $productoventa->compra;
+//                    $respaldoVenta->venta =$productoventa->venta;
+//                    $respaldoVenta->cantidad= $productoventa->cantidad;
+//                }
+//                $respaldoVenta->save();
+//            }
+//
             if(!$ventaProducto){
-                DB::beginTransaction();
+
                 $ventaProducto = new Venta_Producto();
                 $ventaProducto->venta_id = $venta->id;
                 $ventaProducto->producto_id = $producto->id;
@@ -303,20 +338,22 @@ class VentasController extends Controller
                 $ventaProducto->venta = $producto->venta;
                 $ventaProducto->cantidad = 1;
                 $ventaProducto->save();
-                DB::commit();
 
-                $nueva = NuevaTabla::where('venta_id',$venta->id)->first();
-                if(!$nueva){
-                    $nueva = new NuevaTabla();
-                    $nueva->venta_id = $venta->id;
+
+                $ventaProductos = Venta_Producto::where("venta_id",$venta->id)->get();
+                $suma = 0;
+                foreach ($ventaProductos as $productoVenta){
+                    $suma = $suma + $productoVenta->cantidad * $productoVenta->venta;
                 }
 
                 $informacionVenta["producto"] = $producto;
                 $informacionVenta["precioVenta"] = $producto->venta;
                 $informacionVenta["cantidad"] = $ventaProducto->cantidad;
                 $informacionVenta["subtotal"] = $ventaProducto->cantidad * $ventaProducto->venta;
+                $informacionVenta["totalNuevo"] = $suma;
                 $informacionVenta["tipo"] = "agregado";
 
+                DB::commit();
                 return response()->json(["estatus" => "ok", "mensaje" => "Se agregó corectamente el producto", "detalles" => $informacionVenta]);
             }
         }catch (\Exception $e){

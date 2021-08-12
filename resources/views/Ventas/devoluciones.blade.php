@@ -68,7 +68,7 @@
                                         <div class="col" style="margin-bottom: 1%; text-align: right;">
                                             <div class="col-xl-3 offset-9">
                                                 <input type="text" class="form-control" id="codigo-producto-nuevo" placeholder="Ingresa el código de producto">
-                                                <button class="btn btn-primary form-control" type="button"  onclick="agregarProducto()">Agregar Producto</button>
+                                                <button class="btn btn-primary form-control" type="button"  onclick="agregarProducto()" id="agregarproducto">Agregar Producto</button>
                                             </div>
                                         </div>
                                         <div class="form-row ">
@@ -76,7 +76,7 @@
 
                                             </div>
                                         </div>
-                                        <table class="table text-center table-responsive-xl">
+                                        <table class="table text-center table-responsive-xl" id="ejemplo">
                                             <thead class="thead-dark">
                                             <tr>
                                                 <th scope="col">ID</th>
@@ -90,33 +90,25 @@
                                             <tbody id="tabla-contenido">
                                            @foreach($venta->productos as $producto)
                                                <tr id="tr-{{$producto->id}}">
-                                                   <th scope="row">{{$producto->id}}</th>
-                                                   <th>{{$producto->nombre}}</th>
-                                                   <th><p id="producto-venta-{{$producto->id}}">{{$producto->pivot->venta}}</p></th>
-                                                   <th><input type="number" id="producto-cantidad-{{$producto->id}}" onfocusout="verificarCantidad(this);" class="form-control verificar-cantidad" producto-codigo="{{$producto->codigo}}" value="{{$producto->pivot->cantidad}}"></th>
-                                                   <th><p id="producto-subtotal-{{$producto->id}}">{{$producto->pivot->cantidad * $producto->pivot->venta}}</p></th>
-                                                   <th><a class="eliminar-producto" onclick="eliminarProducto({{$producto->id}})"><i class="fa fa-2x fa-trash"></i></a></th>
+                                                   <td scope="row">{{$producto->id}}</td>
+                                                   <td>{{$producto->nombre}}</td>
+                                                   <td><p id="producto-venta-{{$producto->id}}">{{$producto->pivot->venta}}</p></td>
+                                                   <td><input type="number" id="producto-cantidad-{{$producto->id}}" onfocusout="verificarCantidad(this);" class="form-control verificar-cantidad" producto-codigo="{{$producto->codigo}}" value="{{$producto->pivot->cantidad}}"></td>
+                                                   <td><p id="producto-subtotal-{{$producto->id}}">{{$producto->pivot->cantidad * $producto ->pivot->venta}}</p></td>
+                                                   <td><a class="eliminar-producto" onclick="eliminarProducto({{$producto->id}})"><i class="fa fa-2x fa-trash"></i></a></td>
                                                </tr>
                                            @endforeach
                                             </tbody>
-                                            <thead class="">
-                                            <tr class="thead-dark">
-                                                <th scope="col"></th>
-                                                <th scope="col"></th>
-                                                <th scope="col"></th>
-                                                <th scope="col"> </th>
-                                                <th scope="col"></th>
-                                                <th scope="col"></th>
-                                            </tr>
+                                           <tfoot>
                                             <tr>
                                                 <th scope="col"></th>
                                                 <th scope="col"></th>
                                                 <th scope="col"></th>
                                                 <th scope="col" class="text-right">Nuevo Total: </th>
-                                                <th scope="col">$50.00</th>
+                                                <th scope="col" ><p id="totalNuevo" >{{$venta->total}}</p></th>
                                                 <th scope="col"><button class="btn btn-primary form-control" type="button">Confirmar Devolución</button></th>
                                             </tr>
-                                            </thead>
+                                           </tfoot>
                                         </table>
                                 </div>
                             </div>
@@ -132,6 +124,7 @@
                 var token = '{{csrf_token()}}';
                 var ventaId = $("#ventaId").val();
 
+
                 function agregarProducto(){
                     if($("#codigo-producto-nuevo").val() == '' || $("#codigo-producto-nuevo").val() == null){
                         Swal.fire({
@@ -143,7 +136,6 @@
                         });
                         return false;
                     }
-
                     var form_data = new FormData();
                     form_data.append('codigo', $("#codigo-producto-nuevo").val());
                     form_data.append('ventaId', $("#ventaId").val());
@@ -157,7 +149,7 @@
                         data: form_data,
                         type: 'post',
                         success: function(respuesta){
-                           // console.log(respuesta);
+
                             if(respuesta.estatus!= 'ok'){
                                 Swal.fire({
                                     icon: 'error',
@@ -165,10 +157,12 @@
                                     text: respuesta.mensaje,
                                 })
                             }else{
-
                                 if(respuesta.detalles.tipo == "agregado"){
                                     let producto = respuesta.detalles.producto;
-                                    console.log(respuesta.detalles);
+                                    let nuevoTotal = respuesta.detalles.totalNuevo;
+
+                                    $("#totalNuevo").text(nuevoTotal);
+                                    console.log(respuesta);
                                     let tr =
                                         '<tr id="tr-'+producto.id+'">' +
                                         '<th scope="row">'+producto.id+'</th>' +
@@ -176,25 +170,26 @@
                                         '<th><p id="producto-venta-'+producto.id+'">'+respuesta.detalles.precioVenta+'</p>' +
                                         '<th><input type="number" id="producto-cantidad-'+producto.id+'" onfocusout="verificarCantidad(this);"  class="form-control verificar-cantidad" producto-codigo="'+producto.codigo+'" value="'+respuesta.detalles.cantidad+'"></th>' +
                                         '<th><p id="producto-subtotal-'+producto.id+'">'+respuesta.detalles.cantidad * respuesta.detalles.precioVenta+'</p></th>'+
-                                        '<th><a class="eliminar-producto" onclick="eliminarProducto('+producto.id+')"><i class="fa fa-2x fa-trash"></i></a></th>'
+                                        '<th><a class="eliminar-producto" onclick="eliminarProducto('+producto.id+');"><i class="fa fa-2x fa-trash"></i></a></th>'
                                     '</tr>';
                                     $("#tabla-contenido").append(tr);
+
                                 }
                                 Swal.fire({
                                     position: 'top-end',
                                     icon: 'success',
                                     title: 'Información guardada',
                                     showConfirmButton: false,
-                                    timer: 1500
+                                    timer: 1500,
+
                                 })
                             }
                         }
                     });
-
                 }
 
                 function verificarCantidad(elemento){
-                    console.log("elemento");
+
                     var elemento = document.getElementById(elemento.getAttribute('id'));
                     let productoCodigo = elemento.getAttribute('producto-codigo');
                     let cantidad = elemento.value;
@@ -235,10 +230,13 @@
                                 let nuevoSubtotal = respuesta.detalles.subtotal;
                                 let precioVenta = respuesta.detalles.precioVenta;
                                 let producto = respuesta.detalles.producto;
+                                 let nuevoTotal = respuesta.detalles.totalNuevo;
+                                $("#totalNuevo").text(nuevoTotal);
                                 $("#producto-venta-"+producto.id).html(precioVenta);
                                 $("#producto-cantidad-"+producto.id).val(cantidad);
                                 $("#producto-subtotal-"+producto.id).html(nuevoSubtotal);
                             }
+
                         }
                     });
 
@@ -279,6 +277,14 @@
                                         })
                                     }else{
                                         $("#tr-"+productoId).remove();
+                                        var total_devolucion = 0;
+        //Recorro todos los tr ubicados en el tbody
+        $('#ejemplo tbody').find('tr').each(function (i, el) {
+            //Voy incrementando las variables segun la fila ( .eq(0) representa la fila 1 )
+            total_devolucion += parseFloat($(this).find('td').eq(4).text());
+        });
+        //Muestro el resultado en el th correspondiente a la columna
+        $('#ejemplo tfoot tr th').eq(4).text( total_devolucion);
                                     }
                                 }
                             });

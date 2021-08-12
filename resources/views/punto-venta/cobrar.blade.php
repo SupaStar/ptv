@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <div class="form-row">
+                                    <div class="form-row" style="text-align: right">
 
                                         <div class="col float-left"><button disabled id="btnenvio" class="btn btn-primary" type="submit">Agregar Producto</button></div>
                                     </div>
