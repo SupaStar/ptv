@@ -266,19 +266,24 @@ class VentasController extends Controller
         $informacionVenta = [];
         try {
             DB::beginTransaction();
-//            $respaldoVenta = ventas_productos_devoluciones::where('venta_id',$venta->id)->first();
-//            if(!$respaldoVenta){
-//                $respaldoVenta = new ventas_productos_devoluciones();
-//                $respaldoVenta->venta_id = $venta->id;
-//                $productoVenta = Venta_Producto::where('venta_id',$venta->id)->get();
-//                foreach ($productoVenta as $productoventa){
-//                    $respaldoVenta->producto_id = $productoventa->id;
-//                    $respaldoVenta->compra = $productoventa->compra;
-//                    $respaldoVenta->venta =$productoventa->venta;
-//                    $respaldoVenta->cantidad= $productoventa->cantidad;
-//                }
-//                $respaldoVenta->save();
-//            }
+
+          $respaldoVenta = ventas_productos_devoluciones::where('venta_id',$venta->id)->first();
+
+            if(!$respaldoVenta){
+
+                $productoVentas = Venta_Producto::where('venta_id',$venta->id)->get();
+
+                foreach ($productoVentas as $productoventa){
+                    $respaldoVenta = new ventas_productos_devoluciones();
+                    $respaldoVenta->venta_id = $venta->id;
+                   $respaldoVenta->producto_id = $productoventa->producto_id;
+                   $respaldoVenta->compra = $productoventa->compra;
+                   $respaldoVenta->venta =$productoventa->venta;
+                   $respaldoVenta->cantidad= $productoventa->cantidad;
+                   $respaldoVenta->save();
+                 }
+            }
+
             if($ventaProducto){
 
                 $ventaProducto->compra = $producto->compra;
@@ -311,24 +316,30 @@ class VentasController extends Controller
             }
         }catch (\Exception $e){
             DB::rollback();
-            return response()->json(["estatus" => "error", "mensaje" => "Ocurrio un error inesperado consulta al desarrolador"]);
+
+           return response()->json(["estatus" => "error", "mensaje" => "Ocurrio un error inesperado consulta al desarrolador"]);
         }
         try {
             DB::beginTransaction();
-//            $respaldoVenta = ventas_productos_devoluciones::where('venta_id',$venta->id)->first();
-//            if(!$respaldoVenta){
-//                $respaldoVenta = new ventas_productos_devoluciones();
-//                $respaldoVenta->venta_id = $venta->id;
-//                $productoVenta = Venta_Producto::where('venta_id',$venta->id)->get();
-//                foreach ($productoVenta as $productoventa){
-//                    $respaldoVenta->producto_id = $productoventa->id;
-//                    $respaldoVenta->compra = $productoventa->compra;
-//                    $respaldoVenta->venta =$productoventa->venta;
-//                    $respaldoVenta->cantidad= $productoventa->cantidad;
-//                }
-//                $respaldoVenta->save();
-//            }
-//
+
+            $respaldoVenta = ventas_productos_devoluciones::where('venta_id',$venta->id)->first();
+
+            if(!$respaldoVenta){
+
+                $productoVentas = Venta_Producto::where('venta_id',$venta->id)->get();
+
+                foreach ($productoVentas as $productoventa){
+                    $respaldoVenta = new ventas_productos_devoluciones();
+                    $respaldoVenta->venta_id = $venta->id;
+                    $respaldoVenta->producto_id = $productoventa->producto_id;
+                    $respaldoVenta->compra = $productoventa->compra;
+                    $respaldoVenta->venta =$productoventa->venta;
+                    $respaldoVenta->cantidad= $productoventa->cantidad;
+                    $respaldoVenta->save();
+                }
+
+            }
+
             if(!$ventaProducto){
 
                 $ventaProducto = new Venta_Producto();
@@ -358,7 +369,8 @@ class VentasController extends Controller
             }
         }catch (\Exception $e){
             DB::rollback();
-            return response()->json(["estatus" => "error", "mensaje" => "Ocurrio un error inesperado consulta al desarrolador"]);
+            echo json_encode($e);
+           return response()->json(["estatus" => "error", "mensaje" => "Ocurrio un error inesperado consulta al desarrolador"]);
         }
     }
 

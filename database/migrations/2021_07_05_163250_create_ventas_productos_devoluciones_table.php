@@ -4,16 +4,16 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVentasProdructosDevolucionesTable extends Migration
+class CreateVentasProductosDevolucionesTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Run the migrations.php
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('ventas_prodructos_devoluciones', function (Blueprint $table) {
+        Schema::create('ventas_productos_devoluciones', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer("venta_id")->index();
             $table->integer("producto_id")->index();
@@ -30,6 +30,6 @@ class CreateVentasProdructosDevolucionesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ventas_prodructos_devoluciones');
+        Schema::dropIfExists('ventas_productos_devoluciones');
     }
 }

@@ -106,7 +106,7 @@
                                                 <th scope="col"></th>
                                                 <th scope="col" class="text-right">Nuevo Total: </th>
                                                 <th scope="col" ><p id="totalNuevo" >{{$venta->total}}</p></th>
-                                                <th scope="col"><button class="btn btn-primary form-control" type="button">Confirmar Devolución</button></th>
+
                                             </tr>
                                            </tfoot>
                                         </table>
